@@ -64,7 +64,8 @@ export async function POST(request: NextRequest) {
     const passwordHash = await hash(data.password, 12);
 
     // Create user + worker + link QR code in a transaction
-    const user = await db.$transaction(async (tx: typeof db) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const user = await db.$transaction(async (tx: any) => {
       const newUser = await tx.user.create({
         data: {
           firstName: data.firstName,
