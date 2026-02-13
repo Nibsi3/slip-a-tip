@@ -50,7 +50,7 @@ export default async function QRCodeRouter({
   }
 
   if (qrCode.status === "ACTIVE" && qrCode.worker) {
-    redirect(`/tip/${qrCode.worker.qrCode}`);
+    redirect(`/tip/${token}`);
   }
 
   // INACTIVE — redirect to activation page

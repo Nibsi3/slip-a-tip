@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
           role: "WORKER",
           worker: {
             create: {
+              qrCode: data.token,
               employerName: data.employerName,
               jobTitle: data.jobTitle,
               bankName: data.bankName,

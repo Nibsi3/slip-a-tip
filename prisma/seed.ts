@@ -38,15 +38,15 @@ async function main() {
         create: {
           employerName: "The Grand Hotel",
           jobTitle: "Waiter",
-          qrCode: "demo-thabo-molefe",
+          qrCode: "DEMO0001",
           phoneForIM: "0662995533",
         },
       },
     },
   });
   console.log(`Worker user: ${worker.phone} / worker123`);
-  console.log(`Worker QR code: demo-thabo-molefe`);
-  console.log(`Tip URL: http://localhost:3000/tip/demo-thabo-molefe`);
+  console.log(`Worker QR code: DEMO0001`);
+  console.log(`Tip URL: /tip/DEMO0001 (via /qr/DEMO0001)`);
 
   // Create second demo worker - Naledi
   const worker2Password = await hash("worker123", 12);
@@ -64,14 +64,14 @@ async function main() {
         create: {
           employerName: "Ocean Basket Waterfront",
           jobTitle: "Barista",
-          qrCode: "demo-naledi-dlamini",
+          qrCode: "DEMO0002",
           phoneForIM: "0829876543",
         },
       },
     },
   });
   console.log(`Worker user: ${worker2.phone} / worker123`);
-  console.log(`Worker QR code: demo-naledi-dlamini`);
+  console.log(`Worker QR code: DEMO0002`);
 
   // Create demo QR codes linked to demo workers
   const thaboWorker = await prisma.worker.findFirst({ where: { user: { phone: "0662995533" } } });

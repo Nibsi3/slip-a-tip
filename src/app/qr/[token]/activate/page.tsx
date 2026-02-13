@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ActivateQRPage() {
   const params = useParams();
@@ -11,7 +12,28 @@ export default function ActivateQRPage() {
 
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(true);
+  const [alreadyActive, setAlreadyActive] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function checkStatus() {
+      try {
+        const res = await fetch(`/api/qrcodes/status?token=${encodeURIComponent(token)}`);
+        const data = await res.json();
+        if (data.status === "ACTIVE") {
+          setAlreadyActive(true);
+        } else if (data.status === "DISABLED") {
+          setError("This QR code has been disabled.");
+        }
+      } catch {
+        // If check fails, let them try to activate — the API will catch it
+      } finally {
+        setChecking(false);
+      }
+    }
+    checkStatus();
+  }, [token]);
 
   // Step 1: Personal info
   const [firstName, setFirstName] = useState("");
@@ -73,6 +95,38 @@ export default function ActivateQRPage() {
         <p className="text-white/40 text-xs mt-2">Activate your QR code</p>
       </div>
 
+      {/* Loading check */}
+      {checking && (
+        <div className="flex-1 flex items-center justify-center">
+          <div className="animate-pulse text-white/40">Checking QR code...</div>
+        </div>
+      )}
+
+      {/* Already activated */}
+      {!checking && alreadyActive && (
+        <div className="flex-1 flex items-center justify-center px-4 pb-8">
+          <div className="w-full max-w-md">
+            <div className="card-glow !p-6 text-center space-y-4">
+              <div className="mx-auto w-16 h-16 rounded-full bg-green-400/10 flex items-center justify-center">
+                <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-bold text-white">QR Code Already Active</h2>
+              <p className="text-sm text-white/50">
+                This QR code is already linked to an account. Sign in with your phone number and password to access your dashboard.
+              </p>
+              <Link href="/auth/login" className="btn-primary inline-block !py-3 !px-8">
+                Sign In
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Activation form */}
+      {!checking && !alreadyActive && (
+      <>
       {/* Progress */}
       <div className="flex justify-center gap-2 px-6 pb-6">
         {[1, 2, 3].map((s) => (
@@ -335,6 +389,8 @@ export default function ActivateQRPage() {
           </p>
         </div>
       </div>
+      </>
+      )}
     </div>
   );
 }
