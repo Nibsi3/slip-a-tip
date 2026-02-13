@@ -16,14 +16,14 @@ npm install
 ### 2. Set up environment variables
 Create a `.env` file in the project root:
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/tipping"
-JWT_SECRET="your-secret-key-minimum-32-characters-long"
+DATABASE_URL="<your-postgres-connection-string>"
+JWT_SECRET="<your-jwt-secret-min-32-chars>"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
 # PayFast (sandbox defaults are built-in)
-PAYFAST_MERCHANT_ID="10000100"
-PAYFAST_MERCHANT_KEY="46f0cd694581a"
-PAYFAST_PASSPHRASE="jt7NOE43FZPn"
+PAYFAST_MERCHANT_ID="<your-payfast-merchant-id>"
+PAYFAST_MERCHANT_KEY="<your-payfast-merchant-key>"
+PAYFAST_PASSPHRASE="<your-payfast-passphrase>"
 PAYFAST_SANDBOX="true"
 ```
 

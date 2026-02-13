@@ -1,10 +1,12 @@
 import crypto from "crypto";
 
+const sandbox = process.env.PAYFAST_SANDBOX !== "false";
+
 const PAYFAST_CONFIG = {
-  merchantId: process.env.PAYFAST_MERCHANT_ID || "10000100",
-  merchantKey: process.env.PAYFAST_MERCHANT_KEY || "46f0cd694581a",
-  passphrase: process.env.PAYFAST_PASSPHRASE || "jt7NOE43FZPn",
-  sandbox: process.env.PAYFAST_SANDBOX !== "false",
+  merchantId: process.env.PAYFAST_MERCHANT_ID || (sandbox ? "10000100" : ""),
+  merchantKey: process.env.PAYFAST_MERCHANT_KEY || (sandbox ? "46f0cd694581a" : ""),
+  passphrase: process.env.PAYFAST_PASSPHRASE || "",
+  sandbox,
 };
 
 function getBaseUrl() {
