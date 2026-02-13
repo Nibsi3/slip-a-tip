@@ -85,7 +85,7 @@ export default function HomePage() {
                 <ScrollReveal delay={0.4}>
                   <div className="mt-12 grid grid-cols-3 gap-6 max-w-sm mx-auto lg:mx-0">
                     {[
-                      { value: "0", label: "Setup cost" },
+                      { value: "R0", label: "Setup cost" },
                       { value: "5%", label: "Withdrawal fee" },
                       { value: "Instant", label: "Payments" },
                     ].map((s) => (
