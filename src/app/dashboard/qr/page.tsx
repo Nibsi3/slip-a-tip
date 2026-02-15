@@ -48,7 +48,7 @@ export default function QRCodePage() {
             setQrImage(canvas.toDataURL("image/png"));
           };
           logo.crossOrigin = "anonymous";
-          logo.src = "/logo.jpeg";
+          logo.src = "/logo.png";
         };
         qrImg.src = qrDataUrl;
       } else {

@@ -93,7 +93,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </svg>
             </button>
             <Link href="/admin" className="flex items-center">
-              <Image src="/logo.jpeg" alt="Slip a Tip" width={100} height={32} priority className="h-7 w-auto" />
+              <Image src="/logo.png" alt="Slip a Tip" width={100} height={32} priority className="h-7 w-auto" />
             </Link>
             <span className="text-[10px] font-medium text-white/25 uppercase tracking-wider border-l border-white/10 pl-3">Admin</span>
           </div>

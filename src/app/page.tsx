@@ -17,7 +17,7 @@ export default function HomePage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06]" style={{ background: "rgba(3,3,6,0.7)", backdropFilter: "blur(20px)" }}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center">
-            <Image src="/logo.jpeg" alt="Slip a Tip" width={120} height={40} priority className="h-8 w-auto" />
+            <Image src="/logo.png" alt="Slip a Tip" width={120} height={40} priority className="h-8 w-auto" />
           </Link>
           <div className="flex items-center gap-2 sm:gap-5">
             <Link href="#how-it-works" className="hidden md:inline-flex text-sm text-white/50 hover:text-white transition-colors">
