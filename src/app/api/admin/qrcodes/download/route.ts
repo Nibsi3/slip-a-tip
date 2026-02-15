@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
         return new NextResponse(svg, {
           headers: {
             "Content-Type": "image/svg+xml",
-            "Content-Disposition": `attachment; filename="slip-qr-${token}.svg"`,
+            "Content-Disposition": `attachment; filename="slipatip-qr-${token}.svg"`,
           },
         });
       }
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       return new NextResponse(new Uint8Array(pngBuffer), {
         headers: {
           "Content-Type": "image/png",
-          "Content-Disposition": `attachment; filename="slip-qr-${token}.png"`,
+          "Content-Disposition": `attachment; filename="slipatip-qr-${token}.png"`,
         },
       });
     }

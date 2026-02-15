@@ -48,6 +48,7 @@ export default function AdminQRCodesPage() {
   // Selection state
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [previewImages, setPreviewImages] = useState<Record<string, string>>({});
 
   // Delete confirmation modal
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -96,6 +97,34 @@ export default function AdminQRCodesPage() {
       setSelected(new Set());
     } else {
       setSelected(new Set(qrCodes.map((q) => q.id)));
+    }
+  }
+
+  async function generatePreview(token: string) {
+    if (previewImages[token]) return;
+    try {
+      const QRCodeLib = (await import("qrcode")).default;
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
+      const url = `${baseUrl}/qr/${token}`;
+      const dataUrl = await QRCodeLib.toDataURL(url, {
+        width: 400,
+        margin: 2,
+        errorCorrectionLevel: "H",
+        color: { dark: "#000000", light: "#ffffff" },
+      });
+      const withLogo = await overlayLogo(dataUrl, 400);
+      setPreviewImages((prev) => ({ ...prev, [token]: withLogo }));
+    } catch {
+      // Preview generation failed silently
+    }
+  }
+
+  function handleExpand(qr: QRCodeItem) {
+    if (expandedId === qr.id) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(qr.id);
+      generatePreview(qr.token);
     }
   }
 
@@ -192,7 +221,7 @@ export default function AdminQRCodesPage() {
         };
         logo.onerror = () => resolve(baseDataUrl);
         logo.crossOrigin = "anonymous";
-        logo.src = "/logo.png";
+        logo.src = "/logo.jpeg";
       };
       qrImg.src = baseDataUrl;
     });
@@ -217,37 +246,21 @@ export default function AdminQRCodesPage() {
         processed.push({ token: code.token, dataUrl: withLogo });
       }
 
-      // Download each as PNG (or bundle info)
-      if (processed.length === 1) {
+      // Download each QR code as an individual PNG file
+      let downloaded = 0;
+      for (const item of processed) {
         const link = document.createElement("a");
-        link.download = `slip-qr-${processed[0].token}.png`;
-        link.href = processed[0].dataUrl;
+        link.download = `slipatip-qr-${item.token}.png`;
+        link.href = item.dataUrl;
         link.click();
-      } else {
-        // Create a simple HTML page with all QR codes for printing/saving
-        const html = `<!DOCTYPE html>
-<html><head><title>Slip QR Codes - ${batchId}</title>
-<style>
-  body { margin: 0; padding: 20px; background: #fff; font-family: sans-serif; }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .qr { text-align: center; page-break-inside: avoid; padding: 10px; border: 1px solid #eee; }
-  .qr img { width: 180px; height: 180px; }
-  .qr p { margin: 5px 0 0; font-size: 11px; color: #666; font-family: monospace; }
-  h1 { font-size: 18px; margin-bottom: 20px; }
-  @media print { .no-print { display: none; } }
-</style></head><body>
-<h1>Slip QR Codes — Batch ${batchId}</h1>
-<p class="no-print">${processed.length} codes · Right-click any image to save individually, or Print (Ctrl+P) to save as PDF</p>
-<div class="grid">
-${processed.map((c) => `<div class="qr"><img src="${c.dataUrl}" /><p>${c.token}</p></div>`).join("\n")}
-</div></body></html>`;
-
-        const blob = new Blob([html], { type: "text/html" });
-        const url = URL.createObjectURL(blob);
-        window.open(url, "_blank");
+        downloaded++;
+        // Small delay between downloads so the browser doesn't block them
+        if (processed.length > 1) {
+          await new Promise((r) => setTimeout(r, 200));
+        }
       }
 
-      setMessage(`Downloaded ${processed.length} QR codes with logo`);
+      setMessage(`Downloaded ${downloaded} individual QR code(s) with logo`);
     } catch (err: unknown) {
       setMessage(err instanceof Error ? err.message : "Download failed");
     } finally {
@@ -279,7 +292,7 @@ ${processed.map((c) => `<div class="qr"><img src="${c.dataUrl}" /><p>${c.token}<
 
       const withLogo = await overlayLogo(dataUrl, 800);
       const link = document.createElement("a");
-      link.download = `slip-qr-${token}.png`;
+      link.download = `slipatip-qr-${token}.png`;
       link.href = withLogo;
       link.click();
     } catch (err: unknown) {
@@ -543,9 +556,7 @@ ${processed.map((c) => `<div class="qr"><img src="${c.dataUrl}" /><p>${c.token}<
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-3">
                           <button
-                            onClick={() =>
-                              setExpandedId(expandedId === qr.id ? null : qr.id)
-                            }
+                            onClick={() => handleExpand(qr)}
                             className="text-xs text-white/50 hover:text-white transition-colors"
                           >
                             {expandedId === qr.id ? "Hide" : "View"}
@@ -641,6 +652,29 @@ ${processed.map((c) => `<div class="qr"><img src="${c.dataUrl}" /><p>${c.token}<
                                   ? `${window.location.origin}/qr/${qr.token}`
                                   : `/qr/${qr.token}`}
                               </span>
+                            </div>
+
+                            <div className="sm:col-span-2 lg:col-span-3 border-t border-white/[0.06] pt-3 mt-1">
+                              <span className="text-muted block mb-2">QR Code Preview</span>
+                              <div className="flex items-start gap-4">
+                                {previewImages[qr.token] ? (
+                                  <img
+                                    src={previewImages[qr.token]}
+                                    alt={`QR ${qr.token}`}
+                                    className="w-40 h-40 bg-white rounded"
+                                  />
+                                ) : (
+                                  <div className="w-40 h-40 bg-white/5 rounded flex items-center justify-center">
+                                    <span className="text-white/30 text-xs animate-pulse">Generating...</span>
+                                  </div>
+                                )}
+                                <button
+                                  onClick={() => handleDownloadSingle(qr.token)}
+                                  className="text-xs text-accent hover:text-accent-300 transition-colors mt-1"
+                                >
+                                  Download PNG
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </td>

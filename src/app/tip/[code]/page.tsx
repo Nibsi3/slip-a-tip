@@ -119,7 +119,7 @@ export default function TipPage() {
     <div className="min-h-screen flex flex-col" style={{ background: "#030306" }}>
       {/* Header */}
       <div className="px-6 pt-8 pb-4 text-center">
-        <div className="text-white/80 text-sm font-medium">Slip</div>
+        <div className="text-white/80 text-sm font-medium">Slip a Tip</div>
       </div>
 
       {/* Main card */}

@@ -17,7 +17,7 @@ export default function HomePage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06]" style={{ background: "rgba(3,3,6,0.7)", backdropFilter: "blur(20px)" }}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="Slip" width={120} height={40} priority className="h-8 w-auto" />
+            <Image src="/logo.jpeg" alt="Slip a Tip" width={120} height={40} priority className="h-8 w-auto" />
           </Link>
           <div className="flex items-center gap-2 sm:gap-5">
             <Link href="#how-it-works" className="hidden md:inline-flex text-sm text-white/50 hover:text-white transition-colors">
@@ -356,7 +356,7 @@ export default function HomePage() {
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent mb-3">FAQ</p>
                   <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Common questions</h2>
                   <p className="mt-4 text-white/40">
-                    Everything you need to know about Slip.
+                    Everything you need to know about Slip a Tip.
                   </p>
                 </div>
               </ScrollReveal>
@@ -365,10 +365,10 @@ export default function HomePage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   { q: "Do customers need an app?", a: "No. They scan the QR code with their phone camera and tip directly in the browser. Zero friction." },
-                  { q: "Is it secure?", a: "All payments are handled by PayFast. Slip never sees or stores card details." },
+                  { q: "Is it secure?", a: "All payments are handled by PayFast. Slip a Tip never sees or stores card details." },
                   { q: "How do withdrawals work?", a: "Request a withdrawal from your dashboard. Choose Instant Money (collect at any ATM) or EFT to your bank." },
                   { q: "What does it cost?", a: "Signing up is completely free. A 5% platform fee is deducted only when you withdraw your tips." },
-                  { q: "Who can use Slip?", a: "Any worker in the service industry — waiters, baristas, porters, car guards, delivery riders, and more." },
+                  { q: "Who can use Slip a Tip?", a: "Any worker in the service industry — waiters, baristas, porters, car guards, delivery riders, and more." },
                   { q: "How fast do tips arrive?", a: "Tips are credited to your wallet as soon as PayFast confirms the payment, usually within seconds." },
                 ].map((item, i) => (
                   <ScrollReveal key={item.q} delay={i * 0.08}>
@@ -416,7 +416,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-xs text-white/30">&copy; {new Date().getFullYear()} Slip</span>
+              <span className="text-xs text-white/30">&copy; {new Date().getFullYear()} Slip a Tip</span>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
               <Link href="/auth/register" className="text-white/30 hover:text-white transition-colors">Create account</Link>

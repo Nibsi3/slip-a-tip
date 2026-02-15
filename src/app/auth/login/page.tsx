@@ -46,11 +46,11 @@ function LoginForm() {
         <div className="card">
           <div className="mb-8">
             <Link href="/" className="inline-flex items-center">
-              <Image src="/logo.png" alt="Slip" width={120} height={40} priority className="h-9 w-auto" />
+              <Image src="/logo.jpeg" alt="Slip a Tip" width={120} height={40} priority className="h-9 w-auto" />
             </Link>
           </div>
 
-          <h1 className="text-2xl font-bold text-white">Welcome to Slip</h1>
+          <h1 className="text-2xl font-bold text-white">Welcome to Slip a Tip</h1>
           <p className="mt-1 text-sm text-muted">Digital tipping made simple</p>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">

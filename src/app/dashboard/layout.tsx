@@ -113,7 +113,7 @@ export default function DashboardLayout({
               </svg>
             </button>
             <Link href="/dashboard" className="flex items-center">
-              <Image src="/logo.png" alt="Slip" width={100} height={32} priority className="h-7 w-auto" />
+              <Image src="/logo.jpeg" alt="Slip a Tip" width={100} height={32} priority className="h-7 w-auto" />
             </Link>
           </div>
           <div className="flex items-center gap-4">
@@ -154,7 +154,7 @@ export default function DashboardLayout({
             ))}
           </nav>
           <div className="p-3 border-t border-white/[0.06]">
-            <div className="px-3 py-2 text-[10px] text-white/30 uppercase tracking-wider">Slip &middot; Digital Tipping</div>
+            <div className="px-3 py-2 text-[10px] text-white/30 uppercase tracking-wider">Slip a Tip &middot; Digital Tipping</div>
           </div>
         </aside>
 

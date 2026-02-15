@@ -91,7 +91,7 @@ export default function ActivateQRPage() {
     <div className="min-h-screen flex flex-col" style={{ background: "#030306" }}>
       {/* Header */}
       <div className="px-6 pt-8 pb-4 text-center">
-        <Image src="/logo.png" alt="Slip" width={100} height={32} priority className="h-7 w-auto mx-auto" />
+        <Image src="/logo.jpeg" alt="Slip a Tip" width={100} height={32} priority className="h-7 w-auto mx-auto" />
         <p className="text-white/40 text-xs mt-2">Activate your QR code</p>
       </div>
 
@@ -385,7 +385,7 @@ export default function ActivateQRPage() {
           </div>
 
           <p className="text-center text-xs text-white/20 mt-6">
-            By activating, you agree to receive digital tips through Slip.
+            By activating, you agree to receive digital tips through Slip a Tip.
           </p>
         </div>
       </div>

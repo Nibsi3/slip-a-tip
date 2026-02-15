@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "Your message has been received. We will get back to you soon.",
-      mailto: `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`[Slip Contact] ${data.subject}`)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`,
+      mailto: `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`[Slip a Tip Contact] ${data.subject}`)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`,
     });
   } catch (err) {
     if (err instanceof z.ZodError) {

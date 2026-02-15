@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Slip - Digital Tipping for South Africa",
+  title: "Slip a Tip - Digital Tipping for South Africa",
   description:
     "Send tips instantly to service workers across South Africa. Scan, tap, tip.",
 };

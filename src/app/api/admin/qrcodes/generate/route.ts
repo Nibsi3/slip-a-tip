@@ -3,8 +3,9 @@ import { db } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import crypto from "crypto";
 
+// 10 bytes → 14-char base64url = 1.2 quintillion combinations
 function generateToken(): string {
-  return crypto.randomBytes(5).toString("base64url").slice(0, 8);
+  return crypto.randomBytes(10).toString("base64url").slice(0, 14);
 }
 
 export async function POST(request: NextRequest) {
@@ -16,27 +17,43 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const count = Math.min(Math.max(parseInt(body.count) || 10, 1), 5000);
-    const batchId = `batch-${Date.now()}-${crypto.randomBytes(3).toString("hex")}`;
+    const batchId = `batch-${Date.now()}-${crypto.randomBytes(4).toString("hex")}`;
 
-    // Generate unique tokens
-    const tokens: string[] = [];
-    const existing = new Set<string>();
+    // Generate candidate tokens — oversample by 20% to account for any collisions
+    const candidateSet = new Set<string>();
+    while (candidateSet.size < count + Math.ceil(count * 0.2)) {
+      candidateSet.add(generateToken());
+    }
+    const candidates = Array.from(candidateSet);
 
-    while (tokens.length < count) {
-      const token = generateToken();
-      if (!existing.has(token)) {
-        existing.add(token);
-        tokens.push(token);
-      }
+    // Check ALL candidates against the database for existing tokens
+    const existingRecords = await db.qRCode.findMany({
+      where: { token: { in: candidates } },
+      select: { token: true },
+    });
+    const existingTokens = new Set(existingRecords.map((r) => r.token));
+
+    // Filter out any that already exist in DB
+    const uniqueTokens = candidates.filter((t) => !existingTokens.has(t));
+
+    if (uniqueTokens.length < count) {
+      return NextResponse.json(
+        { error: "Could not generate enough unique tokens. Please try again." },
+        { status: 500 }
+      );
     }
 
-    // Bulk create QR codes
+    // Take exactly the number requested
+    const tokens = uniqueTokens.slice(0, count);
+
+    // Bulk create QR codes (token column has a UNIQUE constraint in DB as extra safety)
     const created = await db.qRCode.createMany({
       data: tokens.map((token) => ({
         token,
         batchId,
         status: "INACTIVE" as const,
       })),
+      skipDuplicates: true,
     });
 
     // Log the action

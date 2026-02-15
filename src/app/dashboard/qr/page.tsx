@@ -48,7 +48,7 @@ export default function QRCodePage() {
             setQrImage(canvas.toDataURL("image/png"));
           };
           logo.crossOrigin = "anonymous";
-          logo.src = "/logo.png";
+          logo.src = "/logo.jpeg";
         };
         qrImg.src = qrDataUrl;
       } else {
@@ -60,7 +60,7 @@ export default function QRCodePage() {
   function downloadQR() {
     if (!qrImage || !worker) return;
     const link = document.createElement("a");
-    link.download = `slip-qr-${worker.user.firstName}-${worker.user.lastName}.png`;
+    link.download = `slipatip-qr-${worker.user.firstName}-${worker.user.lastName}.png`;
     link.href = qrImage;
     link.click();
   }
