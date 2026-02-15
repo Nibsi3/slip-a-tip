@@ -61,7 +61,7 @@ export default function RegisterPage() {
         <div className="card">
           <div className="mb-8">
             <Link href="/" className="inline-flex items-center">
-              <Image src="/logo.png" alt="Slip a Tip" width={120} height={40} priority className="h-9 w-auto" />
+              <Image src="/logo.png?v=2" alt="Slip a Tip" width={120} height={40} priority className="h-9 w-auto" />
             </Link>
           </div>
 
