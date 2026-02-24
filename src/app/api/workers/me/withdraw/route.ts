@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const fee = Number((data.amount * 0.05).toFixed(2));
+    const fee = Number((data.amount * 0.10).toFixed(2));
     const netAmount = Number((data.amount - fee).toFixed(2));
     const phone = data.phoneNumber || worker.phoneForIM || "";
     const bank = data.bankName || worker.bankName || "";

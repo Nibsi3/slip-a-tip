@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   title: "Slip a Tip - Digital Tipping for South Africa",
   description:
     "Send tips instantly to service workers across South Africa. Scan, tap, tip.",
+  icons: {
+    icon: "/logo/logo.png",
+    apple: "/logo/logo.png",
+  },
 };
 
 export default function RootLayout({

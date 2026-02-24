@@ -48,7 +48,7 @@ export default function QRCodePage() {
             setQrImage(canvas.toDataURL("image/png"));
           };
           logo.crossOrigin = "anonymous";
-          logo.src = "/logo.png";
+          logo.src = "/logo/logo.png";
         };
         qrImg.src = qrDataUrl;
       } else {
@@ -83,38 +83,45 @@ export default function QRCodePage() {
   const tipUrl = `${appUrl}/tip/${worker.qrCode}`;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 max-w-lg">
       <div>
         <h1 className="text-2xl font-bold text-white">Your QR Code</h1>
-        <p className="text-muted mt-1">
-          Customers scan this to tip you instantly
-        </p>
+        <p className="text-muted mt-1">Customers scan this to tip you instantly</p>
       </div>
 
-      <div className="card text-center">
-        <div className="mb-4">
+      {/* QR Card */}
+      <div className="card-glow text-center">
+        <div className="mb-6">
           <h2 className="text-xl font-bold text-white">
             {worker.user.firstName} {worker.user.lastName}
           </h2>
           {worker.jobTitle && (
-            <p className="text-muted">{worker.jobTitle}</p>
+            <p className="text-sm text-muted mt-0.5">{worker.jobTitle}</p>
           )}
           {worker.employerName && (
-            <p className="text-sm text-muted-300">{worker.employerName}</p>
+            <p className="text-xs text-muted-300 mt-0.5">{worker.employerName}</p>
           )}
         </div>
 
-        {qrImage && (
+        {qrImage ? (
           <div className="flex justify-center mb-6">
-            <img
-              src={qrImage}
-              alt="Your QR Code"
-              className="w-48 h-48 sm:w-64 sm:h-64 shadow-lg"
-            />
+            <div className="p-3 bg-white rounded-2xl shadow-glow-sm inline-block">
+              <img
+                src={qrImage}
+                alt="Your QR Code"
+                className="w-52 h-52 sm:w-64 sm:h-64 block"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-center mb-6">
+            <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-2xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center">
+              <div className="animate-pulse text-white/20 text-sm">Generating...</div>
+            </div>
           </div>
         )}
 
-        <p className="text-xs text-muted-300 break-all mb-6 px-2">{tipUrl}</p>
+        <p className="text-[11px] text-muted-300 break-all mb-6 px-2 font-mono">{tipUrl}</p>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button onClick={downloadQR} className="btn-primary">
@@ -126,14 +133,25 @@ export default function QRCodePage() {
         </div>
       </div>
 
+      {/* How to use */}
       <div className="card">
-        <h3 className="font-bold text-white mb-2">How to use</h3>
-        <ol className="space-y-2 text-sm text-muted list-decimal pl-4">
-          <li>Print this QR code or display it on your phone</li>
-          <li>Customers open their phone camera and scan</li>
-          <li>They select a tip amount and pay instantly</li>
-          <li>You receive the tip in your wallet</li>
-        </ol>
+        <h3 className="font-bold text-white mb-4">How to use your QR code</h3>
+        <div className="space-y-3">
+          {[
+            { n: "1", t: "Print or display", d: "Print this QR code and place it where customers can see it, or show it on your phone." },
+            { n: "2", t: "Customer scans", d: "Customers open their phone camera and scan — no app needed." },
+            { n: "3", t: "They tip", d: "They select an amount (R10–R200 or custom) and pay securely via PayFast." },
+            { n: "4", t: "You get paid", d: "The tip lands in your wallet instantly, ready to withdraw." },
+          ].map((s) => (
+            <div key={s.n} className="flex gap-4">
+              <div className="h-7 w-7 rounded-full flex items-center justify-center text-xs font-bold text-accent shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.1)" }}>{s.n}</div>
+              <div>
+                <div className="text-sm font-semibold text-white">{s.t}</div>
+                <div className="text-xs text-muted mt-0.5">{s.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -15,8 +15,8 @@ export function generatePaymentId(): string {
 }
 
 export function calculateFees(amount: number) {
-  // Platform fee: 5% of tip amount
-  const platformFeeRate = 0.05;
+  // Platform fee: 10% of tip amount
+  const platformFeeRate = 0.10;
   // PayFast fee: 3.5% + R2.00 per transaction (approximate)
   const gatewayFeeRate = 0.035;
   const gatewayFeeFixed = 2.0;

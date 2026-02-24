@@ -98,7 +98,7 @@ export default function WithdrawPage() {
 
   const balance = Number(worker.walletBalance);
   const amountNum = parseFloat(amount) || 0;
-  const fee = Number((amountNum * 0.05).toFixed(2));
+  const fee = Number((amountNum * 0.10).toFixed(2));
   const net = Number((amountNum - fee).toFixed(2));
 
   return (
@@ -163,7 +163,7 @@ export default function WithdrawPage() {
               </div>
               {amount && amountNum > 0 && (
                 <div className="mt-2 p-3 bg-surface-300 text-xs space-y-1">
-                  <div className="flex justify-between"><span className="text-muted">Fee (5%)</span><span className="text-white">R{fee.toFixed(2)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted">Fee (10%)</span><span className="text-white">R{fee.toFixed(2)}</span></div>
                   <div className="flex justify-between"><span className="text-muted">You receive</span><span className="text-accent font-semibold">R{net.toFixed(2)}</span></div>
                 </div>
               )}

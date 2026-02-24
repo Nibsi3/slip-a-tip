@@ -113,7 +113,7 @@ export default function DashboardLayout({
               </svg>
             </button>
             <Link href="/dashboard" className="flex items-center">
-              <Image src="/logo.png" alt="Slip a Tip" width={100} height={32} priority className="h-7 w-auto" />
+              <Image src="/logo/logo.png" alt="Slip a Tip" width={36} height={36} priority className="h-8 w-8 object-contain" />
             </Link>
           </div>
           <div className="flex items-center gap-4">
