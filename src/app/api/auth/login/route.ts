@@ -49,15 +49,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Try phone lookup first, then email as fallback (and vice-versa)
+    // so a user who registered by phone can also log in by email if they have one.
     let user;
     if (looksLikePhone(data.identifier)) {
       const phone = normalisePhone(data.identifier);
       user = await db.user.findFirst({ where: { phone } });
+      // Fallback: maybe they typed a phone-like string that is actually stored as email
+      if (!user) {
+        user = await db.user.findFirst({ where: { email: data.identifier.toLowerCase() } });
+      }
     } else {
-      user = await db.user.findFirst({ where: { email: data.identifier } });
+      user = await db.user.findFirst({ where: { email: data.identifier.toLowerCase() } });
+      // Fallback: try as phone in case it was stored without normalisation
+      if (!user) {
+        const phone = normalisePhone(data.identifier);
+        user = await db.user.findFirst({ where: { phone } });
+      }
     }
 
     if (!user) {
+      console.warn(`[Login] No user found for identifier: ${data.identifier.slice(0, 6)}***`);
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
@@ -75,6 +87,7 @@ export async function POST(request: NextRequest) {
 
     const valid = await compare(data.password, user.passwordHash);
     if (!valid) {
+      console.warn(`[Login] Wrong password for user ${user.id} (${user.phone || user.email})`);
       // Increment DB login attempt counter — lock after 10 failures
       const attempts = (user.loginAttempts || 0) + 1;
       const lockUntil = attempts >= 10 ? new Date(Date.now() + 30 * 60 * 1000) : null;
@@ -93,7 +106,7 @@ export async function POST(request: NextRequest) {
       where: { id: user.id },
       data: { loginAttempts: 0, lockedUntil: null },
     });
-    await resetRateLimit(`login:id:${data.identifier.toLowerCase()}`);
+    await resetRateLimit(`login:identifier:${data.identifier.toLowerCase()}`);
 
     // --- P1.4: Enforce 2FA for admins ---
     const totpEnabled = user.totpEnabled;
