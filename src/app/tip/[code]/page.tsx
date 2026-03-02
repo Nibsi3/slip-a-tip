@@ -221,6 +221,29 @@ export default function TipPage() {
                 )}
               </button>
 
+              {/* Scan to Pay strip */}
+              <div className="rounded-xl p-3" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2.5 text-center">Pay directly from your banking app</p>
+                <div className="flex items-center justify-center gap-2 flex-wrap">
+                  {[
+                    { name: "FNB", color: "#00a650" },
+                    { name: "Capitec", color: "#0066cc" },
+                    { name: "ABSA", color: "#dc0032" },
+                    { name: "Nedbank", color: "#007a4d" },
+                    { name: "Std Bank", color: "#1a73e8" },
+                  ].map((bank) => (
+                    <span
+                      key={bank.name}
+                      className="px-2 py-1 rounded-md text-[10px] font-bold tracking-tight"
+                      style={{ background: `${bank.color}18`, color: bank.color, border: `1px solid ${bank.color}30` }}
+                    >
+                      {bank.name}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-center text-[10px] text-white/25 mt-2">Select &ldquo;Scan to Pay&rdquo; at checkout &middot; No card number needed</p>
+              </div>
+
               <div className="flex items-center justify-center gap-2 pt-1">
                 <svg className="h-3.5 w-3.5 text-white/20" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />

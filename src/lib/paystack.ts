@@ -36,6 +36,7 @@ export async function initializeTransaction(
     amount: Math.round(params.amount * 100),
     reference: params.paymentId,
     callback_url: params.returnUrl,
+    channels: ["card", "qr"],
     metadata: {
       cancel_action: params.cancelUrl,
       payment_id: params.paymentId,
