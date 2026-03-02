@@ -17,10 +17,20 @@ function createRedisClient(): Redis | null {
     lazyConnect: false,
     connectTimeout: 5000,
     tls: url.startsWith("rediss://") ? {} : undefined,
+    retryStrategy(times) {
+      // Stop retrying immediately on auth errors — avoids WRONGPASS log spam
+      if (times > 3) return null;
+      return Math.min(times * 500, 2000);
+    },
   });
 
-  client.on("error", (err) => {
-    console.error("[Redis] connection error:", err);
+  client.on("error", (err: Error & { command?: unknown }) => {
+    const msg = err.message || "";
+    if (msg.includes("WRONGPASS") || msg.includes("NOAUTH")) {
+      console.error("[Redis] Auth failed — check REDIS_URL password in env vars.");
+    } else {
+      console.error("[Redis] connection error:", err);
+    }
   });
 
   return client;
