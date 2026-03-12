@@ -99,5 +99,34 @@ if (!accessToken) {
 console.log("✅  Stitch token obtained successfully!\n");
 console.log(`success    : ${json.success}`);
 console.log(`\nAccess token (first 40 chars): ${accessToken.slice(0, 40)}…`);
-console.log("\nFull access token (for debugging):");
-console.log(accessToken);
+
+// ---------------------------------------------------------------------------
+// 4. Test creating a payment link so we can see the exact response shape
+// ---------------------------------------------------------------------------
+const PAYMENT_LINKS_URL = "https://express.stitch.money/api/v1/payment-links";
+console.log(`\nCreating test payment link at: ${PAYMENT_LINKS_URL} …\n`);
+
+let plRes;
+try {
+  plRes = await fetch(PAYMENT_LINKS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      amount: 1500,            // R15.00 in cents
+      merchantReference: "TEST-" + Date.now(),
+      payerName: "Test Customer",
+      redirectUrl: "https://slipatip.co.za/tip/success?reference=TEST",
+    }),
+  });
+} catch (err) {
+  console.error("Network error creating payment link:", err.message);
+  process.exit(1);
+}
+
+const plJson = await plRes.json();
+console.log(`HTTP status: ${plRes.status}`);
+console.log("\n=== FULL payment link response (raw) ===");
+console.log(JSON.stringify(plJson, null, 2));
