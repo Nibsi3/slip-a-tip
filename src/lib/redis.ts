@@ -12,28 +12,43 @@ function createRedisClient(): Redis | null {
     return null;
   }
 
-  const client = new Redis(url, {
-    maxRetriesPerRequest: 1,
-    lazyConnect: false,
-    connectTimeout: 5000,
-    tls: url.startsWith("rediss://") ? {} : undefined,
-    retryStrategy(times) {
-      // Stop retrying immediately on auth errors — avoids WRONGPASS log spam
-      if (times > 3) return null;
-      return Math.min(times * 500, 2000);
-    },
-  });
+  // Guard against the REDIS_URL being set to a CLI invocation string
+  // (e.g. "redis-cli -u redis://...") instead of a bare URL.
+  if (!url.startsWith("redis://") && !url.startsWith("rediss://")) {
+    console.error(
+      "[Redis] REDIS_URL does not look like a valid Redis URL (must start with redis:// or rediss://). " +
+      "Rate limiting will be skipped. Current value starts with: " + url.slice(0, 20)
+    );
+    return null;
+  }
 
-  client.on("error", (err: Error & { command?: unknown }) => {
-    const msg = err.message || "";
-    if (msg.includes("WRONGPASS") || msg.includes("NOAUTH")) {
-      console.error("[Redis] Auth failed — check REDIS_URL password in env vars.");
-    } else {
-      console.error("[Redis] connection error:", err);
-    }
-  });
+  try {
+    const client = new Redis(url, {
+      maxRetriesPerRequest: 1,
+      lazyConnect: false,
+      connectTimeout: 5000,
+      tls: url.startsWith("rediss://") ? {} : undefined,
+      retryStrategy(times) {
+        // Stop retrying immediately on auth errors — avoids WRONGPASS log spam
+        if (times > 3) return null;
+        return Math.min(times * 500, 2000);
+      },
+    });
 
-  return client;
+    client.on("error", (err: Error & { command?: unknown }) => {
+      const msg = err.message || "";
+      if (msg.includes("WRONGPASS") || msg.includes("NOAUTH")) {
+        console.error("[Redis] Auth failed — check REDIS_URL password in env vars.");
+      } else {
+        console.error("[Redis] connection error:", err);
+      }
+    });
+
+    return client;
+  } catch (err) {
+    console.error("[Redis] Failed to create client — rate limiting will be skipped:", err);
+    return null;
+  }
 }
 
 export const redis: Redis | null =
