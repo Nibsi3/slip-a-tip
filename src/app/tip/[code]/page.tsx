@@ -69,8 +69,8 @@ export default function TipPage() {
       }
 
       const data = await res.json();
-      if (data.paystack?.authorizationUrl) {
-        window.location.href = data.paystack.authorizationUrl;
+      if (data.stitch?.paymentUrl) {
+        window.location.href = data.stitch.paymentUrl;
         return;
       } else {
         throw new Error("Payment gateway unavailable");
@@ -188,7 +188,7 @@ export default function TipPage() {
                     <span className="text-white/50">{worker?.firstName} receives</span>
                     <span className="text-green-400">R{(tipAmount * (1 - TOTAL_FEE_RATE)).toFixed(2)}</span>
                   </div>
-                  <p className="text-[10px] text-white/20 mt-1">Includes Paystack processing + Slip a Tip platform fee.</p>
+                  <p className="text-[10px] text-white/20 mt-1">Includes payment processing + Slip a Tip platform fee.</p>
                 </div>
               )}
 
@@ -264,7 +264,7 @@ export default function TipPage() {
                 <svg className="h-3.5 w-3.5 text-white/20" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
-                <p className="text-center text-[11px] text-white/25">Secured by Paystack &middot; 3D Secure &middot; Card details never stored</p>
+                <p className="text-center text-[11px] text-white/25">Secured by Stitch &middot; Bank-grade encryption &middot; Pay from your banking app</p>
               </div>
             </form>
           </div>

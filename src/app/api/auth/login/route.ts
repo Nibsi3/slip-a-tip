@@ -106,7 +106,8 @@ export async function POST(request: NextRequest) {
       where: { id: user.id },
       data: { loginAttempts: 0, lockedUntil: null },
     });
-    await resetRateLimit(`login:identifier:${data.identifier.toLowerCase()}`);
+    await resetRateLimit(`login:id:${data.identifier.toLowerCase()}`);
+    await resetRateLimit(`login:ip:${ip}`);
 
     // --- P1.4: Enforce 2FA for admins ---
     const totpEnabled = user.totpEnabled;

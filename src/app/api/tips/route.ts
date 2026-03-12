@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { initializeTransaction } from "@/lib/paystack";
+import { createStitchPaymentLink } from "@/lib/stitch";
 import { generatePaymentId, calculateFees, getAppUrl } from "@/lib/utils";
 import {
   scoreTipTransaction,
@@ -183,26 +183,29 @@ export async function POST(request: NextRequest) {
     const returnUrl = new URL(`/tip/success`, appUrl);
     returnUrl.searchParams.set("reference", tip.paymentId);
 
-    const cancelUrl = new URL(`/tip/failed`, appUrl);
-    cancelUrl.searchParams.set("reference", tip.paymentId);
-
-    let paystack;
+    let stitch;
     try {
-      paystack = await initializeTransaction({
-        paymentId: tip.paymentId,
-        amount: data.amount,
-        itemName: `Tip for ${workerName}`,
-        workerName,
-        returnUrl: returnUrl.toString(),
-        cancelUrl: cancelUrl.toString(),
-        customerEmail: data.customerEmail || `tip+${tip.paymentId}@slipatip.co.za`,
-        customerName: data.customerName,
+      // Payment link expires in 30 minutes — sufficient for a tip flow
+      const expiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
+      stitch = await createStitchPaymentLink({
+        amountZAR: data.amount,
+        merchantReference: tip.paymentId,
+        payerName: data.customerName,
+        payerEmail: data.customerEmail,
+        redirectUrl: returnUrl.toString(),
+        expiresAt,
       });
-    } catch (paystackErr) {
+    } catch (stitchErr) {
       // Clean up the orphaned tip so the user can retry cleanly
       await db.tip.delete({ where: { id: tip.id } }).catch(() => {});
-      throw paystackErr;
+      throw stitchErr;
     }
+
+    // Store the Stitch payment link ID on the tip for webhook reconciliation
+    await db.tip.update({
+      where: { id: tip.id },
+      data: { paystackRef: stitch.id },
+    });
 
     // --- Record velocity events only after payment gateway confirms ---
     // This ensures failed/errored attempts do NOT consume the user's daily quota.
@@ -213,7 +216,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       tip: { id: tip.id, paymentId: tip.paymentId },
-      paystack,
+      stitch: { paymentUrl: stitch.link, paymentLinkId: stitch.id },
     });
   } catch (err) {
     if (err instanceof z.ZodError) {
