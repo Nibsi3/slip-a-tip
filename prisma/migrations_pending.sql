@@ -64,6 +64,16 @@ ALTER TABLE "User"
   ADD COLUMN IF NOT EXISTS "emailVerifyToken"     TEXT,
   ADD COLUMN IF NOT EXISTS "emailVerifyExpiresAt" TIMESTAMP(3);
 
+-- WhatsApp tip flow fields on Tip
+ALTER TABLE "Tip"
+  ADD COLUMN IF NOT EXISTS "customerName"        TEXT,
+  ADD COLUMN IF NOT EXISTS "customerEmail"       TEXT,
+  ADD COLUMN IF NOT EXISTS "customerPhone"       TEXT,
+  ADD COLUMN IF NOT EXISTS "customerMessage"     TEXT,
+  ADD COLUMN IF NOT EXISTS "paymentLinkUrl"      TEXT,
+  ADD COLUMN IF NOT EXISTS "whatsappLinkSentAt"  TIMESTAMP(3),
+  ADD COLUMN IF NOT EXISTS "followUpSentAt"      TIMESTAMP(3);
+
 -- =============================================================================
 -- Done. Remember to run `npx prisma generate` after applying this.
 -- =============================================================================

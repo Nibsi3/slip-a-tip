@@ -271,7 +271,7 @@ async function handleIncomingMessage(message: WaIncomingMessage, contactName?: s
     // Check if this is a TIP [qrCode] initiation message
     const tipMatch = text.match(/^TIP[\s_-]+([a-zA-Z0-9]+)$/i);
     if (tipMatch) {
-      await handleTipInitiation(from, tipMatch[1].toLowerCase());
+      await handleTipInitiation(from, tipMatch[1]);
       return;
     }
 
@@ -306,10 +306,24 @@ async function handleIncomingMessage(message: WaIncomingMessage, contactName?: s
 // Step 1: Customer sent "TIP [qrCode]" — look up worker, ask for amount
 // ---------------------------------------------------------------------------
 async function handleTipInitiation(from: string, qrCode: string) {
-  const worker = await db.worker.findFirst({
-    where: { qrCode, isActive: true },
-    include: { user: { select: { firstName: true, lastName: true } } },
-  });
+  // First try looking up via QRCode.token (physical stickers use short tokens like INIT0001)
+  let worker = await (async () => {
+    const qrRecord = await db.qRCode.findUnique({
+      where: { token: qrCode },
+      include: {
+        worker: {
+          where: { isActive: true },
+          include: { user: { select: { firstName: true, lastName: true } } },
+        },
+      },
+    });
+    if (qrRecord?.worker) return qrRecord.worker;
+    // Fallback: treat qrCode as the Worker.qrCode cuid (legacy / direct links)
+    return db.worker.findFirst({
+      where: { qrCode, isActive: true },
+      include: { user: { select: { firstName: true, lastName: true } } },
+    });
+  })();
 
   if (!worker) {
     await sendText(from,
