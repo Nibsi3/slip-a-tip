@@ -22,6 +22,7 @@ import {
   recordFraudEvent,
 } from "@/lib/security";
 import { sendBalanceCapOverflowEmail } from "@/lib/email";
+import { sendPaymentConfirmation, sendWorkerTipNotification, normalisePhone } from "@/lib/whatsapp";
 
 // ---------------------------------------------------------------------------
 // Signature verification
@@ -121,6 +122,14 @@ async function handlePaymentPaid(payload: StitchWebhookPayload) {
         ...(merchantReference ? [{ paymentId: merchantReference }] : []),
         { paystackRef: stitchPaymentId },
       ],
+    },
+    include: {
+      worker: {
+        select: {
+          phoneForIM: true,
+          user: { select: { firstName: true, lastName: true } },
+        },
+      },
     },
   });
 
@@ -296,6 +305,29 @@ async function handlePaymentPaid(payload: StitchWebhookPayload) {
   });
 
   console.log(`[Stitch webhook] tip ${tip.id} completed: R${netAmount} credited to worker ${tip.workerId}`);
+
+  // --- WhatsApp notifications ---
+  // 1. Confirm payment to customer (if they came via WhatsApp flow)
+  if (tip.customerPhone) {
+    sendPaymentConfirmation({
+      customerPhone: tip.customerPhone,
+      customerName: tip.customerName ?? undefined,
+      workerFirstName: tip.worker.user.firstName,
+      amountZAR: Number(tip.amount),
+      paymentId: tip.paymentId,
+    }).catch((err) => console.error("[Stitch webhook] WA customer confirmation error:", err));
+  }
+
+  // 2. Notify the car guard they received a tip (if they have a phone on record)
+  if (tip.worker.phoneForIM) {
+    sendWorkerTipNotification({
+      workerPhone: tip.worker.phoneForIM,
+      workerFirstName: tip.worker.user.firstName,
+      amountZAR: Number(tip.amount),
+      netAmountZAR: netAmount,
+      paymentId: tip.paymentId,
+    }).catch((err) => console.error("[Stitch webhook] WA worker notification error:", err));
+  }
 }
 
 async function handlePaymentFailed(payload: StitchWebhookPayload) {

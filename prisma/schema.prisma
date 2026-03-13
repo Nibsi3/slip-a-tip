@@ -105,11 +105,15 @@ model Tip {
   paymentMethod   String          @default("paystack")
   paymentId       String          @unique
   paystackRef     String?
-  customerName    String?
-  customerEmail   String?
-  customerMessage String?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  customerName       String?
+  customerEmail      String?
+  customerPhone      String?
+  customerMessage    String?
+  paymentLinkUrl     String?
+  whatsappLinkSentAt DateTime?
+  followUpSentAt     DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
   ledgerEntry     LedgerEntry?
   settlementHold  SettlementHold?
   worker          Worker          @relation(fields: [workerId], references: [id])

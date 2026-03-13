@@ -16,6 +16,8 @@ interface WorkerInfo {
   qrCode: string;
 }
 
+type Step = "select" | "phone" | "sent";
+
 export default function TipPage() {
   const params = useParams();
   const code = params.code as string;
@@ -24,20 +26,24 @@ export default function TipPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(50);
+  const [customAmount, setCustomAmount] = useState("");
+  const [step, setStep] = useState<Step>("select");
+  const [phone, setPhone] = useState("");
+  const [customerName, setCustomerName] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const tipAmount = selectedAmount || 0;
+  const tipAmount = customAmount ? parseFloat(customAmount) || 0 : selectedAmount || 0;
 
   useEffect(() => {
     async function loadWorker() {
       try {
         const res = await fetch(`/api/tips/${code}`);
         if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || "Worker not found");
+          const d = await res.json();
+          throw new Error(d.error || "Worker not found");
         }
-        const data = await res.json();
-        setWorker(data.worker);
+        const d = await res.json();
+        setWorker(d.worker);
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : "Something went wrong");
       } finally {
@@ -47,43 +53,59 @@ export default function TipPage() {
     loadWorker();
   }, [code]);
 
-  async function handleSubmit(e: FormEvent) {
+  function handleAmountSelect(amt: number) {
+    if (submitting) return;
+    setSelectedAmount(amt);
+    setCustomAmount("");
+  }
+
+  function handleCustomAmount(val: string) {
+    setCustomAmount(val);
+    setSelectedAmount(null);
+  }
+
+  function handleContinue(e: FormEvent) {
     e.preventDefault();
-    if (tipAmount < MIN_TIP || tipAmount > MAX_TIP || submitting) return;
+    if (tipAmount < MIN_TIP || tipAmount > MAX_TIP) return;
+    setStep("phone");
+    setError("");
+  }
+
+  async function handleSendWhatsApp(e: FormEvent) {
+    e.preventDefault();
+    if (!phone || submitting) return;
     setSubmitting(true);
     setError("");
 
     try {
-      const res = await fetch("/api/tips", {
+      const res = await fetch("/api/tips/whatsapp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           qrCode: code,
           amount: tipAmount,
+          customerPhone: phone,
+          customerName: customerName || undefined,
         }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to process tip");
+        throw new Error(data.error || "Failed to send payment link");
       }
 
-      const data = await res.json();
-      if (data.stitch?.paymentUrl) {
-        window.location.href = data.stitch.paymentUrl;
-        return;
-      } else {
-        throw new Error("Payment gateway unavailable");
-      }
+      setStep("sent");
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Payment failed");
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
       setSubmitting(false);
     }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center " style={{ background: "#030306" }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#030306" }}>
         <div className="animate-pulse text-white/40 text-xl font-semibold">Loading...</div>
       </div>
     );
@@ -105,9 +127,8 @@ export default function TipPage() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#030306" }}>
-      {/* Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(20,167,249,0.08) 0%, transparent 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,211,102,0.07) 0%, transparent 60%)" }} />
       </div>
 
       {/* Header */}
@@ -125,9 +146,9 @@ export default function TipPage() {
 
             {/* Worker info */}
             <div className="relative px-6 pt-8 pb-6 text-center overflow-hidden">
-              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 100% 120% at 50% 0%, rgba(20,167,249,0.1) 0%, transparent 70%)" }} />
+              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 100% 120% at 50% 0%, rgba(37,211,102,0.08) 0%, transparent 70%)" }} />
               <div className="relative">
-                <div className="mx-auto w-20 h-20 rounded-2xl ring-2 ring-white/10 flex items-center justify-center text-3xl font-extrabold text-white" style={{ background: "linear-gradient(135deg, rgba(20,167,249,0.2), rgba(20,167,249,0.05))" }}>
+                <div className="mx-auto w-20 h-20 rounded-2xl ring-2 ring-white/10 flex items-center justify-center text-3xl font-extrabold text-white" style={{ background: "linear-gradient(135deg, rgba(37,211,102,0.2), rgba(37,211,102,0.05))" }}>
                   {worker?.firstName?.charAt(0)}{worker?.lastName?.charAt(0)}
                 </div>
                 <h1 className="mt-4 text-xl font-extrabold text-white tracking-tight">
@@ -144,129 +165,193 @@ export default function TipPage() {
 
             <div className="h-px bg-white/[0.06]" />
 
-            <form onSubmit={handleSubmit} className="p-5 space-y-5">
-              {/* Quick amounts */}
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-3">Select tip amount</p>
-                <div className="grid grid-cols-3 gap-2">
-                  {TIP_AMOUNTS.map((amt) => (
-                    <button
-                      key={amt}
-                      type="button"
-                      onClick={() => !submitting && setSelectedAmount(amt)}
-                      disabled={submitting}
-                      className={`py-3.5 text-center font-bold text-base rounded-xl transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed ${
-                        selectedAmount === amt
-                          ? "text-white scale-[1.03] ring-1 ring-accent/40"
-                          : "text-white/55 ring-1 ring-white/[0.07] hover:ring-white/[0.14] hover:text-white/80"
-                      }`}
-                      style={selectedAmount === amt
-                        ? { background: "rgba(20,167,249,0.18)" }
-                        : { background: "rgba(255,255,255,0.03)" }
-                      }
-                    >
-                      R{amt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Fee transparency */}
-              {tipAmount >= MIN_TIP && (
-                <div className="rounded-xl p-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2">Fee breakdown</p>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-white/40">Tip amount</span>
-                    <span className="text-white/70">R{tipAmount.toFixed(2)}</span>
+            {/* ── STEP 1: Select amount ── */}
+            {step === "select" && (
+              <form onSubmit={handleContinue} className="p-5 space-y-5">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-3">Select tip amount</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {TIP_AMOUNTS.map((amt) => (
+                      <button
+                        key={amt}
+                        type="button"
+                        onClick={() => handleAmountSelect(amt)}
+                        className={`py-3.5 text-center font-bold text-base rounded-xl transition-all duration-150 ${
+                          selectedAmount === amt
+                            ? "text-white scale-[1.03] ring-1 ring-[#25d366]/40"
+                            : "text-white/55 ring-1 ring-white/[0.07] hover:ring-white/[0.14] hover:text-white/80"
+                        }`}
+                        style={selectedAmount === amt
+                          ? { background: "rgba(37,211,102,0.18)" }
+                          : { background: "rgba(255,255,255,0.03)" }
+                        }
+                      >
+                        R{amt}
+                      </button>
+                    ))}
                   </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-white/40">Total fee (10%)</span>
-                    <span className="text-white/70">−R{(tipAmount * TOTAL_FEE_RATE).toFixed(2)}</span>
-                  </div>
-                  <div className="h-px my-1" style={{ background: "rgba(255,255,255,0.06)" }} />
-                  <div className="flex justify-between text-xs font-semibold">
-                    <span className="text-white/50">{worker?.firstName} receives</span>
-                    <span className="text-green-400">R{(tipAmount * (1 - TOTAL_FEE_RATE)).toFixed(2)}</span>
-                  </div>
-                  <p className="text-[10px] text-white/20 mt-1">Includes payment processing + Slip a Tip platform fee.</p>
-                </div>
-              )}
 
-              {/* Error */}
-              {error && (
-                <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400">
-                  {error}
+                  <div className="mt-3">
+                    <input
+                      type="number"
+                      inputMode="numeric"
+                      min={MIN_TIP}
+                      max={MAX_TIP}
+                      placeholder="Custom amount (R15–R5000)"
+                      value={customAmount}
+                      onChange={(e) => handleCustomAmount(e.target.value)}
+                      className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 outline-none focus:ring-1 focus:ring-[#25d366]/40"
+                      style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                    />
+                  </div>
                 </div>
-              )}
 
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={tipAmount < MIN_TIP || tipAmount > MAX_TIP || submitting}
-                className="w-full py-4 rounded-2xl text-base font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.78) 100%)", color: "#030306" }}
-              >
-                {submitting ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Processing...
-                  </span>
-                ) : tipAmount >= MIN_TIP ? (
-                  `Tip R${tipAmount.toFixed(2)}`
-                ) : (
-                  "Select an amount"
+                {tipAmount >= MIN_TIP && (
+                  <div className="rounded-xl p-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2">Fee breakdown</p>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-white/40">Tip amount</span>
+                      <span className="text-white/70">R{tipAmount.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-white/40">Total fee (10%)</span>
+                      <span className="text-white/70">−R{(tipAmount * TOTAL_FEE_RATE).toFixed(2)}</span>
+                    </div>
+                    <div className="h-px my-1" style={{ background: "rgba(255,255,255,0.06)" }} />
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-white/50">{worker?.firstName} receives</span>
+                      <span className="text-green-400">R{(tipAmount * (1 - TOTAL_FEE_RATE)).toFixed(2)}</span>
+                    </div>
+                    <p className="text-[10px] text-white/20 mt-1">Includes payment processing + Slip a Tip platform fee.</p>
+                  </div>
                 )}
-              </button>
 
-              {/* Scan to Pay strip */}
-              <div className="rounded-xl p-3" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-3 text-center">Pay directly from your banking app</p>
-                <div className="flex items-center justify-center gap-3 flex-wrap">
-                  {/* FNB */}
-                  <div className="flex items-center justify-center w-12 h-8 rounded-lg" style={{ background: "rgba(0,166,80,0.12)", border: "1px solid rgba(0,166,80,0.25)" }}>
-                    <svg viewBox="0 0 48 20" className="w-9 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="0" y="15" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="13" fill="#00a650" letterSpacing="-0.5">FNB</text>
-                    </svg>
+                <button
+                  type="submit"
+                  disabled={tipAmount < MIN_TIP || tipAmount > MAX_TIP}
+                  className="w-full py-4 rounded-2xl text-base font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  style={{ background: tipAmount >= MIN_TIP ? "linear-gradient(180deg, #25d366 0%, #1da851 100%)" : "rgba(255,255,255,0.08)", color: tipAmount >= MIN_TIP ? "#fff" : "rgba(255,255,255,0.3)" }}
+                >
+                  {tipAmount >= MIN_TIP ? (
+                    <>
+                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                      Continue — get payment link on WhatsApp
+                    </>
+                  ) : "Select an amount to continue"}
+                </button>
+
+                <div className="flex items-center justify-center gap-2">
+                  <svg className="h-3.5 w-3.5 text-white/20" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                  <p className="text-center text-[11px] text-white/25">Secured by Stitch · Bank-grade encryption</p>
+                </div>
+              </form>
+            )}
+
+            {/* ── STEP 2: Enter phone ── */}
+            {step === "phone" && (
+              <form onSubmit={handleSendWhatsApp} className="p-5 space-y-5">
+                <div className="rounded-xl p-3 flex items-center justify-between" style={{ background: "rgba(37,211,102,0.08)", border: "1px solid rgba(37,211,102,0.2)" }}>
+                  <span className="text-sm text-white/60">Tip amount</span>
+                  <span className="text-base font-bold text-[#25d366]">R{tipAmount.toFixed(2)}</span>
+                </div>
+
+                <div className="space-y-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30">Your WhatsApp number</p>
+                  <p className="text-xs text-white/40">We&apos;ll send you a secure payment link — pay anytime within 24 hours.</p>
+
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    placeholder="e.g. 082 123 4567"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 outline-none focus:ring-1 focus:ring-[#25d366]/40"
+                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                  />
+
+                  <input
+                    type="text"
+                    placeholder="Your name (optional)"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 outline-none focus:ring-1 focus:ring-[#25d366]/40"
+                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                  />
+                </div>
+
+                {error && (
+                  <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400">
+                    {error}
                   </div>
-                  {/* Capitec */}
-                  <div className="flex items-center justify-center w-14 h-8 rounded-lg" style={{ background: "rgba(0,102,204,0.12)", border: "1px solid rgba(0,102,204,0.25)" }}>
-                    <svg viewBox="0 0 64 20" className="w-12 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="0" y="15" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="11" fill="#0066cc" letterSpacing="0.2">CAPITEC</text>
-                    </svg>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={!phone || submitting}
+                  className="w-full py-4 rounded-2xl text-base font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  style={{ background: "linear-gradient(180deg, #25d366 0%, #1da851 100%)", color: "#fff" }}
+                >
+                  {submitting ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                      Send payment link to WhatsApp
+                    </>
+                  )}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => { setStep("select"); setError(""); }}
+                  className="w-full py-2.5 text-sm text-white/40 hover:text-white/60 transition-colors"
+                >
+                  ← Change amount
+                </button>
+              </form>
+            )}
+
+            {/* ── STEP 3: Sent confirmation ── */}
+            {step === "sent" && (
+              <div className="p-6 text-center space-y-4">
+                <div className="mx-auto w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(37,211,102,0.15)" }}>
+                  <svg viewBox="0 0 24 24" className="w-8 h-8" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
+                <div>
+                  <h2 className="text-xl font-extrabold text-white">Payment link sent!</h2>
+                  <p className="mt-2 text-sm text-white/50">
+                    Check your WhatsApp — we just sent you a secure payment link for <span className="text-[#25d366] font-semibold">R{tipAmount.toFixed(2)}</span>.
+                  </p>
+                </div>
+                <div className="rounded-xl p-4 text-left space-y-2.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-base mt-0.5">💬</span>
+                    <p className="text-xs text-white/50">Open the WhatsApp message from <strong className="text-white/70">Slip a Tip</strong> on your phone.</p>
                   </div>
-                  {/* ABSA */}
-                  <div className="flex items-center justify-center w-12 h-8 rounded-lg" style={{ background: "rgba(220,0,50,0.12)", border: "1px solid rgba(220,0,50,0.25)" }}>
-                    <svg viewBox="0 0 44 20" className="w-9 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="0" y="15" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="13" fill="#dc0032" letterSpacing="-0.3">ABSA</text>
-                    </svg>
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-base mt-0.5">🔗</span>
+                    <p className="text-xs text-white/50">Tap the payment link and complete your tip securely via Instant EFT.</p>
                   </div>
-                  {/* Nedbank */}
-                  <div className="flex items-center justify-center w-16 h-8 rounded-lg" style={{ background: "rgba(0,122,77,0.12)", border: "1px solid rgba(0,122,77,0.25)" }}>
-                    <svg viewBox="0 0 72 20" className="w-14 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <text x="0" y="15" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="11" fill="#007a4d" letterSpacing="0.1">NEDBANK</text>
-                    </svg>
-                  </div>
-                  {/* Standard Bank */}
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg" style={{ background: "rgba(0,85,165,0.12)", border: "1px solid rgba(0,85,165,0.25)" }}>
-                    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="12" cy="12" r="10" fill="#0055a5" opacity="0.15"/>
-                      <text x="12" y="16" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="9" fill="#0055a5" textAnchor="middle" letterSpacing="-0.3">SB</text>
-                    </svg>
+                  <div className="flex items-start gap-2.5">
+                    <span className="text-base mt-0.5">⏱️</span>
+                    <p className="text-xs text-white/50">You have <strong className="text-white/70">24 hours</strong> — no need to pay right now.</p>
                   </div>
                 </div>
-                <p className="text-center text-[10px] text-white/25 mt-2.5">Select &ldquo;Scan to Pay&rdquo; at checkout &middot; No card details needed</p>
+                <p className="text-[10px] text-white/25 pt-1">
+                  {worker?.firstName} will be notified the moment you pay. Thank you! 🙏
+                </p>
               </div>
+            )}
 
-              <div className="flex items-center justify-center gap-2 pt-1">
-                <svg className="h-3.5 w-3.5 text-white/20" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                </svg>
-                <p className="text-center text-[11px] text-white/25">Secured by Stitch &middot; Bank-grade encryption &middot; Pay from your banking app</p>
-              </div>
-            </form>
           </div>
         </div>
       </div>
