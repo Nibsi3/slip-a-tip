@@ -98,65 +98,60 @@ export default function TipPage() {
 
   if (pageLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#030306" }}>
-        <div className="animate-pulse text-white/40 text-xl font-semibold">Loading...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-pulse text-gray-400 text-xl font-semibold">Loading...</div>
       </div>
     );
   }
 
   if (error && !worker) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: "#030306" }}>
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
         <div className="card text-center max-w-sm w-full">
-          <h1 className="text-xl font-bold text-white">Oops!</h1>
-          <p className="mt-2 text-muted">{error}</p>
-          <p className="mt-4 text-sm text-muted-300">This QR code may be invalid or the worker is no longer active.</p>
+          <h1 className="text-xl font-bold text-gray-900">Oops!</h1>
+          <p className="mt-2 text-gray-500">{error}</p>
+          <p className="mt-4 text-sm text-gray-400">This QR code may be invalid or the worker is no longer active.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#030306" }}>
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(37,211,102,0.07) 0%, transparent 60%)" }} />
-      </div>
-
+    <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header */}
-      <div className="relative z-10 flex items-center justify-center px-6 pt-8 pb-2">
-        <div className="flex items-center gap-2 opacity-60">
+      <div className="flex items-center justify-center px-6 pt-8 pb-2">
+        <div className="flex items-center gap-2">
           <img src="/logo.png" alt="Slip a Tip" className="h-6 w-6 object-contain" />
-          <span className="text-xs font-semibold text-white/60 tracking-widest uppercase">slip a tip</span>
+          <span className="text-xs font-semibold text-gray-400 tracking-widest uppercase">Slip a Tip</span>
         </div>
       </div>
 
       {/* Main card */}
-      <div className="relative z-10 flex-1 flex items-start justify-center px-4 pb-8 pt-4">
+      <div className="flex-1 flex items-start justify-center px-4 pb-8 pt-4">
         <div className="w-full max-w-sm">
-          <div className="rounded-3xl overflow-hidden ring-1 ring-white/[0.09]" style={{ background: "rgba(8,8,14,0.95)", backdropFilter: "blur(24px)" }}>
+          <div className="rounded-3xl overflow-hidden bg-white ring-1 ring-gray-100 shadow-xl shadow-gray-200/60">
 
             {/* Worker avatar + name */}
-            <div className="relative px-6 pt-8 pb-6 text-center overflow-hidden">
-              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 100% 120% at 50% 0%, rgba(37,211,102,0.08) 0%, transparent 70%)" }} />
+            <div className="relative px-6 pt-8 pb-6 text-center overflow-hidden bg-gradient-to-b from-green-50 to-white">
               <div className="relative">
-                <div className="mx-auto w-20 h-20 rounded-2xl ring-2 ring-white/10 flex items-center justify-center text-3xl font-extrabold text-white" style={{ background: "linear-gradient(135deg, rgba(37,211,102,0.2), rgba(37,211,102,0.05))" }}>
+                <div className="mx-auto w-20 h-20 rounded-2xl bg-green-100 ring-2 ring-green-200 flex items-center justify-center text-3xl font-extrabold text-green-700">
                   {worker?.firstName?.charAt(0)}{worker?.lastName?.charAt(0)}
                 </div>
-                <h1 className="mt-4 text-xl font-extrabold text-white tracking-tight">
+                <h1 className="mt-4 text-xl font-extrabold text-gray-900 tracking-tight">
                   {worker?.firstName} {worker?.lastName}
                 </h1>
-                {worker?.jobTitle && <p className="mt-1 text-sm text-white/50">{worker.jobTitle}</p>}
-                {worker?.employerName && <p className="text-xs text-white/35 mt-0.5">{worker.employerName}</p>}
+                {worker?.jobTitle && <p className="mt-1 text-sm text-gray-500">{worker.jobTitle}</p>}
+                {worker?.employerName && <p className="text-xs text-gray-400 mt-0.5">{worker.employerName}</p>}
               </div>
             </div>
 
-            <div className="h-px bg-white/[0.06]" />
+            <div className="h-px bg-gray-100" />
 
             {/* ── SELECT AMOUNT ── */}
             {step === "select" && (
               <form onSubmit={handleTip} className="p-5 space-y-5">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-3">Select tip amount</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-3">Select tip amount</p>
                   <div className="grid grid-cols-3 gap-2">
                     {TIP_AMOUNTS.map((amt) => (
                       <button
@@ -165,13 +160,9 @@ export default function TipPage() {
                         onClick={() => handleAmountSelect(amt)}
                         className={`py-3.5 text-center font-bold text-base rounded-xl transition-all duration-150 ${
                           selectedAmount === amt
-                            ? "text-white scale-[1.03] ring-1 ring-[#25d366]/40"
-                            : "text-white/55 ring-1 ring-white/[0.07] hover:ring-white/[0.14] hover:text-white/80"
+                            ? "text-white bg-[#25d366] scale-[1.03] ring-1 ring-[#1da851]"
+                            : "text-gray-600 bg-gray-50 ring-1 ring-gray-100 hover:ring-gray-200 hover:bg-gray-100"
                         }`}
-                        style={selectedAmount === amt
-                          ? { background: "rgba(37,211,102,0.18)" }
-                          : { background: "rgba(255,255,255,0.03)" }
-                        }
                       >
                         R{amt}
                       </button>
@@ -186,34 +177,33 @@ export default function TipPage() {
                       placeholder="Custom amount (R15–R5000)"
                       value={customAmount}
                       onChange={(e) => handleCustomAmount(e.target.value)}
-                      className="w-full rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 outline-none focus:ring-1 focus:ring-[#25d366]/40"
-                      style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                      className="w-full rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 bg-white outline-none focus:ring-2 focus:ring-[#25d366]/40 border border-gray-200"
                     />
                   </div>
                 </div>
 
                 {tipAmount >= MIN_TIP && (
-                  <div className="rounded-xl p-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2">Fee breakdown</p>
+                  <div className="rounded-xl p-3 space-y-1.5 bg-gray-50 ring-1 ring-gray-100">
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 mb-2">Fee breakdown</p>
                     <div className="flex justify-between text-xs">
-                      <span className="text-white/40">Tip amount</span>
-                      <span className="text-white/70">R{tipAmount.toFixed(2)}</span>
+                      <span className="text-gray-400">Tip amount</span>
+                      <span className="text-gray-700">R{tipAmount.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-xs">
-                      <span className="text-white/40">Total fee (10%)</span>
-                      <span className="text-white/70">−R{(tipAmount * TOTAL_FEE_RATE).toFixed(2)}</span>
+                      <span className="text-gray-400">Total fee (10%)</span>
+                      <span className="text-gray-700">−R{(tipAmount * TOTAL_FEE_RATE).toFixed(2)}</span>
                     </div>
-                    <div className="h-px my-1" style={{ background: "rgba(255,255,255,0.06)" }} />
+                    <div className="h-px my-1 bg-gray-200" />
                     <div className="flex justify-between text-xs font-semibold">
-                      <span className="text-white/50">{worker?.firstName} receives</span>
-                      <span className="text-green-400">R{(tipAmount * (1 - TOTAL_FEE_RATE)).toFixed(2)}</span>
+                      <span className="text-gray-500">{worker?.firstName} receives</span>
+                      <span className="text-green-600">R{(tipAmount * (1 - TOTAL_FEE_RATE)).toFixed(2)}</span>
                     </div>
-                    <p className="text-[10px] text-white/20 mt-1">Includes payment processing + Slip a Tip platform fee.</p>
+                    <p className="text-[10px] text-gray-400 mt-1">Includes payment processing + Slip a Tip platform fee.</p>
                   </div>
                 )}
 
                 {error && (
-                  <div className="rounded-xl bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400">
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-600">
                     {error}
                   </div>
                 )}
@@ -221,20 +211,20 @@ export default function TipPage() {
                 <button
                   type="submit"
                   disabled={tipAmount < MIN_TIP || tipAmount > MAX_TIP}
-                  className="w-full py-4 rounded-2xl text-base font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-2xl text-base font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-white"
                   style={{
-                    background: tipAmount >= MIN_TIP ? "linear-gradient(180deg, #25d366 0%, #1da851 100%)" : "rgba(255,255,255,0.08)",
-                    color: tipAmount >= MIN_TIP ? "#fff" : "rgba(255,255,255,0.3)",
+                    background: tipAmount >= MIN_TIP ? "linear-gradient(180deg, #25d366 0%, #1da851 100%)" : "#e5e7eb",
+                    color: tipAmount >= MIN_TIP ? "#fff" : "#9ca3af",
                   }}
                 >
                   {tipAmount >= MIN_TIP ? <>{WA_ICON} Tip via WhatsApp</> : "Select an amount to continue"}
                 </button>
 
                 <div className="flex items-center justify-center gap-2">
-                  <svg className="h-3.5 w-3.5 text-white/20" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <svg className="h-3.5 w-3.5 text-gray-300" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                   </svg>
-                  <p className="text-center text-[11px] text-white/25">Secured by Stitch · Bank-grade encryption</p>
+                  <p className="text-center text-[11px] text-gray-400">Secured by Stitch · Bank-grade encryption</p>
                 </div>
               </form>
             )}
@@ -242,15 +232,15 @@ export default function TipPage() {
             {/* ── LOADING / GENERATING LINK ── */}
             {step === "loading" && (
               <div className="p-8 flex flex-col items-center gap-5 text-center">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(37,211,102,0.12)" }}>
+                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
                   <svg className="animate-spin w-8 h-8 text-[#25d366]" viewBox="0 0 24 24" fill="none">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-base font-bold text-white">Creating your payment link…</p>
-                  <p className="text-xs text-white/40 mt-1">Opening WhatsApp in a moment</p>
+                  <p className="text-base font-bold text-gray-900">Creating your payment link…</p>
+                  <p className="text-xs text-gray-400 mt-1">Opening WhatsApp in a moment</p>
                 </div>
               </div>
             )}
@@ -258,22 +248,22 @@ export default function TipPage() {
             {/* ── WHATSAPP OPENED ── */}
             {step === "open" && (
               <div className="p-6 text-center space-y-5">
-                <div className="mx-auto w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(37,211,102,0.15)" }}>
+                <div className="mx-auto w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-[#25d366]">
                   {WA_ICON}
                 </div>
                 <div>
-                  <h2 className="text-xl font-extrabold text-white">WhatsApp opened!</h2>
-                  <p className="mt-2 text-sm text-white/50">
+                  <h2 className="text-xl font-extrabold text-gray-900">WhatsApp opened!</h2>
+                  <p className="mt-2 text-sm text-gray-500">
                     Your payment link for <span className="text-[#25d366] font-semibold">R{tipAmount.toFixed(2)}</span> is ready in WhatsApp.
-                    Just tap <strong className="text-white/70">Send</strong> — you can pay anytime within 24 hours.
+                    Just tap <strong className="text-gray-700">Send</strong> — you can pay anytime within 24 hours.
                   </p>
                 </div>
 
                 {whatsappUrl && (
                   <a
                     href={whatsappUrl}
-                    className="w-full py-4 rounded-2xl text-base font-bold flex items-center justify-center gap-2"
-                    style={{ background: "linear-gradient(180deg, #25d366 0%, #1da851 100%)", color: "#fff" }}
+                    className="w-full py-4 rounded-2xl text-base font-bold flex items-center justify-center gap-2 text-white"
+                    style={{ background: "linear-gradient(180deg, #25d366 0%, #1da851 100%)" }}
                   >
                     {WA_ICON} Open WhatsApp again
                   </a>
@@ -282,14 +272,13 @@ export default function TipPage() {
                 {paymentLinkUrl && (
                   <a
                     href={paymentLinkUrl}
-                    className="w-full py-3 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 text-white/60 hover:text-white/80 transition-colors"
-                    style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
+                    className="w-full py-3 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 text-gray-500 hover:text-gray-700 bg-gray-50 ring-1 ring-gray-100 transition-colors"
                   >
                     Pay directly instead →
                   </a>
                 )}
 
-                <p className="text-[10px] text-white/25">
+                <p className="text-[10px] text-gray-400">
                   {worker?.firstName} will be notified the moment you pay. Thank you! 🙏
                 </p>
               </div>

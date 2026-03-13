@@ -8,7 +8,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#030306",
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {
