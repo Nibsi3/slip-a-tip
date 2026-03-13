@@ -176,9 +176,19 @@ interface WaWebhookPayload {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json() as WaWebhookPayload;
+    const rawBody = await request.text();
+    console.log("[WA webhook] POST received:", rawBody.slice(0, 2000));
+
+    let body: WaWebhookPayload;
+    try {
+      body = JSON.parse(rawBody) as WaWebhookPayload;
+    } catch {
+      console.error("[WA webhook] Failed to parse JSON");
+      return new NextResponse("OK");
+    }
 
     if (body.object !== "whatsapp_business_account") {
+      console.log("[WA webhook] Unexpected object type:", body.object);
       return new NextResponse("OK");
     }
 
