@@ -14,6 +14,7 @@ export default function HomePage() {
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-2.5">
             <Image src="/logo.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
+            <span className="text-white font-bold text-lg tracking-tight">Slip a Tip</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-5">
             <GuidesDropdown />
@@ -460,6 +461,7 @@ export default function HomePage() {
             <div className="col-span-2 md:col-span-1">
               <Link href="/" className="flex items-center gap-2.5 mb-4">
                 <Image src="/logo.png" alt="Slip a Tip" width={40} height={40} quality={95} className="h-10 w-10 object-contain" />
+                <span className="text-white font-bold text-base">Slip a Tip</span>
               </Link>
               <p className="text-xs text-white/35 leading-relaxed max-w-[220px]">
                 Digital tipping for South Africa&rsquo;s service industry. Scan, tap, tip.
@@ -509,7 +511,7 @@ export default function HomePage() {
 
           {/* Bottom bar */}
           <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-[10px] text-white/20">&copy; {new Date().getFullYear()} Slip a Tip (Pty) Ltd. All rights reserved.</span>
+            <span className="text-xs text-white/40">&copy; {new Date().getFullYear()} <strong className="text-white/60">Slip a Tip (Pty) Ltd.</strong> All rights reserved.</span>
             <div className="flex items-center gap-4">
               <span className="text-[10px] text-white/15">Secured by</span>
               <span className="text-[10px] text-white/30 font-medium">Paystack</span>
