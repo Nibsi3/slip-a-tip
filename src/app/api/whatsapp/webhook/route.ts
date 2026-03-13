@@ -117,11 +117,24 @@ export async function GET(request: NextRequest) {
   const token = searchParams.get("hub.verify_token");
   const challenge = searchParams.get("hub.challenge");
 
+  // If a human opens this URL in a browser, it won't include Meta's hub.* params.
+  // Return 200 to avoid confusion.
+  if (!mode) {
+    return new NextResponse("OK", { status: 200 });
+  }
+
   const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN;
   if (!verifyToken) {
     console.error("[WA webhook] WHATSAPP_VERIFY_TOKEN not set");
     return new NextResponse("Configuration error", { status: 500 });
   }
+
+  console.log("[WA webhook] Verification attempt:", {
+    mode,
+    hasToken: Boolean(token),
+    tokenMatch: token === verifyToken,
+    hasChallenge: Boolean(challenge),
+  });
 
   if (mode === "subscribe" && token === verifyToken) {
     console.log("[WA webhook] Webhook verified");
