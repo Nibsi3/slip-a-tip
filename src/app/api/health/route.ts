@@ -25,6 +25,27 @@ export async function GET() {
     checks.user_count_error = err instanceof Error ? err.message : String(err);
   }
 
+  try {
+    const sessionCount = await db.session.count();
+    checks.session_count = String(sessionCount);
+  } catch (err: unknown) {
+    checks.session_error = err instanceof Error ? err.message : String(err);
+  }
+
+  try {
+    const workerCount = await db.worker.count();
+    checks.worker_count = String(workerCount);
+  } catch (err: unknown) {
+    checks.worker_error = err instanceof Error ? err.message : String(err);
+  }
+
+  try {
+    const tipCount = await db.tip.count();
+    checks.tip_count = String(tipCount);
+  } catch (err: unknown) {
+    checks.tip_error = err instanceof Error ? err.message : String(err);
+  }
+
   const allOk = checks.database === "connected" && checks.database_url_set === "yes";
 
   return NextResponse.json(checks, { status: allOk ? 200 : 500 });
