@@ -2,14 +2,247 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 import GuidesDropdown from "@/components/GuidesDropdown";
 import AnimatedDemo from "@/components/AnimatedDemo";
 
+const DEMO_AMOUNTS = [15, 30, 50, 75, 100, 200];
+
+const LIVE_FEED = [
+  { name: "Sipho M.", job: "Car Guard", amount: 30, ago: "2m ago" },
+  { name: "Nomsa D.", job: "Waitress", amount: 75, ago: "5m ago" },
+  { name: "Thabo K.", job: "Bellhop", amount: 50, ago: "11m ago" },
+  { name: "Lerato B.", job: "Barista", amount: 100, ago: "18m ago" },
+  { name: "Ayanda P.", job: "Porter", amount: 20, ago: "24m ago" },
+];
+
+function HeroDemoCard() {
+  const [tab, setTab] = useState<"tip" | "wallet" | "activity">("tip");
+  const [selected, setSelected] = useState(2);
+  const [paid, setPaid] = useState(false);
+  const [feedIdx, setFeedIdx] = useState(0);
+
+  useEffect(() => {
+    if (!paid) return;
+    const t = setTimeout(() => setPaid(false), 2800);
+    return () => clearTimeout(t);
+  }, [paid]);
+
+  useEffect(() => {
+    const iv = setInterval(() => setFeedIdx(p => (p + 1) % LIVE_FEED.length), 3000);
+    return () => clearInterval(iv);
+  }, []);
+
+  const amount = DEMO_AMOUNTS[selected];
+
+  return (
+    <div
+      className="w-full overflow-hidden rounded-2xl ring-1 ring-white/[0.09]"
+      style={{
+        background: "rgba(8,8,14,0.92)",
+        backdropFilter: "blur(32px)",
+        boxShadow: "0 0 0 1px rgba(20,167,249,0.08), 0 32px 80px rgba(0,0,0,0.7), 0 0 120px rgba(20,167,249,0.06)",
+      }}
+    >
+      {/* ── Top bar ── */}
+      <div className="px-5 pt-5 pb-3 border-b border-white/[0.06] flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-lg overflow-hidden ring-1 ring-white/10 shrink-0">
+            <Image src="/logo.png" alt="" width={32} height={32} className="w-full h-full object-contain" />
+          </div>
+          <div>
+            <div className="text-xs font-bold text-white leading-none">Slip a Tip</div>
+            <div className="text-[10px] text-white/30 mt-0.5">Live demo</div>
+          </div>
+        </div>
+        <div className="flex items-center gap-1">
+          {(["tip", "wallet", "activity"] as const).map(t => (
+            <button
+              key={t}
+              onClick={() => { setTab(t); setPaid(false); }}
+              className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all duration-200 ${
+                tab === t ? "text-white" : "text-white/35 hover:text-white/60"
+              }`}
+              style={tab === t ? { background: "rgba(20,167,249,0.15)", boxShadow: "inset 0 0 0 1px rgba(20,167,249,0.25)" } : {}}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── TAB: TIP ── */}
+      {tab === "tip" && (
+        <div>
+          {/* Worker profile */}
+          <div className="px-5 py-4 border-b border-white/[0.05] flex items-center gap-3">
+            <div className="relative shrink-0">
+              <div className="h-11 w-11 rounded-full flex items-center justify-center text-base font-extrabold text-accent ring-1 ring-accent/25" style={{ background: "rgba(20,167,249,0.1)" }}>T</div>
+              <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-400 ring-2 ring-[#08080e]" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-bold text-white">Thabo Molefe</div>
+              <div className="text-[11px] text-white/40">Waiter &middot; The Palace Hotel</div>
+            </div>
+            <div className="text-right shrink-0">
+              <div className="text-[10px] text-white/25 mb-0.5">tips today</div>
+              <div className="text-sm font-bold text-accent">R 340</div>
+            </div>
+          </div>
+
+          {/* Amount grid */}
+          {!paid ? (
+            <div className="px-5 py-4">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">Choose amount</span>
+                <span className="text-[10px] text-white/20">via WhatsApp</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                {DEMO_AMOUNTS.map((amt, i) => (
+                  <button
+                    key={amt}
+                    onClick={() => setSelected(i)}
+                    className={`relative py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
+                      selected === i ? "text-white scale-[1.04]" : "text-white/45 hover:text-white/70"
+                    }`}
+                    style={
+                      selected === i
+                        ? { background: "linear-gradient(135deg, rgba(20,167,249,0.25), rgba(20,167,249,0.1))", boxShadow: "inset 0 0 0 1px rgba(20,167,249,0.4), 0 4px 16px rgba(20,167,249,0.15)" }
+                        : { background: "rgba(255,255,255,0.03)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }
+                    }
+                  >
+                    R{amt}
+                  </button>
+                ))}
+              </div>
+              {/* Chosen amount summary */}
+              <div className="rounded-xl px-4 py-3 mb-4 flex items-center justify-between" style={{ background: "rgba(255,255,255,0.03)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}>
+                <div>
+                  <div className="text-[10px] text-white/30 mb-0.5">You&apos;re tipping</div>
+                  <div className="text-base font-extrabold text-white">R{amount}<span className="text-white/30 text-xs font-medium">.00</span></div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] text-white/30 mb-0.5">Instant EFT</div>
+                  <div className="flex items-center gap-1">
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                    <span className="text-[11px] text-green-400/80 font-medium">Secure</span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setPaid(true)}
+                className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                style={{ background: "linear-gradient(135deg, #14a7f9 0%, #0e84c8 100%)", boxShadow: "0 4px 24px rgba(20,167,249,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" /></svg>
+                  Tip via WhatsApp &mdash; R{amount}
+                </span>
+              </button>
+            </div>
+          ) : (
+            <div className="px-5 py-6 flex flex-col items-center text-center">
+              <div
+                className="h-14 w-14 rounded-full flex items-center justify-center mb-3"
+                style={{ background: "rgba(34,197,94,0.1)", boxShadow: "0 0 40px rgba(34,197,94,0.2)" }}
+              >
+                <svg className="h-7 w-7 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </div>
+              <div className="text-base font-bold text-white mb-1">Tip sent!</div>
+              <div className="text-sm text-white/40">R{amount} to Thabo via WhatsApp</div>
+              <div className="mt-3 flex items-center gap-1.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-[11px] text-green-400/70">Payment link delivered</span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── TAB: WALLET ── */}
+      {tab === "wallet" && (
+        <div className="px-5 py-5">
+          <div className="rounded-xl p-4 mb-4" style={{ background: "linear-gradient(135deg, rgba(20,167,249,0.12), rgba(20,167,249,0.04))", boxShadow: "inset 0 0 0 1px rgba(20,167,249,0.15)" }}>
+            <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2">Available balance</div>
+            <div className="text-4xl font-extrabold text-white">R 1,245<span className="text-xl text-white/35">.50</span></div>
+            <div className="mt-2 flex items-center gap-2">
+              <div className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+              <span className="text-[11px] text-accent/70">R 180 pending settlement</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-2 mb-4">
+            {[
+              { label: "Tips this week", value: "R 540", up: true },
+              { label: "Tips this month", value: "R 2,180", up: true },
+              { label: "Total earned", value: "R 8,340", up: true },
+              { label: "Withdrawn", value: "R 7,094", up: false },
+            ].map(s => (
+              <div key={s.label} className="rounded-xl p-3" style={{ background: "rgba(255,255,255,0.03)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}>
+                <div className="text-[10px] text-white/25 mb-1">{s.label}</div>
+                <div className={`text-sm font-bold ${s.up ? "text-green-400" : "text-white/70"}`}>{s.value}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white" style={{ background: "linear-gradient(135deg, #14a7f9, #0e84c8)", boxShadow: "0 4px 16px rgba(20,167,249,0.3)" }}>Instant Money</button>
+            <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white/60" style={{ background: "rgba(255,255,255,0.05)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}>Bank EFT</button>
+          </div>
+        </div>
+      )}
+
+      {/* ── TAB: ACTIVITY ── */}
+      {tab === "activity" && (
+        <div className="px-5 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">Recent tips</span>
+            <span className="text-[10px] text-green-400/70 flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse inline-block" />Live
+            </span>
+          </div>
+          <div className="space-y-2">
+            {LIVE_FEED.map((item, i) => (
+              <div
+                key={item.name}
+                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-500 ${
+                  i === feedIdx % LIVE_FEED.length ? "ring-1 ring-accent/20" : ""
+                }`}
+                style={{
+                  background: i === feedIdx % LIVE_FEED.length ? "rgba(20,167,249,0.07)" : "rgba(255,255,255,0.02)",
+                }}
+              >
+                <div className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold text-accent shrink-0" style={{ background: "rgba(20,167,249,0.1)" }}>
+                  {item.name[0]}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-semibold text-white truncate">{item.name}</div>
+                  <div className="text-[10px] text-white/30">{item.job}</div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-sm font-bold text-green-400">+R{item.amount}</div>
+                  <div className="text-[10px] text-white/20">{item.ago}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Bottom status bar ── */}
+      <div className="px-5 py-3 border-t border-white/[0.05] flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <div className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-[10px] text-white/30">Secured by Stitch Instant EFT</span>
+        </div>
+        <span className="text-[10px] text-white/20">slipatip.co.za</span>
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
-  const [selectedTip, setSelectedTip] = useState(2);
-  const DEMO_AMOUNTS = [15, 30, 50, 75, 100, 200];
   return (
     <div className="min-h-screen" style={{ background: "#030306" }}>
       {/* Header */}
@@ -36,16 +269,16 @@ export default function HomePage() {
           {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/photos/bc7dc7aa-b240-4884-91f8-a0b05b4343a1_3840w.webp"
+              src="/photos/9df0b484-9692-44cf-be76-f2660b61a30d_3840w.jpg"
               alt=""
               fill
-              quality={90}
+              quality={95}
               priority
               className="object-cover object-center"
-              style={{ opacity: 0.55, filter: "blur(3px) brightness(0.75) saturate(1.1)", transform: "scale(1.04)" }}
+              style={{ opacity: 0.45 }}
             />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(3,3,6,0.88) 0%, rgba(3,3,6,0.45) 50%, rgba(3,3,6,0.88) 100%)" }} />
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(20,167,249,0.07) 0%, transparent 70%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(3,3,6,0.82) 0%, rgba(3,3,6,0.35) 50%, rgba(3,3,6,0.82) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(20,167,249,0.09) 0%, transparent 70%)" }} />
           </div>
 
           <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-24 pb-16">
@@ -106,83 +339,9 @@ export default function HomePage() {
                 </ScrollReveal>
               </div>
 
-              {/* Right — demo card */}
+              {/* Right — rich interactive demo card */}
               <ScrollReveal delay={0.3} direction="right">
-                <div
-                  className="overflow-hidden ring-1 ring-white/[0.09] rounded-2xl"
-                  style={{ background: "rgba(8,8,14,0.88)", backdropFilter: "blur(28px)", boxShadow: "0 0 60px rgba(0,0,0,0.6), 0 0 140px rgba(20,167,249,0.07), 0 1px 2px rgba(0,0,0,0.7)" }}
-                >
-                  {/* Card header */}
-                  <div className="px-6 pt-6 pb-4 border-b border-white/[0.06]">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="text-[10px] font-medium text-white/30 uppercase tracking-widest">Live preview</div>
-                        <div className="mt-1 text-base font-bold text-white">Scan &rarr; Tip &rarr; Done</div>
-                      </div>
-                      <div className="rounded-full px-3 py-1 text-[10px] font-medium text-accent ring-1 ring-accent/25" style={{ background: "rgba(20,167,249,0.1)" }}>
-                        Mobile-first
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Worker profile strip */}
-                  <div className="px-6 py-4 border-b border-white/[0.06] flex items-center gap-4">
-                    <div className="h-12 w-12 rounded-full bg-accent/10 flex items-center justify-center text-lg font-bold text-accent shrink-0 ring-1 ring-accent/20">T</div>
-                    <div>
-                      <div className="text-sm font-bold text-white">Thabo Molefe</div>
-                      <div className="text-xs text-white/40">Waiter &middot; The Palace Hotel</div>
-                    </div>
-                    <div className="ml-auto text-xs text-green-400 font-medium flex items-center gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-green-400 inline-block animate-pulse" />
-                      Active
-                    </div>
-                  </div>
-
-                  {/* Tip amounts — interactive */}
-                  <div className="px-6 py-4 border-b border-white/[0.06]">
-                    <div className="text-[10px] font-medium text-white/30 uppercase tracking-widest mb-3">Choose amount</div>
-                    <div className="grid grid-cols-3 gap-2">
-                      {DEMO_AMOUNTS.map((amt, i) => (
-                        <button
-                          key={amt}
-                          type="button"
-                          onClick={() => setSelectedTip(i)}
-                          className={`px-3 py-2.5 text-center text-sm font-semibold rounded-lg transition-all duration-200 ${
-                            selectedTip === i
-                              ? "text-white ring-1 ring-accent/50 scale-[1.04]"
-                              : "text-white/50 ring-1 ring-white/[0.06] hover:text-white/70 hover:ring-white/20"
-                          }`}
-                          style={selectedTip === i ? { background: "rgba(20,167,249,0.18)" } : { background: "rgba(255,255,255,0.03)" }}
-                        >
-                          R{amt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Wallet preview */}
-                  <div className="px-6 py-5">
-                    <div className="flex items-end justify-between">
-                      <div>
-                        <div className="text-[10px] font-medium text-white/30 uppercase tracking-widest">Wallet balance</div>
-                        <div className="mt-1 text-3xl font-extrabold text-white">R 1,245<span className="text-lg text-white/40">.50</span></div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-[10px] text-white/30">Last tip</div>
-                        <div className="text-sm font-bold text-green-400">+R {DEMO_AMOUNTS[selectedTip]}.00</div>
-                        <div className="text-[10px] text-white/25 mt-0.5">just now</div>
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <button
-                        className="w-full py-2.5 text-center text-sm font-semibold text-white rounded-xl transition-all"
-                        style={{ background: "linear-gradient(180deg, rgba(20,167,249,0.9) 0%, rgba(14,132,200,0.9) 100%)", boxShadow: "0 4px 20px rgba(20,167,249,0.25)" }}
-                      >
-                        Tip via WhatsApp — R{DEMO_AMOUNTS[selectedTip]}
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <HeroDemoCard />
               </ScrollReveal>
             </div>
           </div>

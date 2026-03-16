@@ -99,6 +99,7 @@ export async function createStitchPaymentLink(
   if (params.payerEmail) body.payerEmailAddress = params.payerEmail;
   if (params.payerPhone) body.payerPhoneNumber = params.payerPhone;
   if (params.expiresAt) body.expiresAt = params.expiresAt;
+  if (params.redirectUrl) body.redirectUrl = params.redirectUrl;
 
   const res = await fetch(`${STITCH_BASE}/api/v1/payment-links`, {
     method: "POST",
@@ -118,13 +119,6 @@ export async function createStitchPaymentLink(
   const payment = json?.data?.payment as StitchPaymentLink | undefined;
   if (!payment?.link) {
     throw new Error(`Stitch createPaymentLink bad response: ${JSON.stringify(json)}`);
-  }
-
-  // Append redirect_url query param so Stitch sends the user back after payment
-  if (params.redirectUrl) {
-    const url = new URL(payment.link);
-    url.searchParams.set("redirect_url", params.redirectUrl);
-    payment.link = url.toString();
   }
 
   return payment;

@@ -50,9 +50,13 @@ export default function QRCodePage() {
             ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
             setQrImage(canvas.toDataURL("image/png"));
           };
-          logo.crossOrigin = "anonymous";
+          logo.onerror = () => {
+            // Logo failed to load — still show the QR without it
+            setQrImage(canvas.toDataURL("image/png"));
+          };
           logo.src = "/logo.png";
         };
+        qrImg.onerror = () => setQrImage(qrDataUrl);
         qrImg.src = qrDataUrl;
       } else {
         setQrImage(qrDataUrl);
