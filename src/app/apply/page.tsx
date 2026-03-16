@@ -118,7 +118,7 @@ export default function ApplyPage() {
   if (submitted) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: "#030306" }}>
-        <div className="fixed inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(20,167,249,0.06) 0%, transparent 70%)" }} />
+        <div className="fixed inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%)" }} />
         <div className="relative w-full max-w-lg text-center">
           <div className="rounded-2xl p-10 ring-1 ring-white/[0.08]" style={{ background: "rgba(8,8,14,0.9)", backdropFilter: "blur(24px)" }}>
             <div className="mx-auto mb-6 h-16 w-16 rounded-2xl flex items-center justify-center" style={{ background: "rgba(34,197,94,0.1)" }}>
@@ -155,7 +155,7 @@ export default function ApplyPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: "#030306" }}>
-      <div className="fixed inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(20,167,249,0.06) 0%, transparent 70%)" }} />
+      <div className="fixed inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%)" }} />
       <div className="relative w-full max-w-lg">
         <div className="rounded-2xl p-8 ring-1 ring-white/[0.08]" style={{ background: "rgba(8,8,14,0.9)", backdropFilter: "blur(24px)" }}>
           {/* Logo */}
@@ -267,7 +267,7 @@ export default function ApplyPage() {
             {/* Step 3: Bank & FICA */}
             {step === 3 && (
               <div className="space-y-4">
-                <div className="rounded-xl p-4 ring-1 ring-accent/15 mb-2" style={{ background: "rgba(20,167,249,0.03)" }}>
+                <div className="rounded-xl p-4 ring-1 ring-accent/15 mb-2" style={{ background: "rgba(249,115,22,0.03)" }}>
                   <div className="flex items-start gap-3">
                     <svg className="h-5 w-5 text-accent shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
                     <p className="text-xs text-white/50 leading-relaxed">
@@ -322,7 +322,7 @@ export default function ApplyPage() {
                   { key: "consent5", text: "I consent to Slip a Tip processing my personal information (ID, bank details, biometric data) under the POPI Act, and to the creation of a Paystack Subaccount in my name for the purpose of receiving split payments." },
                   { key: "consent6", text: "I accept the Service Fee of 10% on every tip I receive, the 72-hour settlement cooldown period, and the applicable transfer fee on withdrawals. I understand that Slip a Tip reserves the right to debit my balance for any chargebacks or disputed transactions." },
                 ].map((item) => (
-                  <label key={item.key} className="flex items-start gap-3 rounded-xl p-3 ring-1 ring-white/[0.05] cursor-pointer hover:ring-white/[0.1] transition-all" style={{ background: (form as Record<string, string | boolean>)[item.key] ? "rgba(20,167,249,0.03)" : "rgba(255,255,255,0.015)" }}>
+                  <label key={item.key} className="flex items-start gap-3 rounded-xl p-3 ring-1 ring-white/[0.05] cursor-pointer hover:ring-white/[0.1] transition-all" style={{ background: (form as Record<string, string | boolean>)[item.key] ? "rgba(249,115,22,0.03)" : "rgba(255,255,255,0.015)" }}>
                     <input
                       type="checkbox"
                       checked={(form as Record<string, string | boolean>)[item.key] as boolean}

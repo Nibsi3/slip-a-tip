@@ -85,10 +85,10 @@ function QrCodeScreen() {
         </div>
         <div className="text-[7px] text-white/25 mb-2">slipatip.co.za/tip/thabo-m</div>
         <div className="flex gap-1 justify-center">
-          <div className="px-2 py-1 rounded text-[7px] font-medium text-accent ring-1 ring-accent/20" style={{ background: "rgba(20,167,249,0.08)" }}>Download</div>
+          <div className="px-2 py-1 rounded text-[7px] font-medium text-accent ring-1 ring-accent/20" style={{ background: "rgba(249,115,22,0.08)" }}>Download</div>
           <div className="px-2 py-1 rounded text-[7px] font-medium text-white/40 ring-1 ring-white/[0.08]" style={{ background: "rgba(255,255,255,0.03)" }}>Print</div>
         </div>
-        <div className="mt-3 rounded-lg p-2 ring-1 ring-accent/20 text-left" style={{ background: "rgba(20,167,249,0.04)" }}>
+        <div className="mt-3 rounded-lg p-2 ring-1 ring-accent/20 text-left" style={{ background: "rgba(249,115,22,0.04)" }}>
           <div className="text-[7px] text-accent/80 font-medium">Physical QR card</div>
           <div className="text-[6px] text-white/30 mt-0.5">Display on your lanyard, workstation, or car dashboard</div>
         </div>
@@ -114,7 +114,7 @@ function AcceptPaymentScreen() {
         </div>
         <p className="text-[7px] text-white/30 uppercase tracking-wider mb-1">Select amount</p>
         <div className="grid grid-cols-3 gap-1">
-          {[15,20,50,100,200].map((a,i)=>{const sel=i===2;return(<div key={a} className="py-1.5 text-center text-[9px] font-bold rounded" style={{ background: sel?"rgba(20,167,249,0.15)":"rgba(255,255,255,0.04)", color: sel?"#14a7f9":"rgba(255,255,255,0.35)", border: sel?"1px solid rgba(20,167,249,0.3)":"1px solid rgba(255,255,255,0.06)" }}>R{a}</div>);})}
+          {[15,20,50,100,200].map((a,i)=>{const sel=i===2;return(<div key={a} className="py-1.5 text-center text-[9px] font-bold rounded" style={{ background: sel?"rgba(249,115,22,0.15)":"rgba(255,255,255,0.04)", color: sel?"#f97316":"rgba(255,255,255,0.35)", border: sel?"1px solid rgba(249,115,22,0.3)":"1px solid rgba(255,255,255,0.06)" }}>R{a}</div>);})}
         </div>
         <div className="mt-2 w-full py-1.5 text-center text-[9px] font-semibold text-white rounded bg-accent/90">Pay R50.00</div>
         <div className="mt-3 rounded-lg p-2 ring-1 ring-green-500/20" style={{ background: "rgba(34,197,94,0.04)" }}>
@@ -173,7 +173,7 @@ function DocumentsScreen() {
           ))}
         </div>
         <div className="mt-2 w-full py-1.5 text-center text-[7px] font-semibold text-white rounded bg-accent/80">Upload Documents</div>
-        <div className="mt-2 rounded-lg p-1.5 ring-1 ring-accent/20" style={{ background: "rgba(20,167,249,0.04)" }}>
+        <div className="mt-2 rounded-lg p-1.5 ring-1 ring-accent/20" style={{ background: "rgba(249,115,22,0.04)" }}>
           <div className="text-[6px] text-white/40"><strong className="text-white/60">Tip:</strong> You can accept tips now — documents are only needed before withdrawal.</div>
         </div>
       </div>
@@ -196,7 +196,7 @@ function WithdrawScreen() {
           <div>
             <div className="text-[6px] text-white/25 mb-0.5">Method</div>
             <div className="flex gap-1">
-              <div className="flex-1 py-1 text-center text-[7px] font-medium text-accent rounded ring-1 ring-accent/30" style={{ background: "rgba(20,167,249,0.1)" }}>Instant Money</div>
+              <div className="flex-1 py-1 text-center text-[7px] font-medium text-accent rounded ring-1 ring-accent/30" style={{ background: "rgba(249,115,22,0.1)" }}>Instant Money</div>
               <div className="flex-1 py-1 text-center text-[7px] text-white/30 rounded ring-1 ring-white/[0.06]" style={{ background: "rgba(255,255,255,0.03)" }}>EFT</div>
             </div>
           </div>
@@ -313,7 +313,7 @@ export default function WorkerGuidePage() {
         <div className="mx-auto max-w-5xl">
           {/* Title */}
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(249,115,22,0.07)" }}>
               <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
               Worker Guide
             </div>
@@ -332,7 +332,7 @@ export default function WorkerGuidePage() {
                 {/* Text */}
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold text-accent ring-1 ring-accent/20 shrink-0" style={{ background: "rgba(20,167,249,0.08)" }}>{s.num}</div>
+                    <div className="h-9 w-9 rounded-full flex items-center justify-center text-xs font-bold text-accent ring-1 ring-accent/20 shrink-0" style={{ background: "rgba(249,115,22,0.08)" }}>{s.num}</div>
                     <h2 className="text-xl sm:text-2xl font-extrabold text-white">{s.title}</h2>
                   </div>
                   <ul className="space-y-2">

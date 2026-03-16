@@ -171,7 +171,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ background: "#030306" }}>
-      <div className="fixed inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(20,167,249,0.06) 0%, transparent 70%)" }} />
+      <div className="fixed inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(249,115,22,0.06) 0%, transparent 70%)" }} />
       <div className="relative w-full max-w-md">
         <div className="rounded-2xl p-8 ring-1 ring-white/[0.08]" style={{ background: "rgba(8,8,14,0.9)", backdropFilter: "blur(24px)" }}>
 
@@ -259,8 +259,8 @@ export default function RegisterPage() {
                     onKeyDown={(e) => handleOtpKey(i, e)}
                     className="w-11 h-14 text-center text-xl font-bold text-white rounded-xl border transition-all focus:outline-none"
                     style={{
-                      background: digit ? "rgba(20,167,249,0.12)" : "rgba(255,255,255,0.04)",
-                      borderColor: digit ? "rgba(20,167,249,0.4)" : "rgba(255,255,255,0.1)",
+                      background: digit ? "rgba(249,115,22,0.12)" : "rgba(255,255,255,0.04)",
+                      borderColor: digit ? "rgba(249,115,22,0.4)" : "rgba(255,255,255,0.1)",
                     }}
                     autoFocus={i === 0}
                   />

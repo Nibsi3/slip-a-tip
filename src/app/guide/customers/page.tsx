@@ -59,9 +59,9 @@ function QrScanScreen() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="grid grid-cols-5 gap-0.5 opacity-25">{Array.from({ length: 25 }).map((_, i) => (<div key={i} className="w-2.5 h-2.5 rounded-sm" style={{ background: [0,1,2,4,5,6,10,12,14,18,20,22,23,24].includes(i) ? "white" : "transparent" }} />))}</div>
           </div>
-          <div className="absolute left-2 right-2 h-0.5 bg-accent/70 rounded-full top-[45%]" style={{ boxShadow: "0 0 10px rgba(20,167,249,0.5)" }} />
+          <div className="absolute left-2 right-2 h-0.5 bg-accent/70 rounded-full top-[45%]" style={{ boxShadow: "0 0 10px rgba(249,115,22,0.5)" }} />
         </div>
-        <div className="mt-4 w-full rounded-xl px-3 py-2.5 ring-1 ring-accent/30 flex items-center gap-2" style={{ background: "rgba(20,167,249,0.08)" }}>
+        <div className="mt-4 w-full rounded-xl px-3 py-2.5 ring-1 ring-accent/30 flex items-center gap-2" style={{ background: "rgba(249,115,22,0.08)" }}>
           <svg className="h-3.5 w-3.5 text-accent shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m9.86-2.576a4.5 4.5 0 00-6.364-6.364L4.5 8.25" /></svg>
           <span className="text-[9px] text-accent truncate">slipatip.co.za/tip/thabo-m...</span>
         </div>
@@ -87,7 +87,7 @@ function AmountScreen() {
         </div>
         <p className="text-[7px] text-white/30 uppercase tracking-wider mb-1.5">Select amount</p>
         <div className="grid grid-cols-3 gap-1">
-          {[15,20,50,100,200].map((a,i)=>{const sel=i===2;return(<div key={a} className="py-2 text-center text-[10px] font-bold rounded-md" style={{ background: sel?"rgba(20,167,249,0.15)":"rgba(255,255,255,0.04)", color: sel?"#14a7f9":"rgba(255,255,255,0.35)", border: sel?"1px solid rgba(20,167,249,0.3)":"1px solid rgba(255,255,255,0.06)", transform: sel?"scale(1.04)":"scale(1)" }}>R{a}</div>);})}
+          {[15,20,50,100,200].map((a,i)=>{const sel=i===2;return(<div key={a} className="py-2 text-center text-[10px] font-bold rounded-md" style={{ background: sel?"rgba(249,115,22,0.15)":"rgba(255,255,255,0.04)", color: sel?"#f97316":"rgba(255,255,255,0.35)", border: sel?"1px solid rgba(249,115,22,0.3)":"1px solid rgba(255,255,255,0.06)", transform: sel?"scale(1.04)":"scale(1)" }}>R{a}</div>);})}
         </div>
         <div className="mt-2.5 flex items-center justify-between">
           <span className="text-[8px] text-white/30">Total</span>
@@ -224,7 +224,7 @@ export default function CustomerGuidePage() {
                 {/* Text */}
                 <div className="flex-1 text-center md:text-left">
                   <div className="inline-flex items-center gap-2 mb-3">
-                    <div className="h-8 w-8 rounded-full flex items-center justify-center text-[10px] font-bold text-accent ring-1 ring-accent/20" style={{ background: "rgba(20,167,249,0.08)" }}>{s.num}</div>
+                    <div className="h-8 w-8 rounded-full flex items-center justify-center text-[10px] font-bold text-accent ring-1 ring-accent/20" style={{ background: "rgba(249,115,22,0.08)" }}>{s.num}</div>
                     <span className="text-[10px] font-bold text-accent/40 uppercase tracking-wider">Step {s.num}</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-white">{s.title}</h2>

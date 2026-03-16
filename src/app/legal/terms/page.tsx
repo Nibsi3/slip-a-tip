@@ -20,7 +20,7 @@ export default function TermsPage() {
         <div className="mx-auto max-w-4xl">
           {/* Title */}
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(249,115,22,0.07)" }}>
               <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
               Legal Agreement
             </div>
@@ -31,8 +31,8 @@ export default function TermsPage() {
           </div>
 
           {/* Effective date notice */}
-          <div className="rounded-2xl p-6 ring-1 ring-accent/20 mb-10 flex items-start gap-4" style={{ background: "rgba(20,167,249,0.03)" }}>
-            <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.1)" }}>
+          <div className="rounded-2xl p-6 ring-1 ring-accent/20 mb-10 flex items-start gap-4" style={{ background: "rgba(249,115,22,0.03)" }}>
+            <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.1)" }}>
               <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
             </div>
             <div>
@@ -85,7 +85,7 @@ export default function TermsPage() {
                     "Cumulative earnings above R3,000 will trigger a \"Hard-FICA\" (Tier 2) requirement — Proof of Address (not older than 3 months) and biometric liveness check (selfie).",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold text-accent" style={{ background: "rgba(20,167,249,0.12)" }}>{i + 1}</div>
+                      <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] font-bold text-accent" style={{ background: "rgba(249,115,22,0.12)" }}>{i + 1}</div>
                       <span>{item}</span>
                     </div>
                   ))}
@@ -246,7 +246,7 @@ export default function TermsPage() {
             </section>
 
             {/* 12. Paystack Marketplace & Split Payments */}
-            <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-accent/15" style={{ background: "rgba(20,167,249,0.02)" }}>
+            <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-accent/15" style={{ background: "rgba(249,115,22,0.02)" }}>
               <h2 className="text-xl font-bold text-white mb-4">12. Paystack Marketplace & Split Payments</h2>
               <div className="text-sm text-white/45 leading-relaxed space-y-4">
                 <p><strong className="text-white/70">12.1.</strong> Slip a Tip utilises Paystack (a PCI-DSS Level 1 Service Provider owned by Stripe) to facilitate payments. By using the Platform, the User agrees to the creation of a <strong className="text-white/70">Paystack Subaccount</strong> in their name.</p>
@@ -345,7 +345,7 @@ export default function TermsPage() {
                 "I agree that Slip a Tip reserves the right to debit my balance for any chargebacks or disputed transactions, and that a resulting negative balance constitutes a debt I must repay from future tips.",
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-3 rounded-xl p-3 ring-1 ring-white/[0.05]" style={{ background: "rgba(255,255,255,0.015)" }}>
-                  <div className="h-5 w-5 rounded flex items-center justify-center shrink-0 mt-0.5 ring-1 ring-accent/30" style={{ background: "rgba(20,167,249,0.08)" }}>
+                  <div className="h-5 w-5 rounded flex items-center justify-center shrink-0 mt-0.5 ring-1 ring-accent/30" style={{ background: "rgba(249,115,22,0.08)" }}>
                     <svg className="h-3 w-3 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                   </div>
                   <span className="text-sm text-white/50 leading-relaxed">{item}</span>
@@ -355,7 +355,7 @@ export default function TermsPage() {
           </div>
 
           {/* Contact */}
-          <div className="mt-8 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(20,167,249,0.03)" }}>
+          <div className="mt-8 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(249,115,22,0.03)" }}>
             <h2 className="text-lg font-bold text-white mb-2">Questions About These Terms?</h2>
             <p className="text-sm text-white/40 mb-5">Contact our legal team for clarification on any provision.</p>
             <a href="mailto:legal@slipatip.co.za" className="btn-primary !py-2.5 !px-5 text-sm">Contact: legal@slipatip.co.za</a>

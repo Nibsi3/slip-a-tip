@@ -16,7 +16,7 @@ export default function HeroGradient() {
               top: "10%",
               left: "20%",
               background:
-                "radial-gradient(circle, rgba(20,167,249,0.45) 0%, rgba(20,167,249,0.22) 40%, transparent 70%)",
+                "radial-gradient(circle, rgba(249,115,22,0.45) 0%, rgba(249,115,22,0.22) 40%, transparent 70%)",
               filter: "blur(60px)",
               animation: "blob1 8s ease-in-out infinite",
               willChange: "transform",
@@ -47,7 +47,7 @@ export default function HeroGradient() {
               bottom: "5%",
               left: "10%",
               background:
-                "radial-gradient(circle, rgba(59,130,246,0.32) 0%, rgba(20,167,249,0.18) 40%, transparent 70%)",
+                "radial-gradient(circle, rgba(59,130,246,0.32) 0%, rgba(249,115,22,0.18) 40%, transparent 70%)",
               filter: "blur(60px)",
               animation: "blob3 12s ease-in-out infinite",
               willChange: "transform",
@@ -63,7 +63,7 @@ export default function HeroGradient() {
               top: "40%",
               left: "35%",
               background:
-                "radial-gradient(circle, rgba(59,130,246,0.18) 0%, rgba(20,167,249,0.1) 40%, transparent 70%)",
+                "radial-gradient(circle, rgba(59,130,246,0.18) 0%, rgba(249,115,22,0.1) 40%, transparent 70%)",
               filter: "blur(80px)",
               animation: "blob4 9s ease-in-out infinite",
               willChange: "transform",
@@ -78,7 +78,7 @@ export default function HeroGradient() {
               height: "30%",
               top: "15%",
               left: "40%",
-              background: "radial-gradient(circle, rgba(20,167,249,0.22) 0%, transparent 60%)",
+              background: "radial-gradient(circle, rgba(249,115,22,0.22) 0%, transparent 60%)",
               filter: "blur(40px)",
               animation: "blob5 7s ease-in-out infinite",
               willChange: "transform",

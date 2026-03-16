@@ -20,7 +20,7 @@ export default function FicaPage() {
         <div className="mx-auto max-w-4xl">
           {/* Title */}
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(249,115,22,0.07)" }}>
               <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" /></svg>
               Identity Verification
             </div>
@@ -40,9 +40,9 @@ export default function FicaPage() {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Tier 1 */}
               <div className="rounded-2xl ring-1 ring-white/[0.08] overflow-hidden" style={{ background: "rgba(255,255,255,0.02)" }}>
-                <div className="px-6 py-4 border-b border-white/[0.06]" style={{ background: "rgba(20,167,249,0.05)" }}>
+                <div className="px-6 py-4 border-b border-white/[0.06]" style={{ background: "rgba(249,115,22,0.05)" }}>
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-lg flex items-center justify-center text-xs font-bold text-accent" style={{ background: "rgba(20,167,249,0.15)" }}>T1</div>
+                    <div className="h-8 w-8 rounded-lg flex items-center justify-center text-xs font-bold text-accent" style={{ background: "rgba(249,115,22,0.15)" }}>T1</div>
                     <div>
                       <h3 className="text-base font-bold text-white">Tier 1 — Instant</h3>
                       <p className="text-[11px] text-white/40">Required at registration</p>
@@ -58,7 +58,7 @@ export default function FicaPage() {
                     "Bank account in the user's legal name",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.12)" }}>
+                      <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(249,115,22,0.12)" }}>
                         <svg className="h-2.5 w-2.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                       </div>
                       <span className="text-sm text-white/50">{item}</span>
@@ -141,7 +141,7 @@ export default function FicaPage() {
               },
             ].map((item) => (
               <div key={item.title} className="rounded-2xl p-6 ring-1 ring-white/[0.07] flex items-start gap-5" style={{ background: "rgba(255,255,255,0.02)" }}>
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.08)" }}>{item.icon}</div>
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.08)" }}>{item.icon}</div>
                 <div>
                   <h3 className="text-base font-bold text-white mb-1.5">{item.title}</h3>
                   <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
@@ -166,7 +166,7 @@ export default function FicaPage() {
           </div>
 
           {/* Contact */}
-          <div className="mt-8 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(20,167,249,0.03)" }}>
+          <div className="mt-8 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(249,115,22,0.03)" }}>
             <h2 className="text-lg font-bold text-white mb-2">Questions About FICA?</h2>
             <p className="text-sm text-white/40 mb-5">Our compliance team is available to assist with any verification queries.</p>
             <a href="mailto:legal@slipatip.co.za" className="btn-primary !py-2.5 !px-5 text-sm">Contact: legal@slipatip.co.za</a>

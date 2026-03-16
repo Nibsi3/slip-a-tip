@@ -42,7 +42,7 @@ function HeroDemoCard() {
       style={{
         background: "rgba(8,8,14,0.92)",
         backdropFilter: "blur(32px)",
-        boxShadow: "0 0 0 1px rgba(20,167,249,0.08), 0 32px 80px rgba(0,0,0,0.7), 0 0 120px rgba(20,167,249,0.06)",
+        boxShadow: "0 0 0 1px rgba(249,115,22,0.08), 0 32px 80px rgba(0,0,0,0.7), 0 0 120px rgba(249,115,22,0.06)",
       }}
     >
       {/* ── Top bar ── */}
@@ -64,7 +64,7 @@ function HeroDemoCard() {
               className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold capitalize transition-all duration-200 ${
                 tab === t ? "text-white" : "text-white/35 hover:text-white/60"
               }`}
-              style={tab === t ? { background: "rgba(20,167,249,0.15)", boxShadow: "inset 0 0 0 1px rgba(20,167,249,0.25)" } : {}}
+              style={tab === t ? { background: "rgba(249,115,22,0.15)", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.25)" } : {}}
             >
               {t}
             </button>
@@ -78,7 +78,7 @@ function HeroDemoCard() {
           {/* Worker profile */}
           <div className="px-5 py-4 border-b border-white/[0.05] flex items-center gap-3">
             <div className="relative shrink-0">
-              <div className="h-11 w-11 rounded-full flex items-center justify-center text-base font-extrabold text-accent ring-1 ring-accent/25" style={{ background: "rgba(20,167,249,0.1)" }}>T</div>
+              <div className="h-11 w-11 rounded-full flex items-center justify-center text-base font-extrabold text-accent ring-1 ring-accent/25" style={{ background: "rgba(249,115,22,0.1)" }}>T</div>
               <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-green-400 ring-2 ring-[#08080e]" />
             </div>
             <div className="flex-1 min-w-0">
@@ -108,7 +108,7 @@ function HeroDemoCard() {
                     }`}
                     style={
                       selected === i
-                        ? { background: "linear-gradient(135deg, rgba(20,167,249,0.25), rgba(20,167,249,0.1))", boxShadow: "inset 0 0 0 1px rgba(20,167,249,0.4), 0 4px 16px rgba(20,167,249,0.15)" }
+                        ? { background: "linear-gradient(135deg, rgba(249,115,22,0.25), rgba(249,115,22,0.1))", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.4), 0 4px 16px rgba(249,115,22,0.15)" }
                         : { background: "rgba(255,255,255,0.03)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }
                     }
                   >
@@ -133,7 +133,7 @@ function HeroDemoCard() {
               <button
                 onClick={() => setPaid(true)}
                 className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-                style={{ background: "linear-gradient(135deg, #14a7f9 0%, #0e84c8 100%)", boxShadow: "0 4px 24px rgba(20,167,249,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}
+                style={{ background: "linear-gradient(135deg, #f97316 0%, #0e84c8 100%)", boxShadow: "0 4px 24px rgba(249,115,22,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}
               >
                 <span className="flex items-center justify-center gap-2">
                   <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" /></svg>
@@ -165,7 +165,7 @@ function HeroDemoCard() {
       {/* ── TAB: WALLET ── */}
       {tab === "wallet" && (
         <div className="px-5 py-5">
-          <div className="rounded-xl p-4 mb-4" style={{ background: "linear-gradient(135deg, rgba(20,167,249,0.12), rgba(20,167,249,0.04))", boxShadow: "inset 0 0 0 1px rgba(20,167,249,0.15)" }}>
+          <div className="rounded-xl p-4 mb-4" style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.04))", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.15)" }}>
             <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2">Available balance</div>
             <div className="text-4xl font-extrabold text-white">R 1,245<span className="text-xl text-white/35">.50</span></div>
             <div className="mt-2 flex items-center gap-2">
@@ -187,7 +187,7 @@ function HeroDemoCard() {
             ))}
           </div>
           <div className="flex gap-2">
-            <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white" style={{ background: "linear-gradient(135deg, #14a7f9, #0e84c8)", boxShadow: "0 4px 16px rgba(20,167,249,0.3)" }}>Instant Money</button>
+            <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white" style={{ background: "linear-gradient(135deg, #f97316, #0e84c8)", boxShadow: "0 4px 16px rgba(249,115,22,0.3)" }}>Instant Money</button>
             <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white/60" style={{ background: "rgba(255,255,255,0.05)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}>Bank EFT</button>
           </div>
         </div>
@@ -210,10 +210,10 @@ function HeroDemoCard() {
                   i === feedIdx % LIVE_FEED.length ? "ring-1 ring-accent/20" : ""
                 }`}
                 style={{
-                  background: i === feedIdx % LIVE_FEED.length ? "rgba(20,167,249,0.07)" : "rgba(255,255,255,0.02)",
+                  background: i === feedIdx % LIVE_FEED.length ? "rgba(249,115,22,0.07)" : "rgba(255,255,255,0.02)",
                 }}
               >
-                <div className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold text-accent shrink-0" style={{ background: "rgba(20,167,249,0.1)" }}>
+                <div className="h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold text-accent shrink-0" style={{ background: "rgba(249,115,22,0.1)" }}>
                   {item.name[0]}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -265,8 +265,8 @@ export default function HomePage() {
 
       <main>
         {/* ===== HERO ===== */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          {/* Background image */}
+        <section className="relative min-h-screen flex flex-col overflow-hidden">
+          {/* Full-bleed background */}
           <div className="absolute inset-0 z-0">
             <Image
               src="/photos/9df0b484-9692-44cf-be76-f2660b61a30d_3840w.jpg"
@@ -275,88 +275,109 @@ export default function HomePage() {
               quality={95}
               priority
               className="object-cover object-center"
-              style={{ opacity: 0.45 }}
+              style={{ opacity: 0.5 }}
             />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(3,3,6,0.82) 0%, rgba(3,3,6,0.35) 50%, rgba(3,3,6,0.82) 100%)" }} />
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(20,167,249,0.09) 0%, transparent 70%)" }} />
+            {/* Orange radial glow — right side like FlowArt */}
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 70% at 68% 40%, rgba(249,115,22,0.45) 0%, rgba(180,60,0,0.2) 40%, transparent 70%)" }} />
+            {/* Dark vignette */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(3,3,6,0.97) 0%, rgba(3,3,6,0.7) 45%, rgba(3,3,6,0.15) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(3,3,6,1) 0%, transparent 30%)" }} />
           </div>
 
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-24 pb-16">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Left — text */}
-              <div className="text-center lg:text-left">
-                <ScrollReveal>
-                  <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-8" style={{ background: "rgba(20,167,249,0.07)" }}>
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse inline-block" />
-                    Built for South Africa &middot; Powered by Paystack
-                  </div>
-                </ScrollReveal>
+          {/* Decorative circle ring — FlowArt style */}
+          <div className="absolute right-[8%] top-[10%] w-[420px] h-[420px] rounded-full border border-white/[0.06] z-[1] pointer-events-none" />
+          <div className="absolute right-[12%] top-[16%] w-[280px] h-[280px] rounded-full border border-accent/[0.12] z-[1] pointer-events-none" />
 
-                <ScrollReveal delay={0.1}>
-                  <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[0.92]">
-                    <span className="text-white">Digital</span>
-                    <br />
-                    <span className="bg-gradient-to-r from-accent-300 via-accent to-accent-600 bg-clip-text text-transparent">
-                      Tipping
-                    </span>
-                    <br />
-                    <span className="text-white/60 text-4xl sm:text-5xl font-bold">Made Simple</span>
-                  </h1>
-                </ScrollReveal>
+          {/* Oversized background word — FlowArt "Smart Design" style */}
+          <div className="absolute inset-0 flex items-center z-[1] pointer-events-none overflow-hidden" aria-hidden>
+            <span
+              className="font-extrabold tracking-tight text-white select-none"
+              style={{ fontSize: "clamp(5rem, 18vw, 18rem)", lineHeight: 0.85, opacity: 0.04, whiteSpace: "nowrap", marginLeft: "-0.05em" }}
+            >
+              Slip a Tip
+            </span>
+          </div>
 
-                <ScrollReveal delay={0.2}>
-                  <p className="mt-7 max-w-lg text-base sm:text-lg text-white/75 leading-relaxed">
-                    Workers get a personal QR code. Customers scan, pick an amount,
-                    and pay instantly. Tips land in a digital wallet — transparent and effortless.
-                  </p>
-                </ScrollReveal>
+          {/* Content */}
+          <div className="relative z-10 flex-1 flex flex-col justify-end pb-16 lg:pb-20">
+            <div className="w-full max-w-7xl mx-auto px-6 pt-32">
+              <div className="grid lg:grid-cols-[1fr_420px] gap-12 xl:gap-20 items-end">
 
-                <ScrollReveal delay={0.3}>
-                  <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-                    <Link href="/auth/register" className="btn-primary !py-4 !px-10 text-base">
-                      Get started free
-                    </Link>
-                    <Link href="#demo" className="btn-secondary !py-4 !px-10 text-base">
-                      Watch demo
-                    </Link>
-                  </div>
-                </ScrollReveal>
+                {/* Left — bold bottom-anchored text like FlowArt */}
+                <div>
+                  <ScrollReveal>
+                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent mb-5 flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                      Built for South Africa &middot; Powered by Stitch Instant EFT
+                    </p>
+                  </ScrollReveal>
 
-                <ScrollReveal delay={0.4}>
-                  <div className="mt-12 flex items-center gap-8 justify-center lg:justify-start">
-                    {[
-                      { value: "R0", label: "Setup cost" },
-                      { value: "10%", label: "Total fee" },
-                      { value: "Instant", label: "Payments" },
-                    ].map((s, i) => (
-                      <div key={s.label} className="text-center lg:text-left">
-                        {i !== 0 && <div className="absolute -left-4 top-0 h-full w-px bg-white/10" />}
-                        <div className="relative text-2xl font-extrabold text-white">{s.value}</div>
-                        <div className="mt-0.5 text-xs text-white/40 uppercase tracking-wider">{s.label}</div>
+                  <ScrollReveal delay={0.05}>
+                    <h1
+                      className="font-extrabold text-white leading-none tracking-tight"
+                      style={{ fontSize: "clamp(3.5rem, 9vw, 8rem)" }}
+                    >
+                      Cashless<br />
+                      <span className="bg-gradient-to-r from-accent-300 via-accent to-orange-600 bg-clip-text text-transparent">Tipping</span>
+                    </h1>
+                  </ScrollReveal>
+
+                  <ScrollReveal delay={0.15}>
+                    <div className="mt-8 max-w-sm">
+                      <p className="text-white/55 text-base leading-relaxed">Workers get a personal QR code. Customers scan, pick an amount, and pay via WhatsApp. Tips land in a wallet — instantly.</p>
+                    </div>
+                  </ScrollReveal>
+
+                  <ScrollReveal delay={0.22}>
+                    <div className="mt-8 flex items-center gap-4">
+                      <Link
+                        href="/auth/register"
+                        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-[#030306] transition-all hover:scale-[1.03]"
+                        style={{ background: "linear-gradient(135deg, #fdba74 0%, #f97316 50%, #ea6a0a 100%)", boxShadow: "0 8px 32px rgba(249,115,22,0.4)" }}
+                      >
+                        Start Now
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15M19.5 4.5H4.5v15" /></svg>
+                      </Link>
+                      <Link href="#demo" className="text-sm font-medium text-white/50 hover:text-white transition-colors">
+                        See how it works &rarr;
+                      </Link>
+                    </div>
+                  </ScrollReveal>
+
+                  {/* Stats bar — FlowArt style */}
+                  <ScrollReveal delay={0.3}>
+                    <div className="mt-12 flex items-center gap-8">
+                      <div className="flex items-center gap-3 px-5 py-3 rounded-2xl" style={{ background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.2)" }}>
+                        <span className="text-2xl font-extrabold text-white">98%</span>
+                        <span className="text-[11px] text-white/40 leading-tight">Satisfaction<br />rate</span>
                       </div>
-                    ))}
-                  </div>
+                      <div className="h-10 w-px bg-white/[0.08]" />
+                      <div>
+                        <div className="flex items-center gap-1 mb-1">
+                          {[...Array(5)].map((_,i)=>(<svg key={i} className="h-3 w-3 text-accent" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>))}
+                        </div>
+                        <div className="text-xs text-white/40">9,500+ workers tipped</div>
+                      </div>
+                    </div>
+                  </ScrollReveal>
+                </div>
+
+                {/* Right — demo card */}
+                <ScrollReveal delay={0.2} direction="right">
+                  <HeroDemoCard />
                 </ScrollReveal>
               </div>
-
-              {/* Right — rich interactive demo card */}
-              <ScrollReveal delay={0.3} direction="right">
-                <HeroDemoCard />
-              </ScrollReveal>
             </div>
           </div>
-
-          {/* Bottom fade */}
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#030306] to-transparent z-10" />
         </section>
 
         {/* ===== ANIMATED DEMO ===== */}
         <section id="demo" className="relative py-24 sm:py-32 overflow-hidden">
-          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(20,167,249,0.04) 0%, transparent 70%)" }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(249,115,22,0.05) 0%, transparent 70%)" }} />
           <div className="relative mx-auto max-w-7xl px-6">
             <ScrollReveal>
               <div className="text-center mb-14">
-                <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+                <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-accent/20 mb-6" style={{ background: "rgba(249,115,22,0.08)" }}>
                   <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" /></svg>
                   See it in action
                 </div>
@@ -418,7 +439,7 @@ export default function HomePage() {
                   ].map((item, i) => (
                     <ScrollReveal key={item.step} delay={i * 0.12}>
                       <div className="flex gap-5">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold text-accent ring-1 ring-accent/20" style={{ background: "rgba(20,167,249,0.08)" }}>
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold text-accent ring-1 ring-accent/20" style={{ background: "rgba(249,115,22,0.08)" }}>
                           {item.step}
                         </div>
                         <div>
@@ -480,7 +501,7 @@ export default function HomePage() {
                 <div className="rounded-2xl p-8 ring-1 ring-white/[0.09]" style={{ background: "rgba(8,8,14,0.85)", backdropFilter: "blur(24px)" }}>
                   <div className="flex items-center justify-between mb-8">
                     <div className="text-xs font-medium text-white/30 uppercase tracking-widest">For all workers</div>
-                    <div className="rounded-full px-3 py-1 text-[10px] font-semibold text-accent ring-1 ring-accent/25" style={{ background: "rgba(20,167,249,0.1)" }}>
+                    <div className="rounded-full px-3 py-1 text-[10px] font-semibold text-accent ring-1 ring-accent/25" style={{ background: "rgba(249,115,22,0.1)" }}>
                       Free forever
                     </div>
                   </div>
@@ -497,7 +518,7 @@ export default function HomePage() {
                       "No platform withdrawal fees",
                     ].map((x) => (
                       <div key={x} className="flex items-center gap-3">
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full shrink-0" style={{ background: "rgba(20,167,249,0.12)" }}>
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full shrink-0" style={{ background: "rgba(249,115,22,0.12)" }}>
                           <svg className="h-2.5 w-2.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                           </svg>

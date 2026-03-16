@@ -128,7 +128,7 @@ export default function DashboardLayout({
           <div className="flex items-center gap-4">
             {user && (
               <div className="hidden sm:flex items-center gap-2">
-                <div className="h-6 w-6 rounded-full bg-accent/15 flex items-center justify-center text-[10px] font-bold text-accent">
+                <div className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style={{ background: "rgba(249,115,22,0.25)" }}>
                   {user.firstName?.charAt(0)}
                 </div>
                 <span className="text-xs text-white/50">
@@ -151,19 +151,20 @@ export default function DashboardLayout({
                 key={item.href}
                 href={item.href}
                 prefetch={true}
-                className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                   pathname === item.href
-                    ? "bg-white/[0.08] text-white"
-                    : "text-white/60 hover:bg-white/[0.05] hover:text-white"
+                    ? "text-white"
+                    : "text-white/50 hover:bg-white/[0.04] hover:text-white"
                 }`}
+                style={pathname === item.href ? { background: "rgba(249,115,22,0.12)", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.2)" } : {}}
               >
-                <span className={pathname === item.href ? "text-accent" : "text-white/40"}>{item.icon}</span>
+                <span className={pathname === item.href ? "text-accent" : "text-white/35"}>{item.icon}</span>
                 {item.label}
               </Link>
             ))}
           </nav>
           <div className="p-3 border-t border-white/[0.06]">
-            <div className="px-3 py-2 text-[10px] text-white/30 uppercase tracking-wider">Slip a Tip &middot; Digital Tipping</div>
+            <div className="px-3 py-2 text-[10px] text-white/20 uppercase tracking-wider">Slip a Tip &middot; Digital Tipping</div>
           </div>
         </aside>
 
@@ -178,13 +179,14 @@ export default function DashboardLayout({
                     href={item.href}
                     prefetch={true}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all ${
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                       pathname === item.href
-                        ? "bg-white/[0.08] text-white"
-                        : "text-white/60 hover:bg-white/[0.05] hover:text-white"
+                        ? "text-white"
+                        : "text-white/50 hover:bg-white/[0.04] hover:text-white"
                     }`}
+                    style={pathname === item.href ? { background: "rgba(249,115,22,0.12)", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.2)" } : {}}
                   >
-                    <span className={pathname === item.href ? "text-accent" : "text-white/40"}>{item.icon}</span>
+                    <span className={pathname === item.href ? "text-accent" : "text-white/35"}>{item.icon}</span>
                     {item.label}
                   </Link>
                 ))}

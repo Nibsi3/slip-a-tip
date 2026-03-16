@@ -20,7 +20,7 @@ export default function PaiaPage() {
         <div className="mx-auto max-w-4xl">
           {/* Page title */}
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(249,115,22,0.07)" }}>
               <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
               Legal Compliance
             </div>
@@ -33,7 +33,7 @@ export default function PaiaPage() {
           {/* Download Card */}
           <div className="rounded-2xl p-6 sm:p-8 ring-1 ring-white/[0.08] mb-10" style={{ background: "rgba(8,8,14,0.9)", backdropFilter: "blur(24px)" }}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <div className="h-14 w-14 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.1)" }}>
+              <div className="h-14 w-14 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.1)" }}>
                 <svg className="h-7 w-7 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
               </div>
               <div className="flex-1">
@@ -56,7 +56,7 @@ export default function PaiaPage() {
             {/* What is PAIA */}
             <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-white/[0.07]" style={{ background: "rgba(255,255,255,0.02)" }}>
               <div className="flex items-start gap-4 mb-5">
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.08)" }}>
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.08)" }}>
                   <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" /></svg>
                 </div>
                 <div>
@@ -71,7 +71,7 @@ export default function PaiaPage() {
             {/* Our obligations */}
             <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-white/[0.07]" style={{ background: "rgba(255,255,255,0.02)" }}>
               <div className="flex items-start gap-4 mb-5">
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.08)" }}>
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.08)" }}>
                   <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
                 <h2 className="text-xl font-bold text-white">Our Obligations</h2>
@@ -94,7 +94,7 @@ export default function PaiaPage() {
             {/* How to request access */}
             <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-white/[0.07]" style={{ background: "rgba(255,255,255,0.02)" }}>
               <div className="flex items-start gap-4 mb-5">
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.08)" }}>
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.08)" }}>
                   <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12H9.75m3 0H9.75m0 0v.375c0 .621.504 1.125 1.125 1.125h.375" /></svg>
                 </div>
                 <h2 className="text-xl font-bold text-white">How to Request Access</h2>
@@ -107,7 +107,7 @@ export default function PaiaPage() {
                   { step: "4", title: "Receive a response", desc: "We will respond within 30 days. If access is refused, we will provide reasons and inform you of your right to appeal." },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-4">
-                    <div className="h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold text-accent" style={{ background: "rgba(20,167,249,0.1)" }}>
+                    <div className="h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold text-accent" style={{ background: "rgba(249,115,22,0.1)" }}>
                       {item.step}
                     </div>
                     <div>
@@ -147,7 +147,7 @@ export default function PaiaPage() {
             </section>
 
             {/* Contact */}
-            <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(20,167,249,0.03)" }}>
+            <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(249,115,22,0.03)" }}>
               <h2 className="text-lg font-bold text-white mb-2">Need More Information?</h2>
               <p className="text-sm text-white/40 mb-5">Contact our Information Officer for any PAIA-related enquiries.</p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

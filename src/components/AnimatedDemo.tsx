@@ -84,7 +84,7 @@ function DemoPhone({ step, progress }: { step: number; progress: number }) {
               className="absolute left-3 right-3 h-0.5 bg-accent/70 rounded-full"
               style={{
                 top: `${25 + (progress % 100) * 0.5}%`,
-                boxShadow: "0 0 14px rgba(20,167,249,0.6)",
+                boxShadow: "0 0 14px rgba(249,115,22,0.6)",
                 transition: "top 0.15s linear",
               }}
             />
@@ -124,9 +124,9 @@ function DemoPhone({ step, progress }: { step: number; progress: number }) {
                   key={a}
                   className="py-2.5 text-center text-xs font-bold rounded-lg transition-all duration-500"
                   style={{
-                    background: sel ? "rgba(20,167,249,0.15)" : "rgba(255,255,255,0.04)",
-                    color: sel ? "#14a7f9" : "rgba(255,255,255,0.35)",
-                    border: sel ? "1px solid rgba(20,167,249,0.3)" : "1px solid rgba(255,255,255,0.06)",
+                    background: sel ? "rgba(249,115,22,0.15)" : "rgba(255,255,255,0.04)",
+                    color: sel ? "#f97316" : "rgba(255,255,255,0.35)",
+                    border: sel ? "1px solid rgba(249,115,22,0.3)" : "1px solid rgba(255,255,255,0.06)",
                     transform: sel ? "scale(1.06)" : "scale(1)",
                   }}
                 >
@@ -274,7 +274,7 @@ export default function AnimatedDemo() {
                 <div
                   className="h-full rounded-full transition-all duration-200"
                   style={{
-                    background: step >= s.id ? "#14a7f9" : "transparent",
+                    background: step >= s.id ? "#f97316" : "transparent",
                     width: step > s.id ? "100%" : step === s.id ? `${progress}%` : "0%",
                   }}
                 />
@@ -308,7 +308,7 @@ export default function AnimatedDemo() {
                   <div className="flex items-center gap-3 mb-3">
                     <div
                       className="h-9 w-9 rounded-xl flex items-center justify-center text-xs font-bold text-accent"
-                      style={{ background: "rgba(20,167,249,0.1)" }}
+                      style={{ background: "rgba(249,115,22,0.1)" }}
                     >
                       {s.id}
                     </div>

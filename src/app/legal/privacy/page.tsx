@@ -20,7 +20,7 @@ export default function PrivacyPage() {
         <div className="mx-auto max-w-4xl">
           {/* Title */}
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(249,115,22,0.07)" }}>
               <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
               Your Privacy Matters
             </div>
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
                 ].map((item) => (
                   <div key={item.category} className="rounded-xl p-4 ring-1 ring-white/[0.05]" style={{ background: "rgba(255,255,255,0.015)" }}>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.08)" }}>{item.icon}</div>
+                      <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.08)" }}>{item.icon}</div>
                       <h3 className="text-sm font-semibold text-white">{item.category}</h3>
                     </div>
                     <ul className="space-y-1">
@@ -112,7 +112,7 @@ export default function PrivacyPage() {
                   { purpose: "Legal Compliance", desc: "To comply with applicable laws, regulations, and lawful requests from authorities." },
                 ].map((item) => (
                   <div key={item.purpose} className="flex items-start gap-3">
-                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.12)" }}>
+                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(249,115,22,0.12)" }}>
                       <svg className="h-2.5 w-2.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                     </div>
                     <div>
@@ -178,7 +178,7 @@ export default function PrivacyPage() {
                     { period: "On Request", desc: "If you leave the platform and no legal retention period applies, we will delete your personal data upon request." },
                   ].map((item) => (
                     <div key={item.period} className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.12)" }}>
+                      <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(249,115,22,0.12)" }}>
                         <svg className="h-2.5 w-2.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                       </div>
                       <div>
@@ -192,7 +192,7 @@ export default function PrivacyPage() {
             </section>
 
             {/* 7. Your Rights */}
-            <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-accent/15" style={{ background: "rgba(20,167,249,0.02)" }}>
+            <section className="rounded-2xl p-6 sm:p-8 ring-1 ring-accent/15" style={{ background: "rgba(249,115,22,0.02)" }}>
               <h2 className="text-xl font-bold text-white mb-5">7. Your Rights Under POPIA</h2>
               <p className="text-sm text-white/45 leading-relaxed mb-5">As a data subject, you have the following rights:</p>
               <div className="grid sm:grid-cols-2 gap-4">
@@ -205,7 +205,7 @@ export default function PrivacyPage() {
                   { right: "Right to Withdraw Consent", desc: "Withdraw your consent to the processing of personal information at any time." },
                 ].map((item) => (
                   <div key={item.right} className="flex items-start gap-3">
-                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.12)" }}>
+                    <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(249,115,22,0.12)" }}>
                       <svg className="h-2.5 w-2.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                     </div>
                     <div>
@@ -256,7 +256,7 @@ export default function PrivacyPage() {
           </div>
 
           {/* Contact */}
-          <div className="mt-10 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(20,167,249,0.03)" }}>
+          <div className="mt-10 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(249,115,22,0.03)" }}>
             <h2 className="text-lg font-bold text-white mb-2">Privacy Enquiries</h2>
             <p className="text-sm text-white/40 mb-5">Contact our Information Officer for any privacy-related questions or to exercise your rights.</p>
             <a href="mailto:legal@slipatip.co.za" className="btn-primary !py-2.5 !px-5 text-sm">Contact: legal@slipatip.co.za</a>

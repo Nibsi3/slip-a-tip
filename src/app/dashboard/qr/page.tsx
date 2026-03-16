@@ -160,7 +160,7 @@ export default function QRCodePage() {
             { n: "5", t: "You get paid", d: "Funds land in your Slip a Tip wallet instantly. You'll get a WhatsApp notification too." },
           ].map((s) => (
             <div key={s.n} className="flex gap-4">
-              <div className="h-7 w-7 rounded-full flex items-center justify-center text-xs font-bold text-accent shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.1)" }}>{s.n}</div>
+              <div className="h-7 w-7 rounded-full flex items-center justify-center text-xs font-bold text-accent shrink-0 mt-0.5" style={{ background: "rgba(249,115,22,0.1)" }}>{s.n}</div>
               <div>
                 <div className="text-sm font-semibold text-white">{s.t}</div>
                 <div className="text-xs text-muted mt-0.5">{s.d}</div>
@@ -231,7 +231,7 @@ function PhysicalQRRequest() {
   return (
     <div className="card">
       <div className="flex items-start gap-3 mb-4">
-        <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(20,167,249,0.1)" }}>
+        <div className="h-8 w-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(249,115,22,0.1)" }}>
           <svg className="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" /></svg>
         </div>
         <div className="flex-1">

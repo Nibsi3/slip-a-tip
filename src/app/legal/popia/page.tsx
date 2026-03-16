@@ -20,7 +20,7 @@ export default function PopiaPage() {
         <div className="mx-auto max-w-4xl">
           {/* Title */}
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(20,167,249,0.07)" }}>
+            <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium text-white/70 ring-1 ring-white/[0.12] mb-6" style={{ background: "rgba(249,115,22,0.07)" }}>
               <svg className="h-3.5 w-3.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
               Data Protection
             </div>
@@ -44,7 +44,7 @@ export default function PopiaPage() {
                 { icon: (<svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>), title: "Right to Delete", desc: "Delete your data when you leave" },
               ].map((item) => (
                 <div key={item.title} className="text-center p-4 rounded-xl ring-1 ring-white/[0.05]" style={{ background: "rgba(255,255,255,0.015)" }}>
-                  <div className="mx-auto h-10 w-10 rounded-xl flex items-center justify-center mb-3" style={{ background: "rgba(20,167,249,0.08)" }}>{item.icon}</div>
+                  <div className="mx-auto h-10 w-10 rounded-xl flex items-center justify-center mb-3" style={{ background: "rgba(249,115,22,0.08)" }}>{item.icon}</div>
                   <h3 className="text-sm font-semibold text-white mb-1">{item.title}</h3>
                   <p className="text-[11px] text-white/35">{item.desc}</p>
                 </div>
@@ -100,7 +100,7 @@ export default function PopiaPage() {
               },
             ].map((item) => (
               <div key={item.num} className="rounded-2xl p-6 ring-1 ring-white/[0.07] flex items-start gap-5" style={{ background: "rgba(255,255,255,0.02)" }}>
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold text-accent" style={{ background: "rgba(20,167,249,0.1)" }}>
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold text-accent" style={{ background: "rgba(249,115,22,0.1)" }}>
                   {item.num}
                 </div>
                 <div>
@@ -145,7 +145,7 @@ export default function PopiaPage() {
                 { party: "Financial Intelligence Centre (FIC)", purpose: "To report suspicious transactions as required under the FIC Act." },
               ].map((item) => (
                 <div key={item.party} className="flex items-start gap-3">
-                  <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(20,167,249,0.12)" }}>
+                  <div className="h-5 w-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(249,115,22,0.12)" }}>
                     <svg className="h-2.5 w-2.5 text-accent" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                   </div>
                   <div>
@@ -158,7 +158,7 @@ export default function PopiaPage() {
           </div>
 
           {/* Your rights */}
-          <div className="mt-8 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(20,167,249,0.03)" }}>
+          <div className="mt-8 rounded-2xl p-6 sm:p-8 ring-1 ring-accent/20 text-center" style={{ background: "rgba(249,115,22,0.03)" }}>
             <h2 className="text-lg font-bold text-white mb-2">Exercise Your Rights</h2>
             <p className="text-sm text-white/40 mb-5">You have the right to access, correct, or delete your personal information at any time.</p>
             <a href="mailto:legal@slipatip.co.za" className="btn-primary !py-2.5 !px-5 text-sm">Contact: legal@slipatip.co.za</a>
