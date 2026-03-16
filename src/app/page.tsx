@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import ScrollReveal from "@/components/ScrollReveal";
 import GuidesDropdown from "@/components/GuidesDropdown";
 import AnimatedDemo from "@/components/AnimatedDemo";
 
 export default function HomePage() {
+  const [selectedTip, setSelectedTip] = useState(2);
+  const DEMO_AMOUNTS = [15, 30, 50, 75, 100, 200];
   return (
     <div className="min-h-screen" style={{ background: "#030306" }}>
       {/* Header */}
@@ -33,16 +36,16 @@ export default function HomePage() {
           {/* Background image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/photos/9df0b484-9692-44cf-be76-f2660b61a30d_3840w.jpg"
+              src="/photos/bc7dc7aa-b240-4884-91f8-a0b05b4343a1_3840w.webp"
               alt=""
               fill
-              quality={95}
+              quality={90}
               priority
               className="object-cover object-center"
-              style={{ opacity: 0.45 }}
+              style={{ opacity: 0.55, filter: "blur(3px) brightness(0.75) saturate(1.1)", transform: "scale(1.04)" }}
             />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(3,3,6,0.82) 0%, rgba(3,3,6,0.35) 50%, rgba(3,3,6,0.82) 100%)" }} />
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(20,167,249,0.09) 0%, transparent 70%)" }} />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(3,3,6,0.88) 0%, rgba(3,3,6,0.45) 50%, rgba(3,3,6,0.88) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(20,167,249,0.07) 0%, transparent 70%)" }} />
           </div>
 
           <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-24 pb-16">
@@ -135,22 +138,24 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  {/* Tip amounts */}
+                  {/* Tip amounts — interactive */}
                   <div className="px-6 py-4 border-b border-white/[0.06]">
                     <div className="text-[10px] font-medium text-white/30 uppercase tracking-widest mb-3">Choose amount</div>
                     <div className="grid grid-cols-3 gap-2">
-                      {["R15", "R20", "R50", "R100", "R200"].map((a, i) => (
-                        <div
-                          key={a}
-                          className={`px-3 py-2.5 text-center text-sm font-semibold rounded-lg transition-all ${
-                            i === 2
-                              ? "text-white ring-1 ring-accent/40"
-                              : "text-white/50 ring-1 ring-white/[0.06]"
+                      {DEMO_AMOUNTS.map((amt, i) => (
+                        <button
+                          key={amt}
+                          type="button"
+                          onClick={() => setSelectedTip(i)}
+                          className={`px-3 py-2.5 text-center text-sm font-semibold rounded-lg transition-all duration-200 ${
+                            selectedTip === i
+                              ? "text-white ring-1 ring-accent/50 scale-[1.04]"
+                              : "text-white/50 ring-1 ring-white/[0.06] hover:text-white/70 hover:ring-white/20"
                           }`}
-                          style={i === 2 ? { background: "rgba(20,167,249,0.15)" } : { background: "rgba(255,255,255,0.03)" }}
+                          style={selectedTip === i ? { background: "rgba(20,167,249,0.18)" } : { background: "rgba(255,255,255,0.03)" }}
                         >
-                          {a}
-                        </div>
+                          R{amt}
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -164,17 +169,17 @@ export default function HomePage() {
                       </div>
                       <div className="text-right">
                         <div className="text-[10px] text-white/30">Last tip</div>
-                        <div className="text-sm font-bold text-green-400">+R 50.00</div>
-                        <div className="text-[10px] text-white/25 mt-0.5">2 min ago</div>
+                        <div className="text-sm font-bold text-green-400">+R {DEMO_AMOUNTS[selectedTip]}.00</div>
+                        <div className="text-[10px] text-white/25 mt-0.5">just now</div>
                       </div>
                     </div>
-                    <div className="mt-4 flex gap-2">
-                      <div className="flex-1 py-2.5 text-center text-xs font-medium text-white/50 ring-1 ring-white/[0.07] rounded-lg" style={{ background: "rgba(255,255,255,0.03)" }}>
-                        Instant Money
-                      </div>
-                      <div className="flex-1 py-2.5 text-center text-xs font-medium text-white/50 ring-1 ring-white/[0.07] rounded-lg" style={{ background: "rgba(255,255,255,0.03)" }}>
-                        EFT
-                      </div>
+                    <div className="mt-4">
+                      <button
+                        className="w-full py-2.5 text-center text-sm font-semibold text-white rounded-xl transition-all"
+                        style={{ background: "linear-gradient(180deg, rgba(20,167,249,0.9) 0%, rgba(14,132,200,0.9) 100%)", boxShadow: "0 4px 20px rgba(20,167,249,0.25)" }}
+                      >
+                        Tip via WhatsApp — R{DEMO_AMOUNTS[selectedTip]}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -283,20 +288,7 @@ export default function HomePage() {
 
         {/* ===== PRICING ===== */}
         <section id="pricing" className="relative py-24 sm:py-32 overflow-hidden">
-          {/* Background image strip */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/photos/6f3bae5c-fdc6-4ff7-8902-1fb813c40789_3840w.jpg"
-              alt=""
-              fill
-              quality={95}
-              className="object-cover object-center"
-              style={{ opacity: 0.12 }}
-            />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, #030306 0%, rgba(3,3,6,0.7) 50%, #030306 100%)" }} />
-          </div>
-
-          <div className="relative z-10 mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Left — text */}
               <ScrollReveal>

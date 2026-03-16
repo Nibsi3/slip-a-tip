@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const STEPS = [
   { id: 1, title: "Scan the QR Code", sub: "Customer opens their camera", desc: "No app needed — just point and scan. The QR links directly to the worker's personal tip page." },
-  { id: 2, title: "Choose a Tip", sub: "Quick preset amounts", desc: "Pick R15, R20, R50, R100, or R200. Quick, simple, no fuss." },
+  { id: 2, title: "Choose a Tip", sub: "Quick preset amounts", desc: "Pick from R15, R30, R50, R75, R100, or R200. Quick, simple, no fuss." },
   { id: 3, title: "Pay Securely", sub: "3D Secure via Paystack", desc: "Card details handled by Paystack (PCI-DSS Level 1). Slip a Tip never sees your card." },
   { id: 4, title: "Worker Gets Paid", sub: "Tip lands in their wallet", desc: "90% goes to the worker. Total fees capped at 10%. They withdraw via Instant Money or EFT anytime." },
 ];
@@ -117,7 +117,7 @@ function DemoPhone({ step, progress }: { step: number; progress: number }) {
           </div>
           <p className="text-[9px] text-white/30 uppercase tracking-wider mb-2">Select amount</p>
           <div className="grid grid-cols-3 gap-1.5">
-            {[15, 20, 50, 100, 200].map((a, i) => {
+            {[15, 30, 50, 75, 100, 200].map((a, i) => {
               const sel = i === 2;
               return (
                 <div
