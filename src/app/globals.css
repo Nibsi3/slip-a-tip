@@ -5,30 +5,24 @@
 @layer base {
   body {
     @apply text-white antialiased;
-    background: #030306;
+    background: #080808;
+  }
+  .font-serif-display {
+    font-family: var(--font-cormorant), Georgia, serif;
+    font-weight: 300;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold shadow-btn transition-all disabled:opacity-40 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed;
     color: #fff;
-    background: linear-gradient(
-      135deg,
-      #fdba74 0%,
-      #f97316 50%,
-      #ea6a0a 100%
-    );
-    box-shadow: 0 4px 20px rgba(249,115,22,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+    background: #c45000;
+    box-shadow: 0 0 20px rgba(196,80,0,0.4);
   }
   .btn-primary:hover:not(:disabled) {
-    background: linear-gradient(
-      135deg,
-      #fec89a 0%,
-      #fb923c 50%,
-      #f97316 100%
-    );
-    box-shadow: 0 6px 28px rgba(249,115,22,0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+    background: #d4600a;
+    box-shadow: 0 0 28px rgba(196,80,0,0.6);
   }
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-muted-50 transition-all ring-1 ring-inset ring-white/[0.1] disabled:opacity-40 disabled:cursor-not-allowed;

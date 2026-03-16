@@ -10,7 +10,7 @@ export default function PaiaPage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.05]" style={{ background: "rgba(3,3,6,0.75)", backdropFilter: "blur(24px)" }}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
+            <Image src="/logo/11.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
           </Link>
           <Link href="/" className="text-xs text-white/40 hover:text-white transition-colors">&larr; Back to home</Link>
         </nav>

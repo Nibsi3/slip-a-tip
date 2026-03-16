@@ -161,7 +161,7 @@ export default function ApplyPage() {
           {/* Logo */}
           <div className="mb-6 flex items-center gap-3">
             <Link href="/" className="inline-flex items-center gap-3">
-              <Image src="/logo.png" alt="Slip a Tip" width={44} height={44} quality={95} priority className="h-11 w-11 object-contain" />
+              <Image src="/logo/11.png" alt="Slip a Tip" width={44} height={44} quality={95} priority className="h-11 w-11 object-contain" />
               <span className="text-base font-semibold text-white/70 tracking-wide">slip a tip</span>
             </Link>
           </div>

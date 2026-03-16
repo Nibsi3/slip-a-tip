@@ -64,7 +64,7 @@ function SuccessContent() {
               Back to Home
             </Link>
             <p className="text-[10px] text-gray-300">
-              Powered by <Image src="/logo.png" alt="Slip a Tip" width={14} height={14} className="inline-block h-3.5 w-3.5 object-contain align-text-bottom" /> Slip a Tip
+              Powered by <Image src="/logo/11.png" alt="Slip a Tip" width={14} height={14} className="inline-block h-3.5 w-3.5 object-contain align-text-bottom" /> Slip a Tip
             </p>
           </div>
         </div>

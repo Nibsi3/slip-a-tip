@@ -76,7 +76,7 @@ function AmountScreen() {
     <PhoneFrame label="Worker's tip page">
       <div className="px-4 pt-2">
         <div className="flex items-center justify-center gap-1.5 opacity-50 mb-3">
-          <Image src="/logo.png" alt="" width={12} height={12} className="h-3 w-3 object-contain" />
+          <Image src="/logo/11.png" alt="" width={12} height={12} className="h-3 w-3 object-contain" />
           <span className="text-[7px] font-semibold text-white/50 tracking-widest uppercase">slip a tip</span>
         </div>
         <div className="rounded-lg p-2.5 ring-1 ring-white/[0.08] mb-3" style={{ background: "rgba(255,255,255,0.03)" }}>
@@ -192,7 +192,7 @@ export default function CustomerGuidePage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.05]" style={{ background: "rgba(3,3,6,0.75)", backdropFilter: "blur(24px)" }}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
+            <Image src="/logo/11.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
             <Link href="/guide/workers" className="hidden sm:inline-flex text-xs text-white/40 hover:text-white transition-colors">Worker Guide</Link>

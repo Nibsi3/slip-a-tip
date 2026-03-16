@@ -108,7 +108,7 @@ export default function TipPage() {
       {/* Header */}
       <div className="flex items-center justify-center px-6 pt-8 pb-2">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Slip a Tip" className="h-6 w-6 object-contain" />
+          <img src="/logo/11.png" alt="Slip a Tip" className="h-6 w-6 object-contain" />
           <span className="text-xs font-semibold text-gray-400 tracking-widest uppercase">Slip a Tip</span>
         </div>
       </div>

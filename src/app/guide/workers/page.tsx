@@ -27,7 +27,7 @@ function DashFrame({ children, label, activeNav }: { children: React.ReactNode; 
       <div className="relative w-[300px] h-[400px] select-none rounded-xl ring-1 ring-white/[0.1] overflow-hidden" style={{ background: "#030306", boxShadow: "0 20px 50px rgba(0,0,0,0.5)" }}>
         {/* Top bar */}
         <div className="flex items-center gap-2 px-3 py-2 border-b border-white/[0.06]" style={{ background: "rgba(3,3,6,0.9)" }}>
-          <Image src="/logo.png" alt="" width={16} height={16} className="h-4 w-4 object-contain" />
+          <Image src="/logo/11.png" alt="" width={16} height={16} className="h-4 w-4 object-contain" />
           <span className="text-[8px] text-white/30 font-medium">Dashboard</span>
           <div className="ml-auto flex items-center gap-1.5"><div className="h-4 w-4 rounded-full bg-accent/15 flex items-center justify-center text-[6px] font-bold text-accent">T</div><span className="text-[7px] text-white/30">Thabo</span></div>
         </div>
@@ -53,7 +53,7 @@ function RegisterScreen() {
     <PhoneFrame label="slipatip.co.za/auth/register">
       <div className="px-5 pt-4">
         <div className="flex items-center justify-center gap-1.5 mb-4">
-          <Image src="/logo.png" alt="" width={16} height={16} className="h-4 w-4 object-contain" />
+          <Image src="/logo/11.png" alt="" width={16} height={16} className="h-4 w-4 object-contain" />
           <span className="text-[8px] font-semibold text-white/50 tracking-widest uppercase">slip a tip</span>
         </div>
         <h3 className="text-xs font-bold text-white text-center mb-4">Create your account</h3>
@@ -103,7 +103,7 @@ function AcceptPaymentScreen() {
     <PhoneFrame label="Customer scans your QR code">
       <div className="px-4 pt-2">
         <div className="flex items-center justify-center gap-1.5 opacity-50 mb-2">
-          <Image src="/logo.png" alt="" width={12} height={12} className="h-3 w-3 object-contain" />
+          <Image src="/logo/11.png" alt="" width={12} height={12} className="h-3 w-3 object-contain" />
           <span className="text-[7px] font-semibold text-white/50 tracking-widest uppercase">slip a tip</span>
         </div>
         <div className="rounded-lg p-2 ring-1 ring-white/[0.08] mb-2" style={{ background: "rgba(255,255,255,0.03)" }}>
@@ -299,7 +299,7 @@ export default function WorkerGuidePage() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.05]" style={{ background: "rgba(3,3,6,0.75)", backdropFilter: "blur(24px)" }}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
+            <Image src="/logo/11.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
           </Link>
           <div className="flex items-center gap-3 sm:gap-5">
             <Link href="/guide/customers" className="hidden sm:inline-flex text-xs text-white/40 hover:text-white transition-colors">Customer Guide</Link>

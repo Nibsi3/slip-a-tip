@@ -19,7 +19,7 @@ function VerifyContent() {
       <div className="relative w-full max-w-md text-center">
         <div className="rounded-2xl p-8 ring-1 ring-white/[0.08]" style={{ background: "rgba(8,8,14,0.9)", backdropFilter: "blur(24px)" }}>
           <div className="mb-6 flex justify-center">
-            <Image src="/logo.png" alt="Slip a Tip" width={44} height={44} quality={95} priority className="h-11 w-11 object-contain" />
+            <Image src="/logo/11.png" alt="Slip a Tip" width={44} height={44} quality={95} priority className="h-11 w-11 object-contain" />
           </div>
 
           {isSuccess && (

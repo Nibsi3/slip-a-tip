@@ -163,7 +163,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </svg>
           </button>
           <Link href="/admin" className="flex items-center gap-2.5">
-            <Image src="/logo.png" alt="Slip a Tip" width={32} height={32} quality={95} priority className="h-8 w-8 object-contain" />
+            <Image src="/logo/11.png" alt="Slip a Tip" width={32} height={32} quality={95} priority className="h-8 w-8 object-contain" />
             <div className="hidden sm:block">
               <p className="text-sm font-bold text-slate-800 leading-none">Slip a Tip</p>
               <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Admin Console</p>
@@ -217,7 +217,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <aside className="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-xl z-50 flex flex-col overflow-y-auto">
               <div className="h-14 flex items-center px-4 border-b border-slate-200">
                 <Link href="/admin" className="flex items-center gap-2.5" onClick={() => setMobileMenuOpen(false)}>
-                  <Image src="/logo.png" alt="Slip a Tip" width={28} height={28} quality={95} className="h-7 w-7 object-contain" />
+                  <Image src="/logo/11.png" alt="Slip a Tip" width={28} height={28} quality={95} className="h-7 w-7 object-contain" />
                   <span className="text-sm font-bold text-slate-800">Admin Console</span>
                 </Link>
               </div>

@@ -1,14 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  display: "swap",
+  variable: "--font-cormorant",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#030306",
+  themeColor: "#080808",
 };
 
 export const metadata: Metadata = {
@@ -16,8 +22,8 @@ export const metadata: Metadata = {
   description:
     "Send tips instantly to service workers across South Africa. Scan, tap, tip.",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo/11.png",
+    apple: "/logo/11.png",
   },
 };
 
@@ -27,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
       <body className={inter.className}>{children}</body>
     </html>
   );

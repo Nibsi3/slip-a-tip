@@ -49,7 +49,7 @@ function HeroDemoCard() {
       <div className="px-5 pt-5 pb-3 border-b border-white/[0.06] flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <div className="h-8 w-8 rounded-lg overflow-hidden ring-1 ring-white/10 shrink-0">
-            <Image src="/logo.png" alt="" width={32} height={32} className="w-full h-full object-contain" />
+            <Image src="/logo/11.png" alt="" width={32} height={32} className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="text-xs font-bold text-white leading-none">Slip a Tip</div>
@@ -108,8 +108,8 @@ function HeroDemoCard() {
                     }`}
                     style={
                       selected === i
-                        ? { background: "linear-gradient(135deg, rgba(249,115,22,0.25), rgba(249,115,22,0.1))", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.4), 0 4px 16px rgba(249,115,22,0.15)" }
-                        : { background: "rgba(255,255,255,0.03)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }
+                        ? { background: "#c45000", boxShadow: "0 0 12px rgba(196,80,0,0.4)" }
+                        : { background: "rgba(255,255,255,0.04)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }
                     }
                   >
                     R{amt}
@@ -133,7 +133,7 @@ function HeroDemoCard() {
               <button
                 onClick={() => setPaid(true)}
                 className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-                style={{ background: "linear-gradient(135deg, #f97316 0%, #0e84c8 100%)", boxShadow: "0 4px 24px rgba(249,115,22,0.35), inset 0 1px 0 rgba(255,255,255,0.15)" }}
+                style={{ background: "#c45000", boxShadow: "0 0 20px rgba(196,80,0,0.4)" }}
               >
                 <span className="flex items-center justify-center gap-2">
                   <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" /><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" /></svg>
@@ -165,7 +165,7 @@ function HeroDemoCard() {
       {/* ── TAB: WALLET ── */}
       {tab === "wallet" && (
         <div className="px-5 py-5">
-          <div className="rounded-xl p-4 mb-4" style={{ background: "linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.04))", boxShadow: "inset 0 0 0 1px rgba(249,115,22,0.15)" }}>
+          <div className="rounded-xl p-4 mb-4" style={{ background: "rgba(196,80,0,0.1)", boxShadow: "inset 0 0 0 1px rgba(196,80,0,0.2)" }}>
             <div className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-2">Available balance</div>
             <div className="text-4xl font-extrabold text-white">R 1,245<span className="text-xl text-white/35">.50</span></div>
             <div className="mt-2 flex items-center gap-2">
@@ -187,7 +187,7 @@ function HeroDemoCard() {
             ))}
           </div>
           <div className="flex gap-2">
-            <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white" style={{ background: "linear-gradient(135deg, #f97316, #0e84c8)", boxShadow: "0 4px 16px rgba(249,115,22,0.3)" }}>Instant Money</button>
+            <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white" style={{ background: "#c45000", boxShadow: "0 0 16px rgba(196,80,0,0.35)" }}>Instant Money</button>
             <button className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white/60" style={{ background: "rgba(255,255,255,0.05)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)" }}>Bank EFT</button>
           </div>
         </div>
@@ -244,12 +244,12 @@ function HeroDemoCard() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen" style={{ background: "#030306" }}>
+    <div className="min-h-screen" style={{ background: "#080808" }}>
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.05]" style={{ background: "rgba(3,3,6,0.75)", backdropFilter: "blur(24px)" }}>
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.04]" style={{ background: "rgba(8,8,8,0.8)", backdropFilter: "blur(24px)" }}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/logo.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
+            <Image src="/logo/11.png" alt="Slip a Tip" width={56} height={56} quality={95} priority className="h-11 w-11 object-contain" />
             <span className="text-white font-bold text-lg tracking-tight">Slip a Tip</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-5">
@@ -265,105 +265,124 @@ export default function HomePage() {
 
       <main>
         {/* ===== HERO ===== */}
-        <section className="relative min-h-screen flex flex-col overflow-hidden">
-          {/* Full-bleed background */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/photos/9df0b484-9692-44cf-be76-f2660b61a30d_3840w.jpg"
-              alt=""
-              fill
-              quality={95}
-              priority
-              className="object-cover object-center"
-              style={{ opacity: 0.5 }}
-            />
-            {/* Orange radial glow — right side like FlowArt */}
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 70% at 68% 40%, rgba(249,115,22,0.45) 0%, rgba(180,60,0,0.2) 40%, transparent 70%)" }} />
-            {/* Dark vignette */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(3,3,6,0.97) 0%, rgba(3,3,6,0.7) 45%, rgba(3,3,6,0.15) 100%)" }} />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(3,3,6,1) 0%, transparent 30%)" }} />
-          </div>
+        <section className="relative min-h-screen flex flex-col overflow-hidden" style={{ background: "#080808" }}>
 
-          {/* Decorative circle ring — FlowArt style */}
-          <div className="absolute right-[8%] top-[10%] w-[420px] h-[420px] rounded-full border border-white/[0.06] z-[1] pointer-events-none" />
-          <div className="absolute right-[12%] top-[16%] w-[280px] h-[280px] rounded-full border border-accent/[0.12] z-[1] pointer-events-none" />
+          {/* ── EXACT FlowArt background: radial orange orb ── */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{ background: "radial-gradient(circle at 62% 45%, #c45000 0%, #6b2200 35%, #080808 68%)" }}
+          />
 
-          {/* Oversized background word — FlowArt "Smart Design" style */}
-          <div className="absolute inset-0 flex items-center z-[1] pointer-events-none overflow-hidden" aria-hidden>
+          {/* ── Vignette overlay (transparent centre → dark edges) ── */}
+          <div
+            className="absolute inset-0 z-[1]"
+            style={{ background: "radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%)" }}
+          />
+
+          {/* ── Circle ring outline centred on glow ── */}
+          <div
+            className="absolute z-[2] pointer-events-none rounded-full"
+            style={{
+              width: 520, height: 520,
+              top: "50%", left: "62%",
+              transform: "translate(-50%, -50%)",
+              border: "1px solid rgba(255,140,60,0.25)",
+            }}
+          />
+
+          {/* ── Giant Cormorant headline — BEHIND content, z-[3] ── */}
+          <div className="absolute inset-0 z-[3] flex items-center pointer-events-none overflow-hidden" aria-hidden>
             <span
-              className="font-extrabold tracking-tight text-white select-none"
-              style={{ fontSize: "clamp(5rem, 18vw, 18rem)", lineHeight: 0.85, opacity: 0.04, whiteSpace: "nowrap", marginLeft: "-0.05em" }}
+              className="font-serif-display text-white select-none w-full text-center"
+              style={{
+                fontSize: "clamp(4.5rem, 15vw, 14rem)",
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                opacity: 0.92,
+                whiteSpace: "nowrap",
+                paddingTop: "0.1em",
+              }}
             >
-              Slip a Tip
+              Cashless Tipping
             </span>
           </div>
 
-          {/* Content */}
-          <div className="relative z-10 flex-1 flex flex-col justify-end pb-16 lg:pb-20">
-            <div className="w-full max-w-7xl mx-auto px-6 pt-32">
-              <div className="grid lg:grid-cols-[1fr_420px] gap-12 xl:gap-20 items-end">
+          {/* ── Content sits above everything (z-10) ── */}
+          <div className="relative z-10 flex-1 flex flex-col justify-end pb-14 lg:pb-20">
+            <div className="w-full max-w-7xl mx-auto px-6 pt-28">
+              <div className="grid lg:grid-cols-[1fr_400px] gap-12 xl:gap-16 items-end">
 
-                {/* Left — bold bottom-anchored text like FlowArt */}
+                {/* Left — bottom-anchored FlowArt content */}
                 <div>
                   <ScrollReveal>
-                    <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent mb-5 flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                      Built for South Africa &middot; Powered by Stitch Instant EFT
+                    <h2 className="text-white font-bold text-3xl sm:text-4xl mb-3 leading-tight">
+                      Our Platform
+                    </h2>
+                    <p className="text-sm leading-relaxed max-w-xs" style={{ color: "#aaaaaa" }}>
+                      Workers get a personal QR code. Customers scan, pick an amount,
+                      and tip directly via WhatsApp. Tips land instantly.
                     </p>
                   </ScrollReveal>
 
-                  <ScrollReveal delay={0.05}>
-                    <h1
-                      className="font-extrabold text-white leading-none tracking-tight"
-                      style={{ fontSize: "clamp(3.5rem, 9vw, 8rem)" }}
-                    >
-                      Cashless<br />
-                      <span className="bg-gradient-to-r from-accent-300 via-accent to-orange-600 bg-clip-text text-transparent">Tipping</span>
-                    </h1>
-                  </ScrollReveal>
-
-                  <ScrollReveal delay={0.15}>
-                    <div className="mt-8 max-w-sm">
-                      <p className="text-white/55 text-base leading-relaxed">Workers get a personal QR code. Customers scan, pick an amount, and pay via WhatsApp. Tips land in a wallet — instantly.</p>
-                    </div>
-                  </ScrollReveal>
-
-                  <ScrollReveal delay={0.22}>
-                    <div className="mt-8 flex items-center gap-4">
+                  <ScrollReveal delay={0.12}>
+                    <div className="mt-7 flex items-center gap-4">
                       <Link
                         href="/auth/register"
-                        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold text-[#030306] transition-all hover:scale-[1.03]"
-                        style={{ background: "linear-gradient(135deg, #fdba74 0%, #f97316 50%, #ea6a0a 100%)", boxShadow: "0 8px 32px rgba(249,115,22,0.4)" }}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white transition-all hover:scale-[1.03]"
+                        style={{
+                          background: "transparent",
+                          border: "1px solid rgba(255,255,255,0.5)",
+                          boxShadow: "0 0 0 0 transparent",
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 20px rgba(196,80,0,0.4)")}
+                        onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
                       >
                         Start Now
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15M19.5 4.5H4.5v15" /></svg>
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15M19.5 4.5H4.5v15" /></svg>
                       </Link>
-                      <Link href="#demo" className="text-sm font-medium text-white/50 hover:text-white transition-colors">
+                      <Link href="#demo" className="text-sm font-medium transition-colors" style={{ color: "#888888" }}>
                         See how it works &rarr;
                       </Link>
                     </div>
                   </ScrollReveal>
 
-                  {/* Stats bar — FlowArt style */}
-                  <ScrollReveal delay={0.3}>
-                    <div className="mt-12 flex items-center gap-8">
-                      <div className="flex items-center gap-3 px-5 py-3 rounded-2xl" style={{ background: "rgba(249,115,22,0.1)", border: "1px solid rgba(249,115,22,0.2)" }}>
-                        <span className="text-2xl font-extrabold text-white">98%</span>
-                        <span className="text-[11px] text-white/40 leading-tight">Satisfaction<br />rate</span>
-                      </div>
-                      <div className="h-10 w-px bg-white/[0.08]" />
-                      <div>
-                        <div className="flex items-center gap-1 mb-1">
-                          {[...Array(5)].map((_,i)=>(<svg key={i} className="h-3 w-3 text-accent" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>))}
+                  {/* Stats — FlowArt bottom-right widget style */}
+                  <ScrollReveal delay={0.22}>
+                    <div className="mt-10 flex items-center gap-6">
+                      {/* 98% card */}
+                      <div
+                        className="flex items-center gap-3 px-4 py-3 rounded-2xl"
+                        style={{
+                          background: "rgba(8,8,8,0.6)",
+                          backdropFilter: "blur(12px)",
+                          border: "1px solid rgba(196,80,0,0.35)",
+                          boxShadow: "0 0 20px rgba(196,80,0,0.15)",
+                        }}
+                      >
+                        <div>
+                          <div className="text-2xl font-extrabold text-white leading-none">98%</div>
+                          <div className="text-[10px] mt-0.5" style={{ color: "#888" }}>Satisfaction Rate</div>
                         </div>
-                        <div className="text-xs text-white/40">9,500+ workers tipped</div>
+                      </div>
+                      <div className="h-8 w-px bg-white/[0.08]" />
+                      {/* Stars + count */}
+                      <div>
+                        <div className="flex items-center gap-0.5 mb-1">
+                          {[...Array(5)].map((_,i) => (
+                            <svg key={i} className="h-3.5 w-3.5" fill="#c45000" viewBox="0 0 20 20">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                          ))}
+                        </div>
+                        <div className="text-white font-bold text-sm leading-none">9,500+</div>
+                        <div className="text-[10px] mt-0.5" style={{ color: "#888" }}>Positive Reviews</div>
                       </div>
                     </div>
                   </ScrollReveal>
                 </div>
 
                 {/* Right — demo card */}
-                <ScrollReveal delay={0.2} direction="right">
+                <ScrollReveal delay={0.18} direction="right">
                   <HeroDemoCard />
                 </ScrollReveal>
               </div>
@@ -604,7 +623,7 @@ export default function HomePage() {
             <ScrollReveal>
               <div className="rounded-3xl p-10 sm:p-16 ring-1 ring-white/[0.09] text-center" style={{ background: "rgba(8,8,14,0.8)", backdropFilter: "blur(32px)" }}>
                 <div className="mx-auto mb-6 h-16 w-16 rounded-2xl overflow-hidden ring-1 ring-white/10">
-                  <Image src="/logo.png" alt="Slip a Tip" width={64} height={64} quality={95} className="w-full h-full object-contain" />
+                  <Image src="/logo/11.png" alt="Slip a Tip" width={64} height={64} quality={95} className="w-full h-full object-contain" />
                 </div>
                 <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight">Start receiving tips today</h2>
                 <p className="mt-5 text-white/40 max-w-lg mx-auto leading-relaxed">
@@ -632,7 +651,7 @@ export default function HomePage() {
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <Link href="/" className="flex items-center gap-2.5 mb-4">
-                <Image src="/logo.png" alt="Slip a Tip" width={40} height={40} quality={95} className="h-10 w-10 object-contain" />
+                <Image src="/logo/11.png" alt="Slip a Tip" width={40} height={40} quality={95} className="h-10 w-10 object-contain" />
                 <span className="text-white font-bold text-base">Slip a Tip</span>
               </Link>
               <p className="text-xs text-white/35 leading-relaxed max-w-[220px]">

@@ -42,7 +42,7 @@ function DemoPhone({ step, progress }: { step: number; progress: number }) {
         {/* App header */}
         <div className="relative z-10 flex items-center justify-center px-6 pt-1 pb-3">
           <div className="flex items-center gap-1.5 opacity-50">
-            <Image src="/logo.png" alt="" width={16} height={16} className="h-4 w-4 object-contain" />
+            <Image src="/logo/11.png" alt="" width={16} height={16} className="h-4 w-4 object-contain" />
             <span className="text-[9px] font-semibold text-white/50 tracking-widest uppercase">slip a tip</span>
           </div>
         </div>

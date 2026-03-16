@@ -221,7 +221,7 @@ export default function AdminQRCodesPage() {
         };
         logo.onerror = () => resolve(baseDataUrl);
         logo.crossOrigin = "anonymous";
-        logo.src = "/logo.png";
+        logo.src = "/logo/11.png";
       };
       qrImg.src = baseDataUrl;
     });

@@ -54,7 +54,7 @@ export default function QRCodePage() {
             // Logo failed to load — still show the QR without it
             setQrImage(canvas.toDataURL("image/png"));
           };
-          logo.src = "/logo.png";
+          logo.src = "/logo/11.png";
         };
         qrImg.onerror = () => setQrImage(qrDataUrl);
         qrImg.src = qrDataUrl;
