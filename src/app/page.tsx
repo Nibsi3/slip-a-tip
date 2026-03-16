@@ -319,17 +319,17 @@ export default function HomePage() {
           <div
             className="absolute left-0 top-0 bottom-0 right-0 lg:right-[520px] z-[3] flex pointer-events-none overflow-hidden"
             aria-hidden
-            style={{ alignItems: "flex-start", paddingTop: "18vh" }}
+            style={{ alignItems: "flex-start", paddingTop: "14vh" }}
           >
-            <div className="w-full px-6">
+            <div className="w-full max-w-7xl mx-auto px-6">
               <span
                 className="font-serif-display text-white select-none block text-center lg:text-left"
                 style={{
-                  fontSize: "clamp(4.5rem, 13vw, 12rem)",
-                  lineHeight: 1,
+                  fontSize: "clamp(4.25rem, 12vw, 11rem)",
+                  lineHeight: 0.92,
                   letterSpacing: "-0.02em",
                   opacity: 0.88,
-                  maxWidth: 980,
+                  maxWidth: 720,
                   whiteSpace: "normal",
                 }}
               >
@@ -342,7 +342,7 @@ export default function HomePage() {
           {/* ── Content sits above everything (z-10) ── */}
           <div className="relative z-10 flex-1 flex flex-col justify-center pb-10 lg:pb-14">
             <div className="w-full max-w-7xl mx-auto px-6 pt-20 lg:pt-24">
-              <div className="grid lg:grid-cols-[1fr_400px] gap-12 xl:gap-16 items-end">
+              <div className="grid lg:grid-cols-[1fr_420px] gap-10 xl:gap-12 items-center">
 
                 {/* Left — bottom-anchored FlowArt content */}
                 <div>
