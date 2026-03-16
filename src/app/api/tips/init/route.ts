@@ -158,8 +158,7 @@ export async function POST(request: NextRequest) {
     const paymentId = generatePaymentId();
     const appUrl = getAppUrl();
 
-    const returnUrl = new URL(`/tip/success`, appUrl);
-    returnUrl.searchParams.set("reference", paymentId);
+    const returnUrl = new URL(`/tip/s/${paymentId}`, appUrl);
 
     // Payment link valid for 24 hours
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
@@ -210,8 +209,12 @@ export async function POST(request: NextRequest) {
 
     // Build WhatsApp deeplink — the customer opens WA with the payment link pre-filled
     const workerFirstName = worker.user.firstName;
-    const amountFormatted = `R${data.amount.toFixed(2)}`;
-    const waMessage = `Hi! I'd like to tip ${workerFirstName} ${amountFormatted} via Slip a Tip 🙏\n\nMy payment link: ${stitch.link}`;
+    const workerLastName = worker.user.lastName;
+    const amountFormatted = `R${data.amount.toFixed(0)}`;
+    const waMessage =
+      `Hi! I'd like to send ${workerFirstName} ${workerLastName} a tip of ${amountFormatted} via Slip a Tip.\n\n` +
+      `Here is my secure payment link:\n${stitch.link}\n\n` +
+      `Ref: ${paymentId}`;
     const waDeeplink = `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
 
     return NextResponse.json({

@@ -80,17 +80,16 @@ async function sendText(to: string, body: string) {
   return waSend({ to, type: "text", text: { preview_url: false, body } });
 }
 
-/** Send interactive button list (max 3 buttons per message, up to 10 total via multiple messages) */
+/** Send interactive button list */
 async function sendAmountButtons(to: string, workerFirstName: string) {
-  // WhatsApp interactive list supports up to 10 rows in a single list message
   return waSend({
     to,
     type: "interactive",
     interactive: {
       type: "list",
-      header: { type: "text", text: `Tip ${workerFirstName} 💚` },
-      body: { text: "How much would you like to tip? Tap an amount below, or type a custom amount (e.g. *R80*)." },
-      footer: { text: "Powered by Slip a Tip · Secured by Stitch" },
+      header: { type: "text", text: `Tip ${workerFirstName}` },
+      body: { text: `How much would you like to tip ${workerFirstName} today? Select an amount below.` },
+      footer: { text: "Slip a Tip · Secured by Stitch Instant EFT" },
       action: {
         button: "Choose amount",
         sections: [
@@ -99,7 +98,7 @@ async function sendAmountButtons(to: string, workerFirstName: string) {
             rows: TIP_AMOUNTS.map((amt) => ({
               id: `AMT_${amt}`,
               title: `R${amt}`,
-              description: `Tip R${amt} — ${workerFirstName} receives R${(amt * 0.9).toFixed(0)}`,
+              description: `Send ${workerFirstName} a R${amt} tip`,
             })),
           },
         ],
@@ -275,21 +274,8 @@ async function handleIncomingMessage(message: WaIncomingMessage, contactName?: s
       return;
     }
 
-    // Check if there's a pending session and they typed a custom amount like "80" or "R80"
-    const session = pendingAmountSelection.get(from);
-    if (session && session.expiresAt > Date.now()) {
-      const amountMatch = text.match(/^R?(\d+(?:\.\d{1,2})?)$/);
-      if (amountMatch) {
-        const amount = parseFloat(amountMatch[1]);
-        if (amount >= 15 && amount <= 5000) {
-          await handleAmountSelected(from, amount);
-          return;
-        } else {
-          await sendText(from, "Please enter an amount between R15 and R5000.");
-          return;
-        }
-      }
-    }
+    // Ignore stray text messages when a session is active — user must use the list buttons
+    // (no custom amount typing via WhatsApp)
 
     // Unknown message — log it
     await db.auditLog.create({
@@ -391,7 +377,7 @@ async function handleAmountSelected(from: string, amount: number) {
   // Create payment link
   const paymentId = generatePaymentId();
   const appUrl = getAppUrl();
-  const returnUrl = `${appUrl}/tip/success?reference=${paymentId}`;
+  const returnUrl = `${appUrl}/tip/s/${paymentId}`;
   const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
 
   let stitch: { id: string; link: string };
@@ -430,8 +416,7 @@ async function handleAmountSelected(from: string, amount: number) {
   // Clear session
   pendingAmountSelection.delete(from);
 
-  const gross = `R${amount.toFixed(2)}`;
-  const net = `R${netAmount.toFixed(2)}`;
+  const gross = `R${amount.toFixed(0)}`;
 
   // Send the branded payment message
   await waSend({
@@ -440,13 +425,13 @@ async function handleAmountSelected(from: string, amount: number) {
     text: {
       preview_url: true,
       body:
-        `💳 *Your tip payment link is ready!*\n\n` +
-        `👤 Tipping: *${workerFirstName} ${worker.user.lastName}*\n` +
-        `💰 Amount: *${gross}*\n` +
-        `🤝 ${workerFirstName} receives: *${net}*\n\n` +
-        `🔗 *Pay securely here:*\n${stitch.link}\n\n` +
-        `_Link valid for 24 hours. Secured by Stitch Instant EFT._\n\n` +
-        `Powered by *Slip a Tip* 🙏`,
+        `✅ *Your payment link is ready!*\n\n` +
+        `You're tipping *${workerFirstName} ${worker.user.lastName}* — *${gross}*\n\n` +
+        `Tap the link below to pay securely via Instant EFT:\n` +
+        `${stitch.link}\n\n` +
+        `_Ref: ${paymentId}_\n` +
+        `_Link valid for 24 hours._\n\n` +
+        `*Slip a Tip* — cashless tipping, made simple.`,
     },
   });
 
