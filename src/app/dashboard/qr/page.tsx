@@ -18,49 +18,45 @@ export default function QRCodePage() {
       : `${origin}/tip/${worker.qrCode}`;
 
     (async () => {
-      const QRCode = (await import("qrcode")).default;
-      const qrSize = 800;
-      const qrDataUrl = await QRCode.toDataURL(waUrl, {
-        width: qrSize,
-        margin: 2,
-        color: { dark: "#000000", light: "#ffffff" },
-        errorCorrectionLevel: "H",
-      });
+      try {
+        const QRCode = (await import("qrcode")).default;
+        const qrSize = 800;
 
-      // Overlay logo in center of QR code with square white background
-      const canvas = document.createElement("canvas");
-      canvas.width = qrSize;
-      canvas.height = qrSize;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        const qrImg = new window.Image();
-        qrImg.crossOrigin = "anonymous";
-        qrImg.onload = () => {
-          ctx.drawImage(qrImg, 0, 0, qrSize, qrSize);
-          const logo = new window.Image();
-          logo.crossOrigin = "anonymous";
-          logo.onload = () => {
-            const logoSize = Math.round(qrSize * 0.2);
-            const padding = 12;
-            const bgSize = logoSize + padding * 2;
-            const bgX = (qrSize - bgSize) / 2;
-            const bgY = (qrSize - bgSize) / 2;
-            const logoX = (qrSize - logoSize) / 2;
-            const logoY = (qrSize - logoSize) / 2;
-            ctx.fillStyle = "#ffffff";
-            ctx.fillRect(bgX, bgY, bgSize, bgSize);
-            ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
-            setQrImage(canvas.toDataURL("image/png"));
-          };
-          logo.onerror = () => {
-            setQrImage(canvas.toDataURL("image/png"));
-          };
-          logo.src = "/logo/11.png?v=" + Date.now();
-        };
-        qrImg.onerror = () => setQrImage(qrDataUrl);
-        qrImg.src = qrDataUrl;
-      } else {
-        setQrImage(qrDataUrl);
+        // Draw QR directly onto canvas — no Image() loading chain needed
+        const canvas = document.createElement("canvas");
+        canvas.width = qrSize;
+        canvas.height = qrSize;
+        await QRCode.toCanvas(canvas, waUrl, {
+          width: qrSize,
+          margin: 2,
+          color: { dark: "#000000", light: "#ffffff" },
+          errorCorrectionLevel: "H",
+        });
+
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          // Try to overlay the logo
+          await new Promise<void>((resolve) => {
+            const logo = new window.Image();
+            logo.onload = () => {
+              const logoSize = Math.round(qrSize * 0.2);
+              const padding = 12;
+              const bgSize = logoSize + padding * 2;
+              const bgX = (qrSize - bgSize) / 2;
+              const bgY = (qrSize - bgSize) / 2;
+              ctx.fillStyle = "#ffffff";
+              ctx.fillRect(bgX, bgY, bgSize, bgSize);
+              ctx.drawImage(logo, (qrSize - logoSize) / 2, (qrSize - logoSize) / 2, logoSize, logoSize);
+              resolve();
+            };
+            logo.onerror = () => resolve();
+            logo.src = "/logo/11.png";
+          });
+        }
+
+        setQrImage(canvas.toDataURL("image/png"));
+      } catch (err) {
+        console.error("QR generation failed:", err);
       }
     })();
   }, [worker]);
