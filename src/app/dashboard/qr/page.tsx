@@ -1,61 +1,74 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import QRCode from "react-qr-code";
 import { useWorker } from "../WorkerContext";
+
+const QR_SIZE = 256;
 
 export default function QRCodePage() {
   const { worker, loading } = useWorker();
-  const [qrImage, setQrImage] = useState<string>("");
   const [appUrl, setAppUrl] = useState("");
+  const qrContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!worker) return;
-    const origin = window.location.origin;
-    setAppUrl(origin);
-    const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER || "";
-    const waUrl = waNumber
-      ? `https://wa.me/${waNumber}?text=${encodeURIComponent(`TIP ${worker.qrCode}`)}`
-      : `${origin}/tip/${worker.qrCode}`;
-
-    (async () => {
-      try {
-        const QRCode = (await import("qrcode")).default;
-        const qrSize = 400;
-
-        // Generate QR directly as data URL — simplest reliable method
-        const qrDataUrl: string = await QRCode.toDataURL(waUrl, {
-          width: qrSize,
-          margin: 2,
-          color: { dark: "#000000", light: "#ffffff" },
-          errorCorrectionLevel: "H",
-        });
-
-        setQrImage(qrDataUrl);
-      } catch (err) {
-        console.error("QR generation failed:", err);
-      }
-    })();
-  }, [worker]);
-
-  function downloadQR() {
-    if (!qrImage || !worker) return;
-    const link = document.createElement("a");
-    link.download = `slipatip-qr-${worker.user.firstName}-${worker.user.lastName}.png`;
-    link.href = qrImage;
-    link.click();
-  }
+    setAppUrl(window.location.origin);
+  }, []);
 
   function getWaUrl() {
     if (!worker) return "";
     const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_BUSINESS_NUMBER || "";
+    const origin = appUrl || window.location.origin;
     return waNumber
       ? `https://wa.me/${waNumber}?text=${encodeURIComponent(`TIP ${worker.qrCode}`)}`
-      : `${appUrl}/tip/${worker.qrCode}`;
+      : `${origin}/tip/${worker.qrCode}`;
+  }
+
+  function downloadQR() {
+    if (!worker || !qrContainerRef.current) return;
+    const svg = qrContainerRef.current.querySelector("svg");
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const padding = 24;
+    canvas.width = QR_SIZE + padding * 2;
+    canvas.height = QR_SIZE + padding * 2;
+    const ctx = canvas.getContext("2d")!;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const img = new window.Image();
+    img.onload = () => {
+      ctx.drawImage(img, padding, padding, QR_SIZE, QR_SIZE);
+      // Overlay logo
+      const logo = new window.Image();
+      logo.onload = () => {
+        const logoSize = Math.round(QR_SIZE * 0.18);
+        const lp = 8;
+        const lx = (canvas.width - logoSize) / 2;
+        const ly = (canvas.height - logoSize) / 2;
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(lx - lp, ly - lp, logoSize + lp * 2, logoSize + lp * 2);
+        ctx.drawImage(logo, lx, ly, logoSize, logoSize);
+        const link = document.createElement("a");
+        link.download = `slipatip-qr-${worker.user.firstName}-${worker.user.lastName}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      };
+      logo.onerror = () => {
+        const link = document.createElement("a");
+        link.download = `slipatip-qr-${worker.user.firstName}-${worker.user.lastName}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      };
+      logo.src = "/logo/11.png";
+    };
+    const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    img.src = URL.createObjectURL(blob);
   }
 
   function copyLink() {
-    if (!worker) return;
     const url = getWaUrl();
+    if (!url) return;
     navigator.clipboard.writeText(url);
     alert("WhatsApp tip link copied to clipboard!");
   }
@@ -91,32 +104,27 @@ export default function QRCodePage() {
           )}
         </div>
 
-        {qrImage ? (
-          <div className="flex justify-center mb-6">
-            <div className="p-3 bg-white rounded-2xl shadow-glow-sm inline-block">
-              <div className="relative w-52 h-52 sm:w-64 sm:h-64">
-                <img
-                  src={qrImage}
-                  alt="Your QR Code"
-                  className="w-full h-full block"
-                />
-                {/* Logo overlay centered via CSS */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="bg-white p-1.5 rounded-sm">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/logo/11.png" alt="" className="w-10 h-10 sm:w-12 sm:h-12 object-contain block" />
-                  </div>
+        <div className="flex justify-center mb-6">
+          <div className="p-3 bg-white rounded-2xl shadow-glow-sm inline-block">
+            <div ref={qrContainerRef} className="relative" style={{ width: QR_SIZE, height: QR_SIZE }}>
+              <QRCode
+                value={waUrl || "https://slipatip.co.za"}
+                size={QR_SIZE}
+                level="H"
+                fgColor="#000000"
+                bgColor="#ffffff"
+                style={{ display: "block" }}
+              />
+              {/* Logo overlay centered via CSS */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div style={{ background: "#fff", padding: 6, borderRadius: 4 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/logo/11.png" alt="" style={{ width: 44, height: 44, display: "block", objectFit: "contain" }} />
                 </div>
               </div>
             </div>
           </div>
-        ) : (
-          <div className="flex justify-center mb-6">
-            <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-2xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center">
-              <div className="animate-pulse text-white/20 text-sm">Generating...</div>
-            </div>
-          </div>
-        )}
+        </div>
 
         <p className="text-[11px] text-muted-300 break-all mb-6 px-2 font-mono">{waUrl}</p>
 
