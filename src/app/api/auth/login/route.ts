@@ -28,6 +28,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const data = loginSchema.parse(body);
 
+    const identifierKey = looksLikePhone(data.identifier)
+      ? normalisePhone(data.identifier)
+      : data.identifier.toLowerCase();
+
     // --- Rate limiting: IP-based ---
     const ipLimit = await checkLoginIpLimit(ip);
     if (!ipLimit.allowed) {
@@ -41,13 +45,8 @@ export async function POST(request: NextRequest) {
     }
 
     // --- Rate limiting: identifier-based ---
-    const identifierLimit = await checkLoginIdentifierLimit(data.identifier.toLowerCase());
-    if (!identifierLimit.allowed) {
-      return NextResponse.json(
-        { error: "Too many failed attempts for this account. Please wait 30 minutes before trying again." },
-        { status: 429 }
-      );
-    }
+    const identifierLimit = await checkLoginIdentifierLimit(identifierKey);
+    const identifierRateLimited = !identifierLimit.allowed;
 
     // Try phone lookup first, then email as fallback (and vice-versa)
     // so a user who registered by phone can also log in by email if they have one.
@@ -70,10 +69,13 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       console.warn(`[Login] No user found for identifier: ${data.identifier.slice(0, 6)}***`);
-      return NextResponse.json(
-        { error: "Invalid credentials" },
-        { status: 401 }
-      );
+      if (identifierRateLimited) {
+        return NextResponse.json(
+          { error: "Too many failed attempts for this account. Please wait 30 minutes before trying again." },
+          { status: 429 }
+        );
+      }
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
     // --- Check DB-level account lockout ---
@@ -95,6 +97,12 @@ export async function POST(request: NextRequest) {
         where: { id: user.id },
         data: { loginAttempts: attempts, lockedUntil: lockUntil },
       });
+      if (identifierRateLimited) {
+        return NextResponse.json(
+          { error: "Too many failed attempts for this account. Please wait 30 minutes before trying again." },
+          { status: 429 }
+        );
+      }
       return NextResponse.json(
         { error: "Invalid credentials" },
         { status: 401 }
@@ -106,7 +114,7 @@ export async function POST(request: NextRequest) {
       where: { id: user.id },
       data: { loginAttempts: 0, lockedUntil: null },
     });
-    await resetRateLimit(`login:id:${data.identifier.toLowerCase()}`);
+    await resetRateLimit(`login:id:${identifierKey}`);
     await resetRateLimit(`login:ip:${ip}`);
 
     // --- P1.4: Enforce 2FA for admins ---
