@@ -199,11 +199,6 @@ export default function RegisterPage() {
             ))}
           </div>
 
-          <div className="mt-3 px-3 py-2 rounded-lg bg-accent/10 border border-accent/20 text-xs text-accent/80 mb-6">
-            For workers with a <strong>physical QR code card</strong>. No card?{" "}
-            <Link href="/apply" className="underline font-semibold">Apply here</Link>.
-          </div>
-
           {/* ── Step 1: Details ── */}
           {step === "details" && (
             <form onSubmit={handleSendOtp} className="space-y-4">
@@ -335,10 +330,6 @@ export default function RegisterPage() {
             <p className="text-center text-sm text-muted-200">
               Already have an account?{" "}
               <Link href="/auth/login" className="font-semibold text-accent hover:text-accent-300 transition-colors">Sign in</Link>
-            </p>
-            <p className="text-center text-xs text-white/25">
-              No physical QR card?{" "}
-              <Link href="/apply" className="font-semibold text-accent/70 hover:text-accent transition-colors">Apply to get one</Link>
             </p>
           </div>
 

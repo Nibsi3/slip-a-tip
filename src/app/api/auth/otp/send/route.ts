@@ -70,16 +70,25 @@ export async function POST(request: NextRequest) {
     if (smsUsername && smsPassword && smsApiUrl) {
       try {
         const internationalPhone = phone.startsWith("0") ? `+27${phone.slice(1)}` : phone;
-        const params = new URLSearchParams({
-          username: smsUsername,
-          password: smsPassword,
-          to: internationalPhone,
-          from: "SlipATip",
-          message: `Your Slip a Tip verification code is: ${code}. Valid for 10 minutes. Do not share this code.`,
+        const smsRes = await fetch(smsApiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: smsUsername,
+            password: smsPassword,
+            to: internationalPhone,
+            content: `Your Slip a Tip verification code is: ${code}. Valid for 10 minutes. Do not share this code.`,
+            Refno: Date.now().toString().slice(-8),
+          }),
         });
-        await fetch(`${smsApiUrl}?${params.toString()}`, { method: "GET" });
+        const smsText = await smsRes.text();
+        if (!smsRes.ok) {
+          console.error(`[OTP SMS] Failed to ${internationalPhone}: HTTP ${smsRes.status} — ${smsText}`);
+        } else {
+          console.log(`[OTP SMS] Sent to ${internationalPhone}: ${smsText}`);
+        }
       } catch (smsErr) {
-        console.error("SMS send failed:", smsErr);
+        console.error("[OTP SMS] Error:", smsErr);
         // Don't block the flow — code is still valid
       }
     }
