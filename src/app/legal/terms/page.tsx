@@ -284,7 +284,7 @@ export default function TermsPage() {
               <h2 className="text-xl font-bold text-white mb-4">14. Settlement Cooldown Period</h2>
               <div className="text-sm text-white/45 leading-relaxed space-y-4">
                 <p><strong className="text-white/70">14.1.</strong> To protect against fraud and chargebacks, all tips received by the User are subject to a <strong className="text-white/70">72-hour Cooldown Period</strong> before they become &ldquo;Available for Withdrawal.&rdquo;</p>
-                <p><strong className="text-white/70">14.2.</strong> During the Cooldown Period, the tip amount is visible in the User&rsquo;s Virtual Wallet but cannot be withdrawn. If a Customer initiates a dispute during this period, Slip a Tip and Paystack reserve the right to reverse the transaction immediately from the User&rsquo;s balance.</p>
+                <p><strong className="text-white/70">14.2.</strong> During the Cooldown Period, the tip amount is visible in the User&rsquo;s Virtual Wallet but cannot be withdrawn. If a Customer initiates a dispute during this period, Slip a Tip and Stitch reserve the right to reverse the transaction immediately from the User&rsquo;s balance.</p>
                 <p><strong className="text-white/70">14.3.</strong> High-risk transactions (as determined by our fraud detection systems) may be subject to an extended hold period of up to 7 days. The User will be notified if an extended hold is applied.</p>
                 <p><strong className="text-white/70">14.4.</strong> The minimum withdrawal amount is <strong className="text-white/70">R100</strong>. This threshold is set to protect the platform from chargeback losses on small-value transactions.</p>
               </div>
@@ -341,8 +341,8 @@ export default function TermsPage() {
                 "I agree that I am an Independent Contractor and not an employee of Slip a Tip.",
                 "I understand that I cannot withdraw money until I have completed FICA verification (ID photo, selfie, and proof of address). The minimum withdrawal amount is R100.",
                 "I acknowledge that if I do not provide my FICA documents within 60 days, my tips will be forfeited and donated to a nominated registered charity.",
-                "I consent to Slip a Tip processing my personal information (ID, bank details, and biometric data) under the POPI Act, and to the creation of a Paystack Subaccount in my name.",
-                "I understand that Slip a Tip is a marketplace and that my earnings are split automatically at the point of sale via Paystack (90% to me, 10% platform fee).",
+                "I consent to Slip a Tip processing my personal information (ID, bank details, and biometric data) under the POPI Act, and to the use of Stitch as the payment gateway for processing tips.",
+                "I understand that Slip a Tip is a marketplace and that my earnings are split automatically at the point of sale via Stitch (90% to me, 10% platform fee).",
                 "I accept the 72-hour settlement cooldown period for security purposes and the applicable transfer fee on withdrawals.",
                 "I agree that Slip a Tip reserves the right to debit my balance for any chargebacks or disputed transactions, and that a resulting negative balance constitutes a debt I must repay from future tips.",
               ].map((item, i) => (

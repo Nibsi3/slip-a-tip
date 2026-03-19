@@ -161,7 +161,7 @@ export async function sendBalanceCapOverflowEmail(data: {
             <tr><td style="padding:8px 0;color:#888;">Current Balance</td><td style="padding:8px 0;color:#fff;">R${data.currentBalance.toFixed(2)}</td></tr>
             <tr><td style="padding:8px 0;color:#888;">Balance Cap</td><td style="padding:8px 0;color:#fff;">R${data.balanceCap.toFixed(2)}</td></tr>
           </table>
-          <p style="color:#888;margin-top:16px;font-size:13px;">Action required: The tip was marked COMPLETED in the database but the worker balance was NOT credited. You should either refund the customer via Paystack or raise the worker's balance cap and manually credit.</p>
+          <p style="color:#888;margin-top:16px;font-size:13px;">Action required: The tip was marked COMPLETED in the database but the worker balance was NOT credited. You should either refund the customer via Stitch (use the Stitch dashboard) or raise the worker's balance cap and manually credit.</p>
           <div style="margin-top:24px;">
             <a href="${APP_URL}/admin/workers" style="background:#f59e0b;color:#000;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block;">View Workers →</a>
           </div>
@@ -218,7 +218,7 @@ export async function sendChargebackNotificationEmail(data: {
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0a0a0f;color:#e0e0e0;padding:32px;border-radius:12px;">
           <img src="${APP_URL}/logo.png" alt="Slip a Tip" style="height:40px;margin-bottom:24px;" />
           <h2 style="color:#ef4444;margin:0 0 8px;">⚠️ Chargeback Received</h2>
-          <p style="color:#888;margin:0 0 24px;">A chargeback dispute has been raised via Paystack.</p>
+          <p style="color:#888;margin:0 0 24px;">A chargeback dispute has been raised via Stitch.</p>
           <table style="width:100%;border-collapse:collapse;">
             <tr><td style="padding:8px 0;color:#888;width:160px;">Worker</td><td style="padding:8px 0;color:#fff;font-weight:600;">${data.workerName}</td></tr>
             <tr><td style="padding:8px 0;color:#888;">Payment ID</td><td style="padding:8px 0;color:#fff;">${data.tipPaymentId}</td></tr>

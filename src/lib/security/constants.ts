@@ -86,7 +86,7 @@ export const HIGH_RISK_BIN_PREFIXES =
         "5100", // Certain prepaid ranges
         "6011", // Discover (uncommon in ZA, suspicious)
       ]
-    : []; // No BIN blocking in development/test — Paystack test cards use 4000 prefixes
+    : []; // No BIN blocking in development/test
 
 // ---------------------------------------------------------------------------
 // Account Age Thresholds (hours)

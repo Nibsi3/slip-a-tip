@@ -77,9 +77,6 @@ export const env = {
   // ── Cron ──────────────────────────────────────────────────────────────────
   get CRON_SECRET() { return require("CRON_SECRET"); },
 
-  // ── Paystack (bank list only — pay-ins removed) ───────────────────────────
-  PAYSTACK_SECRET_KEY: optional("PAYSTACK_SECRET_KEY"),
-
   // ── OTT ───────────────────────────────────────────────────────────────────
   OTT_API_KEY: optional("OTT_API_KEY"),
   OTT_MERCHANT_ID: optional("OTT_MERCHANT_ID"),

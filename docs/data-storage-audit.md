@@ -49,7 +49,7 @@ FICA documents (ID scan, proof of address, selfie) are uploaded as **files**, st
 #### Financial Records
 | Table | What it stores |
 |---|---|
-| `public."Tip"` | Every tip transaction (amount, fees, status, Paystack reference) |
+| `public."Tip"` | Every tip transaction (amount, fees, status, Stitch gateway reference) |
 | `public."Withdrawal"` | Every withdrawal request (amount, bank details, status) |
 | `public."LedgerEntry"` | Double-entry ledger for all financial movements |
 | `public."SettlementHold"` | Funds held pending settlement (24–72h) |
@@ -93,7 +93,7 @@ All credentials are stored as **environment variables on the hosting provider (R
 |---|---|---|
 | `DATABASE_URL` | Prisma → Supabase Postgres (pooler) | Render env vars |
 | `DIRECT_URL` | Prisma migrations direct connection | Render env vars |
-| `PAYSTACK_SECRET_KEY` | Payment processing | Render env vars |
+| `STITCH_CLIENT_SECRET` | Stitch pay-in authentication | Render env vars |
 | `JWT_SECRET` | Session token signing (HS256) | Render env vars |
 | `REDIS_URL` | Rate limiting (ioredis) | Render env vars |
 | `AWS_ACCESS_KEY_ID` | S3 document storage | Render env vars |
@@ -125,11 +125,11 @@ All credentials are stored as **environment variables on the hosting provider (R
 | Phone number | ✅ | Login identifier, SMS notifications (FICA, settlements) | Lifetime of account |
 | Email | Optional | Admin login, password reset | Lifetime of account |
 | SA ID number | ✅ (FICA) | Legal identity verification required for financial services (FICA Act) | Retained per FICA requirements (5 years minimum) |
-| Bank account details | ✅ (withdrawals) | Paystack EFT payout — required for funds transfer | Retained per FICA/FSCA requirements |
+| Bank account details | ✅ (withdrawals) | Stitch EFT payout — required for funds transfer | Retained per FICA/FSCA requirements |
 | FICA documents (ID scan, address proof, selfie) | ✅ | FICA compliance — FIC Act section 21 | 5 years minimum post account closure |
 | IP address | ✅ | Fraud prevention, audit logs | 1 year rolling |
 | Device fingerprint | ✅ | Fraud prevention | 1 year rolling |
-| Payment card data | ❌ NOT COLLECTED | Paystack handles card data — we never see card numbers | N/A |
+| Payment card data | ❌ NOT COLLECTED | Stitch handles card data (PCI-DSS compliant) — we never see card numbers | N/A |
 
 ---
 
@@ -183,7 +183,7 @@ Slip a Tip conducts FICA (Financial Intelligence Centre Act) verification for al
 |---|---|---|---|
 | Supabase | Database hosting | All user and financial data | AWS eu-west-2 (London) |
 | AWS S3 | FICA document storage | ID documents, selfies, proof of address | Configured region |
-| Paystack | Payment processing | Email, payment amount, transaction reference | Nigeria (African fintech) |
+| Stitch | Payment processing (pay-ins + EFT payouts) | Payment amount, transaction reference | South Africa |
 | Render | Application hosting | Application code + env vars (no user data at rest) | US East / global CDN |
 | Cloudflare | CDN / DDoS protection | IP addresses (not personal data) | Global |
 | Resend | Transactional email | Email address, name | EU |

@@ -171,7 +171,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Gateway Fees Paid</p>
           <p className="text-xl font-bold text-slate-800">R{Number(stats.totalGatewayFees).toFixed(2)}</p>
-          <p className="text-[10px] text-slate-400 mt-1">Paid to Paystack on completed tips</p>
+          <p className="text-[10px] text-slate-400 mt-1">Paid to Stitch on completed tips</p>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Net Paid to Workers</p>
