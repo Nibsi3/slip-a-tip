@@ -26,21 +26,34 @@ export async function sendSms(phone: string, message: string): Promise<void> {
   const internationalPhone = toInternational(phone);
 
   try {
-    const params = new URLSearchParams({
-      username: smsUsername,
-      password: smsPassword,
-      to: internationalPhone,
-      from: "SlipATip",
-      message,
+    const res = await fetch(smsApiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: smsUsername,
+        password: smsPassword,
+        to: internationalPhone,
+        content: message,
+        Refno: Date.now().toString().slice(-8),
+      }),
     });
 
-    const res = await fetch(`${smsApiUrl}?${params.toString()}`, { method: "GET" });
+    const text = await res.text();
     if (!res.ok) {
-      console.error(`[SMS] Failed to send to ${internationalPhone}: HTTP ${res.status}`);
+      console.error(`[SMS] Failed to send to ${internationalPhone}: HTTP ${res.status} — ${text}`);
+    } else {
+      console.log(`[SMS] Sent to ${internationalPhone}: ${text}`);
     }
   } catch (err) {
     console.error(`[SMS] Error sending to ${internationalPhone}:`, err);
   }
+}
+
+export async function sendRegistrationSuccessSms(phone: string, firstName: string): Promise<void> {
+  await sendSms(
+    phone,
+    `Hi ${firstName}, welcome to Slip a Tip! Your account has been successfully created. Log in at slipatip.co.za to set up your profile and start receiving tips.`
+  );
 }
 
 export async function sendFicaApprovedSms(phone: string, firstName: string): Promise<void> {

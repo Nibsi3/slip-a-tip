@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { createSession } from "@/lib/auth";
 import { sendNewRegistrationEmail } from "@/lib/email";
+import { sendRegistrationSuccessSms } from "@/lib/sms";
 import { checkRegisterIpLimit } from "@/lib/rate-limit";
 import { getOtpPhone } from "@/lib/otp";
 
@@ -115,6 +116,10 @@ export async function POST(request: NextRequest) {
       email: user.email,
       phone: user.phone || phone,
     });
+
+    if (user.phone) {
+      await sendRegistrationSuccessSms(user.phone, user.firstName);
+    }
 
     return NextResponse.json({
       user: {
