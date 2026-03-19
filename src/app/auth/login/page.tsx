@@ -222,7 +222,6 @@ function LoginForm() {
                     className="input-field"
                     placeholder="e.g. 071 000 0001"
                   />
-                  <p className="mt-1 text-xs text-muted-300">Admin? Use your email address instead</p>
                 </div>
 
                 <div>

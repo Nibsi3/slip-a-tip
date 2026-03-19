@@ -11,7 +11,6 @@ export default function SettingsPage() {
     bankName: "",
     bankAccountNo: "",
     bankBranchCode: "",
-    whatsappPhone: "",
   });
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -25,7 +24,6 @@ export default function SettingsPage() {
         bankName: worker.bankName || "",
         bankAccountNo: worker.bankAccountNo || "",
         bankBranchCode: worker.bankBranchCode || "",
-        whatsappPhone: worker.whatsappPhone || "",
       });
       setInitialized(true);
     }
@@ -37,9 +35,14 @@ export default function SettingsPage() {
     setMessage("");
 
     try {
+      const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("csrf-token="))
+        ?.split("=")[1] ?? "";
+
       const res = await fetch("/api/workers/me", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-csrf-token": csrfToken },
         body: JSON.stringify(form),
       });
       if (!res.ok) throw new Error("Failed to save");
@@ -87,14 +90,14 @@ export default function SettingsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-muted mb-1">WhatsApp Phone</label>
+              <label className="block text-sm font-medium text-muted mb-1">Registered Phone</label>
               <input
                 type="tel"
-                value={form.whatsappPhone}
-                onChange={(e) => setForm((p) => ({ ...p, whatsappPhone: e.target.value }))}
-                className="input-field"
-                placeholder="e.g. 066 299 5533"
+                value={worker?.user.phone || ""}
+                readOnly
+                className="input-field opacity-50 cursor-not-allowed"
               />
+              <p className="text-[11px] text-white/30 mt-1">To change your phone number, contact support.</p>
             </div>
           </div>
 
