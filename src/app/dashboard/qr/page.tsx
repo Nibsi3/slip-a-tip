@@ -22,7 +22,7 @@ export default function QRCodePage() {
     const origin = appUrl || window.location.origin;
     const firstName = worker.user.firstName;
     const lastName = worker.user.lastName;
-    const tipMsg = `TIP ${worker.qrCode} - I'd like to tip ${firstName} ${lastName} 👋`;
+    const tipMsg = `Hey! I'm tipping ${firstName} ${lastName} today 👋\n(Ref: ${worker.qrCode})`;
     return waNumber
       ? `https://wa.me/${waNumber}?text=${encodeURIComponent(tipMsg)}`
       : `${origin}/tip/${worker.qrCode}`;

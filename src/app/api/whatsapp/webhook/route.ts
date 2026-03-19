@@ -267,6 +267,14 @@ async function handleIncomingMessage(message: WaIncomingMessage, contactName?: s
   if (message.type === "text" && message.text?.body) {
     const text = message.text.body.trim();
 
+    // New QR format: "Hey! I'm tipping John Smith today 👋 (Ref: W0662995533)"
+    // Extract the Ref code and treat it as the qrCode token.
+    const refMatch = text.match(/\(\s*Ref\s*:\s*([a-zA-Z0-9]+)\s*\)/i);
+    if (refMatch) {
+      await handleTipInitiation(from, refMatch[1]);
+      return;
+    }
+
     // Check if this is a TIP [qrCode] initiation message (with optional personalized suffix)
     const tipMatch = text.match(/^TIP[\s_-]+([a-zA-Z0-9]+)(?:\s*[-–—].*)?$/i);
     if (tipMatch) {
