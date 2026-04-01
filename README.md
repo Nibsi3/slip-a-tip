@@ -1,5 +1,7 @@
 # slip
 
+![slip-a-tip preview](public/qr-slipatip.png)
+
 Digital tipping and payment web app with QR-driven flows, auth, admin tooling, and mobile packaging via Capacitor.
 
 ## What it does
