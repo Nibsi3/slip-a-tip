@@ -1,111 +1,44 @@
-# TipSA - Digital Tipping for South Africa
+# slip
 
-Cashless tipping platform. Customers scan a QR code, tap an amount, pay via PayFast. Workers receive tips to their digital wallet.
+## What this project is
+A portfolio project maintained by Cameron to demonstrate practical engineering work. This README was standardized for interview readiness.
 
-## Quick Start
+## Code used (high-level)
+- `android`
+- `docs`
+- `Documents`
+- `prisma`
+- `public`
+- `scripts`
+- `src`
+- `supabase`
 
-### Prerequisites
-- Node.js 18+
-- PostgreSQL database (or use Neon.tech / Supabase free tier)
+## Tech stack
+- Node.js / JavaScript
+- TypeScript
+- Java
+- Tailwind CSS
 
-### 1. Install dependencies
-```bash
-npm install
-```
+## What still needs to be done
+- Add architecture notes for key modules.
+- Add tests and CI status (if missing).
+- Add environment variable documentation in .env.example.
+- Add screenshots or demo video link.
+- Add known limitations and roadmap milestones.
 
-### 2. Set up environment variables
-Create a `.env` file in the project root:
-```env
-DATABASE_URL="<your-postgres-connection-string>"
-JWT_SECRET="<your-jwt-secret-min-32-chars>"
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
+## Local setup
+1. Clone the repository.
+2. Install dependencies based on detected stack.
+3. Configure required environment variables.
+4. Run the app/service and verify locally.
 
-# PayFast (sandbox defaults are built-in)
-PAYFAST_MERCHANT_ID="<your-payfast-merchant-id>"
-PAYFAST_MERCHANT_KEY="<your-payfast-merchant-key>"
-PAYFAST_PASSPHRASE="<your-payfast-passphrase>"
-PAYFAST_SANDBOX="true"
-```
+## Interview talking points
+- Problem solved and user value.
+- Main architecture decisions and tradeoffs.
+- Performance, reliability, and security considerations.
+- What you would improve with more time.
 
-### 3. Set up database
-```bash
-npx prisma generate
-npx prisma db push
-npm run db:seed
-```
-
-### 4. Run the dev server
-```bash
-npm run dev
-```
-
-### 5. Open the app
-- Landing page: http://localhost:3000
-- Tip page (demo): http://localhost:3000/tip/demo-thabo-molefe
-- Worker dashboard: http://localhost:3000/dashboard
-- Admin dashboard: http://localhost:3000/admin
-
-## Test Accounts
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@tipsa.co.za | admin123 |
-| Worker | thabo@example.com | worker123 |
-| Worker | naledi@example.com | worker123 |
-
-## End-to-End Flow
-
-1. **Worker registers** → gets unique QR code
-2. **Customer scans QR** → opens tip page in browser (no app needed)
-3. **Customer selects amount** → R10, R20, R50, R100, R200 or custom
-4. **PayFast payment** → secure checkout via PayFast
-5. **ITN webhook** → backend credits worker wallet automatically
-6. **Worker withdraws** → via Instant Money or EFT
-
-## Tech Stack
-
-- **Frontend**: Next.js 14 + TailwindCSS
-- **Database**: PostgreSQL + Prisma ORM
-- **Auth**: JWT (jose) + httpOnly cookies
-- **Payments**: PayFast (sandbox for dev)
-- **QR Codes**: qrcode library
-
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── page.tsx              # Landing page
-│   ├── tip/[code]/           # Customer tip page (public)
-│   ├── auth/                 # Login & Register
-│   ├── dashboard/            # Worker dashboard
-│   ├── admin/                # Admin dashboard
-│   └── api/                  # API routes
-│       ├── auth/             # Auth endpoints
-│       ├── tips/             # Tip creation & lookup
-│       ├── payfast/          # PayFast ITN webhook
-│       ├── workers/          # Worker profile & withdrawals
-│       └── admin/            # Admin stats & management
-├── lib/
-│   ├── db.ts                 # Prisma client
-│   ├── auth.ts               # JWT & session management
-│   ├── payfast.ts            # PayFast integration
-│   └── utils.ts              # Helpers & constants
-└── middleware.ts              # Route protection
-```
-
-## Fees
-
-- **Platform fee**: 5% of tip amount
-- **Gateway fee**: ~3.5% + R2.00 (PayFast)
-- **Instant Money withdrawal**: R5.00 flat fee
-- **EFT withdrawal**: Free
-
-## Deployment
-
-Deploy to Vercel (free tier):
-```bash
-npm run build
-```
-
-Set environment variables in Vercel dashboard and connect your PostgreSQL database.
+## Security
+- No secrets should be committed.
+- Rotate any previously exposed keys immediately.
+- Use environment variables + secret managers for credentials.
