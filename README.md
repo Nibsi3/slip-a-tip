@@ -1,4 +1,4 @@
-# slip
+# slip-a-tip
 
 ![slip-a-tip preview](public/qr-slipatip.png)
 
